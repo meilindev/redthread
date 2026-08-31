@@ -125,10 +125,18 @@
     }
 
     .logo {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 0.6rem;
         font-family: 'Libre Franklin', sans-serif !important;
         font-weight: 800 !important;
         letter-spacing: -0.01em;
         color: var(--ink) !important;
+    }
+
+    .logo-icon {
+        height: 28px;
+        width: auto;
     }
     .logo span { color: var(--deep-red) !important; }
 
@@ -342,7 +350,7 @@
 
 <nav>
     <div class="nav-container">
-        <div class="logo">Red <span>Thread</span></div>
+        <div class="logo"><img src="images/logo.png" alt="Red Thread" class="logo-icon">Red <span>Thread</span></div>
                 <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="index.html#manifesto">About</a></li>
