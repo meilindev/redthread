@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EU Competition Law & Chinese State-Platform Capitalism | Red Thread</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400;1,8..60,600&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #fefcf5; color: #1e1e1e; line-height: 1.6; }
+        :root { --kcl-red: #9b1b30; --china-gold: #d4af37; --dark-bg: #2c2c2c; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+        nav {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .logo { font-weight: 800; font-size: 1.4rem; color: var(--kcl-red); }
+        .logo span { color: var(--china-gold); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #333; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--kcl-red); }
+        .article-header {
+            background: linear-gradient(135deg, var(--kcl-red) 0%, #6e1223 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .article-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .article-meta { font-size: 0.9rem; opacity: 0.9; }
+        .article-content { padding: 3rem 0; }
+        .article-content h2 { color: var(--kcl-red); margin: 1.5rem 0 0.75rem; font-size: 1.3rem; font-weight: 600; }
+        .article-content p { margin-bottom: 1rem; }
+        .back-link { display: inline-block; margin-top: 2rem; color: var(--kcl-red); text-decoration: none; font-weight: 500; }
+        .outro-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #faf7f0;
+            border-radius: 20px;
+            text-align: center;
+            border-left: 5px solid var(--china-gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .outro-section h3 { color: var(--kcl-red); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .outro-section p { font-size: 0.95rem; margin-bottom: 1rem; color: #555; }
+        .btn-submit {
+            display: inline-block;
+            background: var(--china-gold);
+            color: #1e1e1e;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn-submit:hover { background: #c2a030; transform: translateY(-2px); }
+        .author-tag {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.4rem 1rem;
+            background: var(--china-gold);
+            border-radius: 4px;
+        }
+        .author-tag span {
+            font-size: 0.7rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #1e1e1e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .author-bio {
+            margin-top: 0.75rem;
+            padding: 1.5rem;
+            background: #faf7f0;
+            border-radius: 12px;
+            border-left: 4px solid var(--kcl-red);
+        }
+        .author-bio .name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--kcl-red);
+            margin-bottom: 0.25rem;
+        }
+        .author-bio .bio {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        footer {
+            background: var(--dark-bg);
+            color: #ccc;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 1rem; }
+            .nav-links { gap: 1rem; justify-content: center; }
+            .article-header h1 { font-size: 1.8rem; }
+        }
+    </style>
+
+<style id="kcl-theme-system">
+    :root {
+        --bg: #fef7e8;
+        --ink: #2c3a47;
+        --muted-ink: #5c6e77;
+        --faint-ink: #8a7a5f;
+        --card-bg: #f2e8cf;
+        --card-border: #d9c7a7;
+        --rule: #d9c7a7;
+        --nav-bg: rgba(254,247,232,0.94);
+        --deep-red: #9e3c2c;
+        --deep-red-hover: #7c2f22;
+        --accent-teal: #2f5d5a;
+    }
+
+    :root[data-theme="dark"] {
+        --bg: #1c1712;
+        --ink: #f2e8cf;
+        --muted-ink: #c9baa0;
+        --faint-ink: #a3927a;
+        --card-bg: #2a2118;
+        --card-border: #4a3a28;
+        --rule: #4a3a28;
+        --nav-bg: rgba(28,23,18,0.94);
+        --deep-red: #c65a42;
+        --deep-red-hover: #e07456;
+        --accent-teal: #4a8a85;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        background-color: var(--bg) !important;
+        color: var(--ink) !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav {
+        background: var(--nav-bg) !important;
+        border-bottom: 1px solid var(--rule) !important;
+        box-shadow: none !important;
+        backdrop-filter: blur(6px);
+    }
+
+    .logo {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.01em;
+        color: var(--ink) !important;
+    }
+    .logo span { color: var(--deep-red) !important; }
+
+    .nav-links a {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink) !important;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 2px;
+        transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .nav-links a:hover {
+        color: var(--accent-teal) !important;
+        border-bottom-color: var(--accent-teal);
+    }
+
+    /* ---- Masthead-style article header: plain ground, kicker, serif headline, rule ---- */
+    .article-header {
+        background: var(--bg) !important;
+        color: var(--ink) !important;
+        text-align: left !important;
+        padding: 3rem 0 2rem !important;
+        border-bottom: 3px solid var(--rule);
+    }
+    .article-header h1 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        font-weight: 700 !important;
+        color: var(--ink) !important;
+        line-height: 1.12 !important;
+        letter-spacing: -0.01em;
+    }
+    .article-meta {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.85rem !important;
+        font-style: normal !important;
+        color: var(--muted-ink) !important;
+        opacity: 1 !important;
+        margin-top: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .article-content { background: var(--bg); }
+    .article-content h2,
+    .article-content h3,
+    .article-content h4 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+        font-weight: 700 !important;
+        border-top: 1px solid var(--rule);
+        padding-top: 1rem;
+    }
+    .article-content p {
+        color: var(--ink) !important;
+        font-size: 1.08rem;
+        line-height: 1.75;
+    }
+    .article-content a { color: var(--deep-red) !important; }
+    .article-content a:hover { color: var(--deep-red-hover) !important; }
+
+    .pull-quote {
+        color: var(--ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        border-top: 1px solid var(--deep-red);
+        border-bottom: 1px solid var(--deep-red);
+        padding: 1.25rem 0 !important;
+    }
+
+    .back-link {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--deep-red) !important;
+    }
+
+    footer {
+        background: var(--bg) !important;
+        color: var(--faint-ink) !important;
+        border-top: 3px solid var(--rule);
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 0.03em;
+    }
+
+    .theme-toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid var(--card-border);
+        background: var(--bg);
+        padding: 0;
+        cursor: pointer;
+        margin-left: 0.5rem;
+        flex-shrink: 0;
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .theme-toggle:hover { border-color: var(--deep-red); }
+    .theme-toggle .knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--deep-red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    :root[data-theme="dark"] .theme-toggle .knob {
+        transform: translateX(24px);
+        background: var(--accent-teal);
+    }
+    .theme-toggle .knob svg { width: 13px; height: 13px; display: block; }
+
+    /* ---- Class-based dark-mode fixes (structured outro/author markup) ---- */
+    .outro-section,
+    .author-bio {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+    .outro-section:hover,
+    .author-bio:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    .outro-section h3 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+    }
+    .outro-section p,
+    .author-bio .bio,
+    .references {
+        color: var(--muted-ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+    }
+    .author-bio .name { color: var(--ink) !important; font-family: 'Libre Franklin', sans-serif !important; }
+    .author-tag {
+        background: var(--deep-red) !important;
+        border-radius: 2px !important;
+    }
+    .author-tag span { color: #fff !important; }
+    .btn-submit,
+    a.btn-submit {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.03em;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    .btn-submit:hover,
+    a.btn-submit:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    /* ---- Inline-style dark-mode fixes (articles using an inline-styled outro div) ---- */
+    [style*="#faf7f0"] {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease;
+    }
+    [style*="#faf7f0"]:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    [style*="color: #555"],
+    [style*="color: #888"],
+    [style*="color: #444"] {
+        color: var(--muted-ink) !important;
+    }
+    a[href^="mailto"][style*="background"] {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    a[href^="mailto"][style*="background"]:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    @media (max-width: 768px) {
+        .nav-container { flex-wrap: wrap; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">Red <span>Thread</span></div>
+                <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#manifesto">About</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="submissions.html">Submissions</a></li>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="knob"><svg id="theme-icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"></svg></span></button>
+    </div>
+</nav>
+
+<header class="article-header">
+    <div class="container">
+        <h1>When the EU Competition Law Meets Chinese State-Platform Capitalism</h1>
+        <div class="article-meta">The JD.com–Ceconomy Case</div>
+        <div class="article-meta" style="font-size: 0.8rem; margin-top: 0.25rem;">By Emilija Žebrauskaitė | Summer 2026</div>
+    </div>
+</header>
+
+<article class="article-content">
+    <div class="container">
+
+        <p>On 19 August 2026, China's Ministry of Justice accused the European Union of "improper extraterritorial jurisdiction" and formally prohibited Chinese entities from complying with EU requests. The target wasn't a chipmaker or a surveillance firm, it was an e-commerce platform's takeover of a German electronics retailer.</p>
+
+        <p>This marks the second time in three months that Beijing used this argument against Brussels, putting one the most closely watched corporate deals in Europe, JD.com's €2.2 billion acquisition of Ceconomy, at the centre of a new kind of dispute: not over tariffs, and not over national security in the usual sense, but over whether the EU has the right to ask a Chinese company where its money comes from.</p>
+
+        <p>It would be easy to read the Ceconomy case as simply the latest entry in a familiar EU–China trade squabble. But it exposes something more structural, and it connects directly to a broader argument about how Chinese platform firms actually operate. This could be understood through the lense of state-platform capitalism, an economic model which merges state authority with platform-based economic organisation. Unlike the liberal market model, in which firms generally operate with considerable independence, Chinese platform companies are closely integrated with and aligned with state objectives.</p>
+
+        <h2>JD.com's Bid for Ceconomy</h2>
+
+        <p>JD.com, one of China's largest e-commerce and logistics companies, announced in July 2025 that it would make a voluntary takeover offer for Ceconomy at €4.60 per share. Ceconomy is one of Europe's largest consumer electronics retail networks, operating over a thousand MediaMarkt and Saturn stores, with online sales accounting for around one quorter of the total sales.</p>
+
+        <p>By any conventional standard, the deal looked close to done. Then Brussels intervened, not through the usual merger-control or foreign-investment-screening channels that had already cleared it, but through a newer and less familiar instrument: the EU's Foreign Subsidies Regulation.</p>
+
+        <h2>The EU's FSR: Following Foreign Capital into the European Market</h2>
+
+        <p>The Foreign Subsidies Regulation (FSR), in force since 2023, does something no prior EU competition tool did: it lets the European Commission investigate not just how a company behaves in the EU market, but where its money came from before it got there. If a non-EU government's subsidies, tax breaks, or cheap financing helped a company win a merger or a public contract, the Commission can block the deal.</p>
+
+        <p>The Commission opened a full-scale FSR review of the JD.com–Ceconomy deal in May 2026, citing the potential distortion of EU market due to foreign subsidies received by JD.com. This is not the only time the Commission has used the FSR against Chinese firms. However, what makes the Ceconomy case notable is that it's the first time an FSR investigation has reached deep into the consumer retail and e-commerce space and well outside the security and infrastructure-adjacent sectors – rail, surveillance equipment, energy hardware – where Brussels had previously focused its attention.</p>
+
+        <h2>Beijing's Response: The Sovereignty Question</h2>
+
+        <p>In April 2026, the State Council of China has promulgated a Regulation on Countering Foreign Unjustified Extraterritorial Jurisdiction, and explicitly orders Chinese organisations and individuals to refuse compliance with foreign legal measures Beijing determines as overreaching.</p>
+
+        <p>This reflects a fundamental clash of principles. For the EU, the issue concerns protecting the integrity of its internal market against foreign economic distortions and views FSR as a natural extension of its competition policy in an increasingly globalised economy. China, however, regards the matter as a challenge to its national sovereignty, presentiong the blocking order not as an act of protectionism, but as a lawful response to what China considers extraterritorial overreach.</p>
+
+        <h2>The Deeper Problem: Can the EU Regulate State-Platform Capitalism?</h2>
+
+        <p>The JD.com investigation by Brussels isn't really asking "did this company break the rules." It's asking a harder, more structural question: can the EU's competition toolkit, built around a model where firm and state are cleanly separated, meaningfully regulate a firm whose relationship to its home state doesn't fit that model at all? China's response effectively answers that Brussels has no right to ask the question in the first place, at least not by reaching for evidence inside China's own borders.</p>
+
+        <p>This is a new kind of confrontation. It isn't the security-driven decoupling of the Huawei or TikTok cases, where the objection was about data access or espionage risk. It isn't a tariff dispute over EVs or steel. It is, instead, the first real test of whether a purpose-built EU legal instrument can be enforced against the specific economic structure of Chinese state-platform capitalism, and whether China's answer, a formal declaration that compliance itself is illegal, becomes a template other Chinese firms reach in similar cases.</p>
+
+        <h2>What Comes Next: A Test of Europe's Regulatory Reach</h2>
+
+        <p>The Commission's 2 October deadline for its decision on the JD.com–Ceconomy deal is the next concrete marker. A cleared deal, even with conditions attached, would suggest the FSR can still function as a competition tool despite Beijing's objections. A blocked or indefinitely stalled deal would suggest a standoff with no real resolution mechanism, one where two legal systems each claim jurisdiction and neither concedes.</p>
+
+        <p>Either outcome will shape how the next wave of Chinese platform expansion into the EU unfolds.</p>
+
+        <p><em>This article is part of the King's China Studies Society publication series. Follow us on Instagram <strong>@KCLChinaStudies</strong> for events, discussions, and more conversations about China, culture, and the future.</em></p>
+
+        <div class="outro-section">
+            <h3>✍️ Share Your Voice</h3>
+            <p>Red Thread welcomes submissions from all KCL students. Whether you're writing about politics, culture, economy, or history, we want to hear from you.</p>
+            <a href="mailto:k23008291@kcl.ac.uk?subject=Article%20Submission%20for%20KCL%20China%20Review" class="btn-submit">📧 Submit Your Article →</a>
+            <p style="font-size: 0.8rem; margin-top: 1rem; color: #888;">Questions? Reach us at <a href="mailto:k23008291@kcl.ac.uk" style="color: var(--kcl-red); text-decoration: none; font-weight: 500;">k23008291@kcl.ac.uk</a></p>
+        </div>
+
+        <!-- External Contributor Tag -->
+        <div class="author-tag">
+            <span>External Contributor</span>
+        </div>
+
+        <!-- Author Bio -->
+        <div class="author-bio">
+            <div class="name">Emilija Žebrauskaitė</div>
+            <div class="bio">Emilija Žebrauskaitė is a China policy researcher specialising in Chinese political economy, technology, and geopolitics. Her research focuses on China’s economic and technological transformation, including digitalisation, industrial upgrading, and the role of emerging technologies. She is particularly interested in the implications of China’s technological development for EU-China relations.</div>
+        </div>
+
+        <a href="publications.html" class="back-link">← Back to Publications</a>
+
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Red Thread — brought to you by the KCL China Studies Society, King's College London</p>
+    </div>
+</footer>
+
+
+
+<script>
+(function(){
+    var btn = document.getElementById('theme-toggle');
+    var icon = document.getElementById('theme-icon');
+    var SUN_ICON = '<circle cx="12" cy="12" r="4.2"/><g stroke="#fff" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="3.5"/><line x1="12" y1="20.5" x2="12" y2="22.5"/><line x1="3.5" y1="12" x2="1.5" y2="12"/><line x1="22.5" y1="12" x2="20.5" y2="12"/><line x1="18.7" y1="5.3" x2="17.3" y2="6.7"/><line x1="6.7" y1="17.3" x2="5.3" y2="18.7"/><line x1="18.7" y1="18.7" x2="17.3" y2="17.3"/><line x1="6.7" y1="6.7" x2="5.3" y2="5.3"/></g>';
+    var MOON_ICON = '<path d="M20.6 15.3A8.5 8.5 0 019.7 4.4a8.5 8.5 0 1010.9 10.9z"/>';
+    function applyIcon(){
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (icon) icon.innerHTML = isDark ? MOON_ICON : SUN_ICON;
+    }
+    applyIcon();
+    if (btn) {
+        btn.addEventListener('click', function(){
+            var root = document.documentElement;
+            var isDark = root.getAttribute('data-theme') === 'dark';
+            if (isDark) { root.removeAttribute('data-theme'); }
+            else { root.setAttribute('data-theme', 'dark'); }
+            try { localStorage.setItem('kcl-article-theme', isDark ? 'light' : 'dark'); } catch(e){}
+            applyIcon();
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

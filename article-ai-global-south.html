@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for the Global South? | Red Thread</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400;1,8..60,600&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #fefcf5; color: #1e1e1e; line-height: 1.6; }
+        :root { --kcl-red: #9b1b30; --china-gold: #d4af37; --dark-bg: #2c2c2c; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+        nav {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .logo { font-weight: 800; font-size: 1.4rem; color: var(--kcl-red); }
+        .logo span { color: var(--china-gold); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #333; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--kcl-red); }
+        .article-header {
+            background: linear-gradient(135deg, var(--kcl-red) 0%, #6e1223 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .article-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .article-meta { font-size: 0.9rem; opacity: 0.9; }
+        .article-content { padding: 3rem 0; }
+        .article-content h2 { color: var(--kcl-red); margin: 2rem 0 1rem; font-size: 1.6rem; }
+        .article-content h3 { color: var(--kcl-red); margin: 1.5rem 0 0.75rem; font-size: 1.2rem; }
+        .article-content h4 { color: var(--kcl-red); margin: 1.2rem 0 0.5rem; font-size: 1.05rem; font-weight: 600; }
+        .article-content p { margin-bottom: 1rem; }
+        .article-content ul { margin: 1rem 0 1.5rem 1.5rem; }
+        .article-content ul li { margin-bottom: 0.5rem; }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .article-content table th {
+            background: var(--kcl-red);
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .article-content table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #eee;
+        }
+        .article-content table tr:nth-child(even) { background: #f9f7f0; }
+        .pull-quote {
+            color: var(--kcl-red);
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.4;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 0 1rem;
+            font-style: italic;
+            letter-spacing: -0.3px;
+        }
+        .back-link { display: inline-block; margin-top: 2rem; color: var(--kcl-red); text-decoration: none; font-weight: 500; }
+        .outro-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #faf7f0;
+            border-radius: 20px;
+            text-align: center;
+            border-left: 5px solid var(--china-gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .outro-section h3 { color: var(--kcl-red); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .outro-section p { font-size: 0.95rem; margin-bottom: 1rem; color: #555; }
+        .btn-submit {
+            display: inline-block;
+            background: var(--china-gold);
+            color: #1e1e1e;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn-submit:hover { background: #c2a030; transform: translateY(-2px); }
+        .author-tag {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.4rem 1rem;
+            background: var(--china-gold);
+            border-radius: 4px;
+        }
+        .author-tag span {
+            font-size: 0.7rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #1e1e1e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .author-bio {
+            margin-top: 0.75rem;
+            padding: 1.5rem;
+            background: #faf7f0;
+            border-radius: 12px;
+            border-left: 4px solid var(--kcl-red);
+        }
+        .author-bio .name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--kcl-red);
+            margin-bottom: 0.25rem;
+        }
+        .author-bio .bio {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        footer {
+            background: var(--dark-bg);
+            color: #ccc;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 1rem; }
+            .nav-links { gap: 1rem; justify-content: center; }
+            .article-header h1 { font-size: 1.8rem; }
+            .article-content table { font-size: 0.8rem; }
+            .article-content table th, .article-content table td { padding: 0.5rem; }
+        }
+    </style>
+
+<style id="kcl-theme-system">
+    :root {
+        --bg: #fef7e8;
+        --ink: #2c3a47;
+        --muted-ink: #5c6e77;
+        --faint-ink: #8a7a5f;
+        --card-bg: #f2e8cf;
+        --card-border: #d9c7a7;
+        --rule: #d9c7a7;
+        --nav-bg: rgba(254,247,232,0.94);
+        --deep-red: #9e3c2c;
+        --deep-red-hover: #7c2f22;
+        --accent-teal: #2f5d5a;
+    }
+
+    :root[data-theme="dark"] {
+        --bg: #1c1712;
+        --ink: #f2e8cf;
+        --muted-ink: #c9baa0;
+        --faint-ink: #a3927a;
+        --card-bg: #2a2118;
+        --card-border: #4a3a28;
+        --rule: #4a3a28;
+        --nav-bg: rgba(28,23,18,0.94);
+        --deep-red: #c65a42;
+        --deep-red-hover: #e07456;
+        --accent-teal: #4a8a85;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        background-color: var(--bg) !important;
+        color: var(--ink) !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav {
+        background: var(--nav-bg) !important;
+        border-bottom: 1px solid var(--rule) !important;
+        box-shadow: none !important;
+        backdrop-filter: blur(6px);
+    }
+
+    .logo {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.01em;
+        color: var(--ink) !important;
+    }
+    .logo span { color: var(--deep-red) !important; }
+
+    .nav-links a {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink) !important;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 2px;
+        transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .nav-links a:hover {
+        color: var(--accent-teal) !important;
+        border-bottom-color: var(--accent-teal);
+    }
+
+    /* ---- Masthead-style article header: plain ground, kicker, serif headline, rule ---- */
+    .article-header {
+        background: var(--bg) !important;
+        color: var(--ink) !important;
+        text-align: left !important;
+        padding: 3rem 0 2rem !important;
+        border-bottom: 3px solid var(--rule);
+    }
+    .article-header h1 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        font-weight: 700 !important;
+        color: var(--ink) !important;
+        line-height: 1.12 !important;
+        letter-spacing: -0.01em;
+    }
+    .article-meta {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.85rem !important;
+        font-style: normal !important;
+        color: var(--muted-ink) !important;
+        opacity: 1 !important;
+        margin-top: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .article-content { background: var(--bg); }
+    .article-content h2,
+    .article-content h3,
+    .article-content h4 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+        font-weight: 700 !important;
+        border-top: 1px solid var(--rule);
+        padding-top: 1rem;
+    }
+    .article-content p {
+        color: var(--ink) !important;
+        font-size: 1.08rem;
+        line-height: 1.75;
+    }
+    .article-content a { color: var(--deep-red) !important; }
+    .article-content a:hover { color: var(--deep-red-hover) !important; }
+
+    .pull-quote {
+        color: var(--ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        border-top: 1px solid var(--deep-red);
+        border-bottom: 1px solid var(--deep-red);
+        padding: 1.25rem 0 !important;
+    }
+
+    .back-link {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--deep-red) !important;
+    }
+
+    footer {
+        background: var(--bg) !important;
+        color: var(--faint-ink) !important;
+        border-top: 3px solid var(--rule);
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 0.03em;
+    }
+
+    .theme-toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid var(--card-border);
+        background: var(--bg);
+        padding: 0;
+        cursor: pointer;
+        margin-left: 0.5rem;
+        flex-shrink: 0;
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .theme-toggle:hover { border-color: var(--deep-red); }
+    .theme-toggle .knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--deep-red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    :root[data-theme="dark"] .theme-toggle .knob {
+        transform: translateX(24px);
+        background: var(--accent-teal);
+    }
+    .theme-toggle .knob svg { width: 13px; height: 13px; display: block; }
+
+    /* ---- Class-based dark-mode fixes (structured outro/author markup) ---- */
+    .outro-section,
+    .author-bio {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+    .outro-section:hover,
+    .author-bio:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    .outro-section h3 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+    }
+    .outro-section p,
+    .author-bio .bio,
+    .references {
+        color: var(--muted-ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+    }
+    .author-bio .name { color: var(--ink) !important; font-family: 'Libre Franklin', sans-serif !important; }
+    .author-tag {
+        background: var(--deep-red) !important;
+        border-radius: 2px !important;
+    }
+    .author-tag span { color: #fff !important; }
+    .btn-submit,
+    a.btn-submit {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.03em;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    .btn-submit:hover,
+    a.btn-submit:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    /* ---- Inline-style dark-mode fixes (articles using an inline-styled outro div) ---- */
+    [style*="#faf7f0"] {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease;
+    }
+    [style*="#faf7f0"]:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    [style*="color: #555"],
+    [style*="color: #888"],
+    [style*="color: #444"] {
+        color: var(--muted-ink) !important;
+    }
+    a[href^="mailto"][style*="background"] {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    a[href^="mailto"][style*="background"]:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    @media (max-width: 768px) {
+        .nav-container { flex-wrap: wrap; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">Red <span>Thread</span></div>
+                <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#manifesto">About</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="submissions.html">Submissions</a></li>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="knob"><svg id="theme-icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"></svg></span></button>
+    </div>
+</nav>
+
+<header class="article-header">
+    <div class="container">
+        <h1>AI for the Global South?</h1>
+        <div class="article-meta">China's Bid for Leadership in Global AI Governance: Policy Pathways and Constraints</div>
+        <div class="article-meta" style="font-size: 0.8rem; margin-top: 0.25rem;">By Li Yang and Long Ting | Summer 2026</div>
+    </div>
+</header>
+
+<article class="article-content">
+    <div class="container">
+
+        <h2>Executive Summary</h2>
+
+        <p>The 2026 World Artificial Intelligence Conference showed how China is turning broad commitments on global AI governance and capacity-building into programmes with defined timetables, targets and partners. Beijing announced 5,000 AI training places for developing countries over five years, plans for international AI application centres with ASEAN, the Arab League, the African Union, the Community of Latin American and Caribbean States, the Shanghai Cooperation Organisation and BRICS, and support for the "Mazu" weather early-warning system in 30 countries. Separately, 29 countries signed the Agreement on the Establishment of the World Artificial Intelligence Cooperation Organization on 16 July 2026, becoming its founding members. Together, these measures link professional training, public-service applications and multilateral institution-building.</p>
+
+        <p>This brief makes three arguments. First, China's overseas AI engagement is widening from digital infrastructure to training, practical deployment and participation in governance. Second, cheaper models, sector-specific applications and training programmes can lower barriers to adoption, but they do not automatically give partner countries technological autonomy. Third, China's longer-term influence will depend on whether its projects enable local development, control over data, independent auditing, the ability to change suppliers and a meaningful role in decision-making. The most credible approach would combine open technology with sustained local capacity-building, supported by transparent governance through the United Nations and regional organisations.</p>
+
+        <p><strong>Evidence and Scope</strong><br>
+        The analysis draws on Chinese, United Nations, Forum on China-Africa Cooperation and China-ASEAN policy documents published between 2023 and 2026, alongside research on the Digital Silk Road, AI governance in the Global South, digital sovereignty and technology transfer. Many of the initiatives discussed are still at the launch or commitment stage. The brief therefore distinguishes announced inputs from development outcomes that have yet to be demonstrated. It also separates the roles of central government, local authorities, technology companies and multilateral bodies, while treating partner countries' bargaining power, regulation and localisation choices as factors that can shape results. This avoids reducing the relationship to either assistance or expansion.</p>
+
+        <div class="pull-quote">
+            "China's claim to provide AI as a public good will have lasting value only when technology expands its partners' choices rather than merely changing the source of dependence."
+        </div>
+
+        <h2>1. Policy Context and the Central Question</h2>
+
+        <p>China's international AI engagement did not begin in 2026. Its 2023 Global AI Governance Initiative called for developing countries to have greater representation and a stronger voice in global governance. In July 2024, the United Nations General Assembly adopted Resolution 78/311 without a vote, placing AI capacity-building on the multilateral agenda. China then released an AI Capacity-Building Action Plan in September 2024, presenting infrastructure links, industrial applications, skills training, and local-language data resources as practical ways to implement the resolution. The 2026 Shanghai conference expanded this agenda through training programmes, application centres and public-service projects with specific targets and partners.</p>
+
+        <p>This shift continues the trajectory of the Digital Silk Road. Research shows that China's engagement in the Global South has moved beyond telecommunications equipment towards cloud services, platforms, smart cities, data systems and governance practices. It is not driven by a single state plan alone, but by the combined activities of central agencies, local governments and companies. Technical standards, interfaces and procurement systems can also create long-term lock-in, allowing infrastructure provision to shape institutions and future policy choices. The central question is therefore not simply whether China is "exporting" AI, but whether partner countries can turn external investment into durable domestic capacity.</p>
+
+        <h2>2. From Digital Infrastructure to AI Capacity-Building</h2>
+
+        <p>Cooperation with ASEAN illustrates this change. Construction of the China-ASEAN Artificial Intelligence Application Cooperation Centre began in 2025, with public goals including infrastructure, open-source platforms and skills development. In 2026, an "AI+" industrial talent programme for ASEAN combined policy sessions, company visits, technical exchange and discussions of country-specific needs. Guangxi had also supported a China-Laos AI innovation centre, with proposed applications in local-language models, agriculture, healthcare, tourism and logistics. This emerging "research in China, integration in Guangxi, application in ASEAN" route gives local authorities a role in technical adaptation and regional coordination. Yet the centres' funding, data rules and long-term performance remain poorly documented.</p>
+
+        <p>China-Africa cooperation shows a similar move towards institutionalisation. The Forum on China-Africa Cooperation Beijing Action Plan for 2025-2027 referred to 18 earlier priority projects in the digital economy, proposed 20 demonstration projects in digital infrastructure and transformation, and included AI capacity-building, cross-border data flows, privacy, high-performance computing and rule-making. Noesselt (2026) argues that China's influence in Africa increasingly comes from the interaction of infrastructure, policy dialogue and governance frameworks rather than product sales alone. These cases suggest that Beijing is connecting regional organisations, training bodies and application centres into longer-term networks. Most initiatives, however, are still being built or negotiated, so their value must be judged through implementation data rather than announcements.</p>
+
+        <h2>3. Why the Offer Appeals to the Global South</h2>
+
+        <p>China's approach responds to a highly unequal distribution of AI resources. UNCTAD notes that markets, investment, computing power, patents and advanced skills remain concentrated in a small number of countries and firms, while many developing economies still lack reliable electricity, connectivity, data centres and trained staff. At the Shanghai conference, UN Secretary-General António Guterres likewise warned that computing capacity, data and expertise remain heavily concentrated and that developing countries receive far less investment than they need. These countries may have strong demand for agricultural forecasting, medical support, education and disaster warning, but struggle to finance the full chain from model development to long-term maintenance.</p>
+
+        <p>The "Mazu" system is therefore politically significant because it links AI to the clear public need for early warning during extreme weather. Nevertheless, the plan to introduce it in 30 countries is still a commitment. Meaningful assessment will require information about where it is deployed, the data it uses, forecast accuracy, the role of national meteorological agencies and maintenance costs.</p>
+
+        <p>China can offer infrastructure, models, finance, training and sector-specific applications as a package. Chen, Chen and Yang (2026) describe China's technology-transfer approach as a relatively localised "collaborator" model. Lower costs and adaptation may support faster adoption and learning, although regulation and systems integration can remain weak. China's appeal therefore rests not only on price, but also on its ability to organise projects around practical public-service needs.</p>
+
+        <p>Its language of development rights, sovereignty and a central role for the United Nations also speaks to concerns about representation. Png (2022) argues that mainstream AI governance often sidelines issues such as infrastructure monopolies, data sovereignty and digital labour. Ayana et al. (2024) add that inclusion requires local actors to help define problems and design solutions, rather than merely attend international meetings. The Global South is not a single bloc, however. Countries with stronger digital industries may prioritise joint research and standards, while those with weaker infrastructure may focus first on electricity, connectivity and training. Partner governments can accept, alter or reject Chinese proposals rather than enter a single technological camp.</p>
+
+        <h2>4. Three Main Policy Risks</h2>
+
+        <p>The first risk is dependence on platforms and supply chains. Open or inexpensive models can reduce entry costs, but large-scale deployment still relies on chips, cloud computing, updates, maintenance and skilled workers. Shonubi (2026) argues that releasing model weights does not transfer computing resources, data or an innovation system; dependence may simply move from software to cloud and computing infrastructure. Kwet (2019) and Birhane (2020) likewise suggest that control over infrastructure, data and technical knowledge matters more than the nationality of the supplier.</p>
+
+        <p>The second risk concerns data governance and auditing. Systems used in healthcare, education, agriculture and urban management can process sensitive information. Contracts should specify where data are stored, who can access them, whether they may cross borders or be reused for training, who is responsible for errors, and how a country can leave the arrangement. Technological autonomy requires more than permission to use a system: it also requires local development skills, independent auditing, regulatory capacity and the practical ability to change suppliers. China's public initiatives refer to privacy and local data resources, but project-level audit rules, procurement contracts and performance evidence remain limited. China's domestic governance emphasises data security, algorithm registration and content regulation, while its external language stresses openness and sharing. These positions are not necessarily incompatible, but partner countries need clear rules on how they will apply.</p>
+
+        <p>The third risk is limited representation and further fragmentation of global governance. The new World Artificial Intelligence Cooperation Organization offers another forum for discussing development and capacity gaps, but membership alone does not amount to co-governance. Voting rules, budget oversight, agenda-setting rights and standard-setting procedures will determine whether members have real influence. Global AI governance already consists of overlapping institutions. Without coordination with the United Nations, the International Telecommunication Union, UNESCO and regional bodies, a new organisation could add to fragmentation rather than reduce it.</p>
+
+        <h2>5. Policy Options and Recommendations</h2>
+
+        <p>China and its partners have three broad options. The strongest overall approach would use open technology and local capacity-building as the basis of projects, with multilateral co-governance providing procedural safeguards.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Policy pathway</th>
+                    <th>Main advantage</th>
+                    <th>Main risk</th>
+                    <th>Suitable use and recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Supplier-led integrated delivery</strong></td>
+                    <td>Fast deployment and clear responsibility, especially for a defined application.</td>
+                    <td>Long-term dependence on one platform, maintenance provider, interface or data system.</td>
+                    <td>Best limited to urgent or low-sensitivity uses; contracts must include portability and exit clauses.</td>
+                </tr>
+                <tr>
+                    <td><strong>Open technology with local capacity-building</strong></td>
+                    <td>Supports local adaptation, skills and long-term absorption of technology.</td>
+                    <td>Higher initial costs, slower results and greater demands on local institutions.</td>
+                    <td>Should be the main approach, implemented with universities, firms and regulators.</td>
+                </tr>
+                <tr>
+                    <td><strong>Multilateral co-governance</strong></td>
+                    <td>Improves legitimacy, coordinates rules and reduces bloc politics.</td>
+                    <td>Slower negotiation and higher coordination costs.</td>
+                    <td>The United Nations, regional organisations and the new body should provide procedures, oversight and evaluation.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Chinese public bodies and companies should publish the funding, procurement, data, maintenance and exit terms of projects. They should provide technical documentation and channels for independent audits, and link training to long-term partnerships with local universities, regulators and firms. Partner countries should require agreed levels of local employment and skills transfer, controlled cross-border data flows, interoperability, technology transfer and system portability.</p>
+
+        <p>The order of implementation should reflect the level of risk. Disaster warning and other urgent public services may use mature systems first, provided that contracts address data, interfaces and exit arrangements from the outset. High-sensitivity fields such as education, healthcare and public administration require impact assessment, regulatory testing and local institutional capacity before deployment expands. New cooperation centres should also report on procurement transparency, the participation of women and marginalised groups, contracts awarded to local small and medium-sized enterprises, energy use and pressure on infrastructure.</p>
+
+        <p>The World Artificial Intelligence Cooperation Organization and regional centres should publish their decision-making procedures and use common indicators to assess projects: retention of locally trained staff, investment in local languages and datasets, independent audit coverage, supplier substitutability and partner-country involvement in setting standards. Evaluation should take place at launch, after two years and after five years, so that short-term training numbers are not mistaken for long-term capacity.</p>
+
+        <h2>Conclusion</h2>
+
+        <p>The 2026 Shanghai conference confirmed that AI has become part of China's development cooperation and global-governance agenda for the Global South. China's advantage lies in combining infrastructure, applications and training, and in treating capacity gaps as a multilateral issue. Its limitations are the lack of transparency around projects, uneven regulatory integration and uncertain long-term autonomy for partners. Credible leadership should not be measured by the number of training places, centres or member states. It should be judged by whether partner countries gain control over data, the ability to audit models, genuine technological choice and a role in institutional decisions. China's claim to provide AI as a public good will have lasting value only when technology expands its partners' choices rather than merely changing the source of dependence.</p>
+
+        <p><em>This article is part of the King's China Studies Society Summer 2026 series. Follow us on Instagram <strong>@KCLChinaStudies</strong> for events, discussions, and more conversations about China, culture, and the future.</em></p>
+
+        <div class="outro-section">
+            <h3>✍️ Share Your Voice</h3>
+            <p>Red Thread welcomes submissions from all KCL students. Whether you're writing about politics, culture, economy, or history, we want to hear from you.</p>
+            <a href="mailto:k23008291@kcl.ac.uk?subject=Article%20Submission%20for%20KCL%20China%20Review" class="btn-submit">📧 Submit Your Article →</a>
+            <p style="font-size: 0.8rem; margin-top: 1rem; color: #888;">Questions? Reach us at <a href="mailto:k23008291@kcl.ac.uk" style="color: var(--kcl-red); text-decoration: none; font-weight: 500;">k23008291@kcl.ac.uk</a></p>
+        </div>
+
+        <!-- External Contributor Tag -->
+        <div class="author-tag">
+            <span>External Contributors</span>
+        </div>
+
+        <!-- Author Bios -->
+        <div class="author-bio">
+            <div class="name">Li Yang</div>
+            <div class="bio">Li Yang is a researcher in the Horizon Europe ReConnect China project, and an alumnus of the Lau China Institute at King's College London. His research focuses on Chinese politics, global governance, strategic narratives and China's relations with the Global South.</div>
+        </div>
+
+        <div class="author-bio" style="margin-top: 1rem;">
+            <div class="name">Long Ting</div>
+            <div class="bio">Long Ting is a PhD researcher in the Faculty of Law and Criminology at Ghent University. Her research focuses on private and business law, law and governance, China-related legal and policy studies, and international cooperation.</div>
+        </div>
+
+        <a href="publications.html" class="back-link">← Back to Publications</a>
+
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Red Thread — brought to you by the KCL China Studies Society, King's College London</p>
+    </div>
+</footer>
+
+
+
+<script>
+(function(){
+    var btn = document.getElementById('theme-toggle');
+    var icon = document.getElementById('theme-icon');
+    var SUN_ICON = '<circle cx="12" cy="12" r="4.2"/><g stroke="#fff" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="3.5"/><line x1="12" y1="20.5" x2="12" y2="22.5"/><line x1="3.5" y1="12" x2="1.5" y2="12"/><line x1="22.5" y1="12" x2="20.5" y2="12"/><line x1="18.7" y1="5.3" x2="17.3" y2="6.7"/><line x1="6.7" y1="17.3" x2="5.3" y2="18.7"/><line x1="18.7" y1="18.7" x2="17.3" y2="17.3"/><line x1="6.7" y1="6.7" x2="5.3" y2="5.3"/></g>';
+    var MOON_ICON = '<path d="M20.6 15.3A8.5 8.5 0 019.7 4.4a8.5 8.5 0 1010.9 10.9z"/>';
+    function applyIcon(){
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (icon) icon.innerHTML = isDark ? MOON_ICON : SUN_ICON;
+    }
+    applyIcon();
+    if (btn) {
+        btn.addEventListener('click', function(){
+            var root = document.documentElement;
+            var isDark = root.getAttribute('data-theme') === 'dark';
+            if (isDark) { root.removeAttribute('data-theme'); }
+            else { root.setAttribute('data-theme', 'dark'); }
+            try { localStorage.setItem('kcl-article-theme', isDark ? 'light' : 'dark'); } catch(e){}
+            applyIcon();
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

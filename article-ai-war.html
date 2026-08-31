@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winning the Consumer AI Promotion War | Red Thread</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400;1,8..60,600&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fefcf5;
+            color: #1e1e1e;
+            line-height: 1.6;
+        }
+
+        :root {
+            --kcl-red: #9b1b30;
+            --china-gold: #d4af37;
+            --dark-bg: #2c2c2c;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--kcl-red);
+        }
+
+        .logo span {
+            color: var(--china-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #333;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--kcl-red);
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--kcl-red) 0%, #6e1223 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .article-content {
+            padding: 3rem 0;
+        }
+
+        .article-content h2 {
+            color: var(--kcl-red);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--kcl-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer {
+            background: var(--dark-bg);
+            color: #ccc;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
+            }
+            .article-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+
+<style id="kcl-theme-system">
+    :root {
+        --bg: #fef7e8;
+        --ink: #2c3a47;
+        --muted-ink: #5c6e77;
+        --faint-ink: #8a7a5f;
+        --card-bg: #f2e8cf;
+        --card-border: #d9c7a7;
+        --rule: #d9c7a7;
+        --nav-bg: rgba(254,247,232,0.94);
+        --deep-red: #9e3c2c;
+        --deep-red-hover: #7c2f22;
+        --accent-teal: #2f5d5a;
+    }
+
+    :root[data-theme="dark"] {
+        --bg: #1c1712;
+        --ink: #f2e8cf;
+        --muted-ink: #c9baa0;
+        --faint-ink: #a3927a;
+        --card-bg: #2a2118;
+        --card-border: #4a3a28;
+        --rule: #4a3a28;
+        --nav-bg: rgba(28,23,18,0.94);
+        --deep-red: #c65a42;
+        --deep-red-hover: #e07456;
+        --accent-teal: #4a8a85;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        background-color: var(--bg) !important;
+        color: var(--ink) !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav {
+        background: var(--nav-bg) !important;
+        border-bottom: 1px solid var(--rule) !important;
+        box-shadow: none !important;
+        backdrop-filter: blur(6px);
+    }
+
+    .logo {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.01em;
+        color: var(--ink) !important;
+    }
+    .logo span { color: var(--deep-red) !important; }
+
+    .nav-links a {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink) !important;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 2px;
+        transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .nav-links a:hover {
+        color: var(--accent-teal) !important;
+        border-bottom-color: var(--accent-teal);
+    }
+
+    /* ---- Masthead-style article header: plain ground, kicker, serif headline, rule ---- */
+    .article-header {
+        background: var(--bg) !important;
+        color: var(--ink) !important;
+        text-align: left !important;
+        padding: 3rem 0 2rem !important;
+        border-bottom: 3px solid var(--rule);
+    }
+    .article-header h1 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        font-weight: 700 !important;
+        color: var(--ink) !important;
+        line-height: 1.12 !important;
+        letter-spacing: -0.01em;
+    }
+    .article-meta {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.85rem !important;
+        font-style: normal !important;
+        color: var(--muted-ink) !important;
+        opacity: 1 !important;
+        margin-top: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .article-content { background: var(--bg); }
+    .article-content h2,
+    .article-content h3,
+    .article-content h4 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+        font-weight: 700 !important;
+        border-top: 1px solid var(--rule);
+        padding-top: 1rem;
+    }
+    .article-content p {
+        color: var(--ink) !important;
+        font-size: 1.08rem;
+        line-height: 1.75;
+    }
+    .article-content a { color: var(--deep-red) !important; }
+    .article-content a:hover { color: var(--deep-red-hover) !important; }
+
+    .pull-quote {
+        color: var(--ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        border-top: 1px solid var(--deep-red);
+        border-bottom: 1px solid var(--deep-red);
+        padding: 1.25rem 0 !important;
+    }
+
+    .back-link {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--deep-red) !important;
+    }
+
+    footer {
+        background: var(--bg) !important;
+        color: var(--faint-ink) !important;
+        border-top: 3px solid var(--rule);
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 0.03em;
+    }
+
+    .theme-toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid var(--card-border);
+        background: var(--bg);
+        padding: 0;
+        cursor: pointer;
+        margin-left: 0.5rem;
+        flex-shrink: 0;
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .theme-toggle:hover { border-color: var(--deep-red); }
+    .theme-toggle .knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--deep-red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    :root[data-theme="dark"] .theme-toggle .knob {
+        transform: translateX(24px);
+        background: var(--accent-teal);
+    }
+    .theme-toggle .knob svg { width: 13px; height: 13px; display: block; }
+
+    /* ---- Class-based dark-mode fixes (structured outro/author markup) ---- */
+    .outro-section,
+    .author-bio {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+    .outro-section:hover,
+    .author-bio:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    .outro-section h3 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+    }
+    .outro-section p,
+    .author-bio .bio,
+    .references {
+        color: var(--muted-ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+    }
+    .author-bio .name { color: var(--ink) !important; font-family: 'Libre Franklin', sans-serif !important; }
+    .author-tag {
+        background: var(--deep-red) !important;
+        border-radius: 2px !important;
+    }
+    .author-tag span { color: #fff !important; }
+    .btn-submit,
+    a.btn-submit {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.03em;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    .btn-submit:hover,
+    a.btn-submit:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    /* ---- Inline-style dark-mode fixes (articles using an inline-styled outro div) ---- */
+    [style*="#faf7f0"] {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease;
+    }
+    [style*="#faf7f0"]:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    [style*="color: #555"],
+    [style*="color: #888"],
+    [style*="color: #444"] {
+        color: var(--muted-ink) !important;
+    }
+    a[href^="mailto"][style*="background"] {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    a[href^="mailto"][style*="background"]:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    @media (max-width: 768px) {
+        .nav-container { flex-wrap: wrap; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">Red <span>Thread</span></div>
+                <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#manifesto">About</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="submissions.html">Submissions</a></li>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="knob"><svg id="theme-icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"></svg></span></button>
+    </div>
+</nav>
+
+<header class="article-header">
+    <div class="container">
+        <h1>Winning the Consumer AI Promotion War</h1>
+        <div class="article-meta">By Mariam Benamer | 25th February 2026</div>
+    </div>
+</header>
+
+<article class="article-content">
+    <div class="container">
+        <!-- REPLACE THIS WITH YOUR ACTUAL ARTICLE TEXT -->
+        
+        <h2>Introduction</h2>
+        <p>China’s large language model (LLM) sector has emerged as one of the most competitive technological landscapes globally, often discussed in terms of computing power, model scale and technical advancement. Yet beneath these surface-level metrics lies a far more significant shift: China’s AI race is no longer determined by which model performs best in laboratory settings, but by which can secure a sustainable, daily presence in the lives of ordinary consumers. ByteDance’s Doubao, despite entering the market later than many of its competitors, has quickly risen to become the country’s most widely used consumer-facing artificial intelligence assistant.</p>
+<p>This essay argues that Doubao’s dominance stems not only from ByteDance’s expansive digital ecosystem but also from its distinct training data, culturally attuned design and emphasis on real-world usability. By analysing Doubao’s growth and its divergence from rivals such as Alibaba’s Tongyi Qianwen (Qwen), Baidu’s Ernie and Tencent’s Yuanbao app, this paper demonstrates that China’s internal LLM competition has evolved from a technical contest into a struggle for relatability, integration and everyday relevance — a dynamic that has unfolded visibly through what can be described as a consumer AI promotion war.</p>
+        
+        <h2>Key Arguments</h2>
+        <p>In the early stages of China’s LLM development, firms competed heavily on technical benchmarks: parameter size, reasoning capabilities and training efficiency. Baidu, an early pioneer, positioned its Ernie model as a technologically sophisticated solution for both enterprise and public use. As the market matured, however, the focus of competition shifted dramatically. Consumers demonstrated little interest in abstract technical specifications, instead gravitating towards tools that felt intuitive, conversational and aligned with their daily routines. What emerged was a race not for superior models, but for superior entry points — the digital portals through which users first and most regularly interact with AI. This reorientation allowed late arrivals, like Doubao, to outpace early technical leaders by centring user experience over theoretical performance.</p>
+<p>Doubao’s most defining advantage comes from its seamless integration within ByteDance’s ecosystem, most notably Douyin and Toutiao, two of China’s largest content and social media platforms. This infrastructure provides steady user traffic and continuous feedback that strengthens the model over time. Equally important, however, is the distinctive data foundation that separates Doubao from its rivals. Unlike competing platforms, Doubao is trained on vast volumes of contemporary social content: short-video scripts, viral trends, internet slang, entertainment discussions and informal dialogue drawn directly from Douyin and Toutiao. This grounding in everyday digital culture allows Doubao to understand and mirror the tone, humour and references familiar to average Chinese internet users. By contrast, Baidu’s Ernie draws from search results, encyclopaedic databases and formal web text, resulting in accurate but often stiff and impersonal responses. Alibaba’s Qwen prioritises e-commerce content and productivity materials, making it practical for shopping and work but less suited for casual interaction. Because Doubao’s knowledge base reflects the lived language and culture of its users, it carries a natural relatability that has become central to its mainstream appeal.</p>
+<p>The stakes of this consumer AI promotion war have become increasingly visible across major platforms. Alibaba’s Qwen took a highly direct approach to mass user acquisition, launching a high-profile campaign offering free milk tea to anyone who downloaded and used the app. Users simply needed to type or speak a request for the AI to order a drink, and they received vouchers covering the full cost at major chain stores across the country. The campaign generated enormous public attention and drove a sharp surge in downloads, reflecting the lengths to which rival platforms are prepared to go to challenge Doubao’s lead. Tencent’s Yuanbao similarly expanded its reach through substantial incentives, including high-profile red envelope campaigns tied to WeChat Pay that quickly elevated its daily active user base from millions to hundreds of millions. Baidu also introduced aggressive promotional measures to boost adoption of Ernie. Meanwhile, ByteDance avoided reliance on financial subsidies and instead deepened Doubao’s organic integration into daily content consumption and social interaction. This contrast shows a key difference between Doubao and its competitors: while rivals entered the promotion war to attract users through rewards, Doubao solidified its position by becoming part of how users naturally communicate, create and explore online.</p>
+        
+    
+    <!--insert image here-->
+<p>Doubao further distinguishes itself from its competitors through exclusive creative tools that enhance its everyday usability. ByteDance has integrated its advanced Seedance AI video generation model directly into Doubao, allowing users to generate original video content from simple text prompts. This multimedia functionality sets Doubao apart as a creative, all-in-one assistant, rather than a purely text-based tool — a feature not offered by Qwen, Ernie or the Yuanbao app in a similarly accessible, consumer-friendly format. This focus on creative expression reinforces Doubao’s connection to young, digitally engaged users and strengthens its position as the most versatile and appealing option in the market.</p>
+        
+            <!--insert image/tweet link here-->
+            
+<p>Beyond visual and creative tools, Doubao also leads its rivals in highly natural, human-like AI voice synthesis. Its voice system delivers expressive, conversational, and emotionally responsive audio output that closely mimics real human speech, whereas competing assistants often sound robotic, flat, or overly formal. Doubao offers over 100+ voices, covering multilingual, emotional, role-play, and professional tones; there are even Disney character voices. It also supports four Chinese dialects (Cantonese, Sichuanese, Northeast, and Shaanxi). This superior voice technology further enhances user comfort and engagement, reinforcing Doubao’s identity as a relatable, user-centred daily tool rather than a purely functional or technical device.</p>
+            
+            <!--insert image here-->
+            
+<p>Doubao’s rapid ascent has forced rival firms to clarify their own identities within China’s evolving AI market, revealing three distinct strategic paths. Alibaba’s Qwen leans into its e-commerce and workplace ecosystem, targeting users seeking shopping assistance and productivity tools by linking the AI to commonly used platforms, such as Taobao and Alipay.</p>
+<p>Similar to Alibaba’s promotional strategy, Tencent expanded Yuanbao’s presence through large-scale user incentives and high-profile outreach, while also introducing Yuanbao PAI — an AI-native group social space designed for shared activities, discussion summaries, collaborative content creation and synchronised media viewing. Tencent employs a strategic dual-track approach: it avoids embedding Yuanbao directly into WeChat group chats to preserve the natural experience of its core social platform, but aggressively leverages WeChat’s social network to drive user growth similar to Doubao’s integration in Douyin and Toutiao. While it competes at scale in group interaction, it still lags behind Doubao in daily individual use. None of these competitors fully replicate Doubao’s ability to speak to the daily experiences, slang and trends of young, mainstream internet users. This divergence highlights a critical reality of China’s AI race: victory is not awarded to the most technically advanced model, nor simply to those with a standalone app, but to the one that best understands and adapts to public behaviour.</p>
+        
+        <h2>Conclusion</h2>
+        <p>Doubao’s success reveals broader patterns shaping China’s artificial intelligence industry. Firstly, established internet giants maintain structural advantages through their access to user data and existing digital platforms. Secondly, the Chinese market consistently prioritises applied, scenario-based AI over abstract technical research. Thirdly, consumer AI is increasingly becoming a form of digital infrastructure — one that shapes how people search, create, socialise and navigate online life. Unlike some international models that emphasise universal, generalised intelligence, China’s leading consumer AI prioritises localisation, cultural resonance and daily functionality. In this sense, Doubao represents less a breakthrough in raw technology and more a breakthrough in how AI connects with people. It is not merely a language model, but a cultural interface.</p>
+<p>China’s race for dominance in LLMs has moved far beyond technical benchmarks to become a competition over the future of daily digital interaction, defined in part by the consumer AI promotion war waged by major platforms. ByteDance’s Doubao, through its ecosystem leverage, user-centred design and culturally rooted training data, has established itself as the clear leader in the consumer space. Its late arrival proved irrelevant, as it outperformed competitors by prioritising relatability over technical prestige. In contrast to Qwen, Ernie and Tencent’s Yuanbao — all major participants in the promotion war — Doubao speaks the language of ordinary Chinese internet users because it was built using the content those users create and consume every day. Even aggressive campaigns such as Alibaba’s milk tea initiative and Tencent’s red envelope strategy have not displaced Doubao’s core appeal, which comes not from incentives, but from familiarity and fit with everyday life. Supported by unique creative tools such as Seedance and industry-leading natural voice technology, Doubao continues to strengthen its connection with mainstream users. As AI becomes further embedded in daily life, Doubao’s legacy offers a clear insight: the future of consumer AI belongs not to the most powerful model, but to the one that becomes unnoticeably, comfortably indispensable.</p>
+        
+        <!-- Outro Section -->
+<div style="margin-top: 3rem; padding: 2rem; background: #faf7f0; border-radius: 20px; text-align: center; border-left: 5px solid var(--china-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+    <h3 style="color: var(--kcl-red); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">✍️ Share Your Voice</h3>
+    <p style="font-size: 0.95rem; margin-bottom: 1rem; color: #555;">Red Thread welcomes submissions from all KCL students.</p>
+    <p style="font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 450px; margin-left: auto; margin-right: auto;">Whether you're writing about politics, culture, economy, or history — we want to hear from you.</p>
+    <a href="mailto:k23008291@kcl.ac.uk?subject=Article%20Submission%20for%20KCL%20China%20Review" style="display: inline-block; background: var(--china-gold); color: #1e1e1e; padding: 0.7rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600; transition: transform 0.2s, background 0.2s;">📧 Submit Your Article →</a>
+    <p style="font-size: 0.8rem; margin-top: 1.5rem; color: #888;">Questions? Reach us at <a href="mailto:k23008291@kcl.ac.uk" style="color: var(--kcl-red); text-decoration: none; font-weight: 500;">k23008291@kcl.ac.uk</a></p>
+</div>
+        
+        <a href="publications.html" class="back-link">← Back to Publications</a>
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Red Thread &mdash; brought to you by the KCL China Studies Society, King's College London</p>
+    </div>
+</footer>
+
+
+
+<script>
+(function(){
+    var btn = document.getElementById('theme-toggle');
+    var icon = document.getElementById('theme-icon');
+    var SUN_ICON = '<circle cx="12" cy="12" r="4.2"/><g stroke="#fff" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="3.5"/><line x1="12" y1="20.5" x2="12" y2="22.5"/><line x1="3.5" y1="12" x2="1.5" y2="12"/><line x1="22.5" y1="12" x2="20.5" y2="12"/><line x1="18.7" y1="5.3" x2="17.3" y2="6.7"/><line x1="6.7" y1="17.3" x2="5.3" y2="18.7"/><line x1="18.7" y1="18.7" x2="17.3" y2="17.3"/><line x1="6.7" y1="6.7" x2="5.3" y2="5.3"/></g>';
+    var MOON_ICON = '<path d="M20.6 15.3A8.5 8.5 0 019.7 4.4a8.5 8.5 0 1010.9 10.9z"/>';
+    function applyIcon(){
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (icon) icon.innerHTML = isDark ? MOON_ICON : SUN_ICON;
+    }
+    applyIcon();
+    if (btn) {
+        btn.addEventListener('click', function(){
+            var root = document.documentElement;
+            var isDark = root.getAttribute('data-theme') === 'dark';
+            if (isDark) { root.removeAttribute('data-theme'); }
+            else { root.setAttribute('data-theme', 'dark'); }
+            try { localStorage.setItem('kcl-article-theme', isDark ? 'light' : 'dark'); } catch(e){}
+            applyIcon();
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

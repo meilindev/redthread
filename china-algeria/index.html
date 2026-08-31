@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China in Algeria — Contracts, Finance &amp; Flagship Projects</title>
+<meta name="description" content="Interactive dashboard tracking $100B of Chinese construction-contract revenue, official development finance, and flagship infrastructure projects in Algeria, 1998–2024.">
+<meta property="og:title" content="China in Algeria — Contracts, Finance &amp; Flagship Projects">
+<meta property="og:description" content="Algeria has been Africa's #1 destination for Chinese construction-contract revenue in 11 of the last 27 years. An interactive look at the money, the megaprojects, and the regional picture.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2312151a'/%3E%3Cpath d='M5 23 L12 15 L18 19 L27 8' stroke='%23ff6a3d' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-track">
+    <span class="ribbon-seg hist">1998</span>
+    <span class="ribbon-line hist-line"></span>
+    <span class="ribbon-seg pivot">2016 · peak $8.4B</span>
+    <span class="ribbon-line hist-line second"></span>
+    <span class="ribbon-seg">2024</span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">China–Africa construction &amp; finance tracker</p>
+    <h1>China in Algeria: Contracts, Finance &amp; Flagship Projects</h1>
+    <p class="dek">Algeria has been Africa's #1 destination for Chinese construction-contract revenue in 11 of the last 27 years. This tracks the money, the megaprojects, and where it fits against its North African neighbors, 1998–2024. Cross-country comparison lives on the <strong>Compare</strong> tab.</p>
+  </div>
+</header>
+
+<nav class="tabbar" role="tablist" aria-label="Sections">
+  <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+  <button class="tab-btn" data-tab="projects" role="tab" aria-selected="false">Flagship projects</button>
+  <button class="tab-btn" data-tab="financing" role="tab" aria-selected="false">Official financing</button>
+  <button class="tab-btn" data-tab="compare" role="tab" aria-selected="false">Compare</button>
+  <button class="tab-btn" data-tab="explore" role="tab" aria-selected="false">Explore data</button>
+  <button class="tab-btn" data-tab="method" role="tab" aria-selected="false">Notes &amp; method</button>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section class="panel-view active" id="view-overview">
+    <div class="snapshot-row">
+      <div class="snapshot-label">
+        <span>Snapshot year</span>
+        <strong id="snapshotYearLabel">2024</strong>
+      </div>
+      <input type="range" id="snapshotYear" min="1998" max="2024" step="1" value="2024">
+      <div class="snapshot-hint" id="snapshotHint">Latest available</div>
+    </div>
+
+    <div class="kpi-grid" id="kpiGrid"><!-- JS --></div>
+
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Chinese construction contract revenue</h3>
+        <p class="chart-sub">US$ million/year &middot; Algeria (bold) vs. North African neighbors &middot; dashed markers = flagship project start years</p>
+        <div class="chart-wrap"><canvas id="chartRevenue"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Algeria's share of Africa-wide total</h3>
+        <p class="chart-sub">% of all Chinese construction contract revenue earned in Africa that year, going to Algeria</p>
+        <div class="chart-wrap"><canvas id="chartShare"></canvas></div>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <strong>What this measures.</strong> These figures are gross annual revenue booked by Chinese construction &amp; engineering
+      firms on projects in Africa — labor and contracting revenue, not aid. They're compiled by Johns Hopkins SAIS-CARI from
+      China's own statistical yearbooks. Algeria's total includes megaprojects like the ones on the
+      <strong>Flagship projects</strong> tab — almost all paid for directly by the Algerian state from oil &amp; gas revenue,
+      not financed by Chinese loans (see <strong>Official financing</strong> for how small that channel actually is).
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="panel-view" id="view-projects">
+    <div class="chart-card wide">
+      <h3>Project timeline</h3>
+      <p class="chart-sub">Years active, on the same axis as the Overview chart &middot; contract values are on each card below</p>
+      <div class="chart-wrap short"><canvas id="chartProjects"></canvas></div>
+    </div>
+    <div class="project-list" id="projectList"><!-- JS --></div>
+  </section>
+
+  <!-- FINANCING -->
+  <section class="panel-view" id="view-financing">
+    <div class="kpi-grid" id="financingKpi"><!-- JS, 4 cols --></div>
+    <div class="chart-grid two-col">
+      <div class="chart-card">
+        <h3>Official finance by sector</h3>
+        <p class="chart-sub">US$ (constant 2021), aggregable AidData records only</p>
+        <div class="chart-wrap"><canvas id="chartFinSector"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Grants vs. loans, by value</h3>
+        <p class="chart-sub">US$ (constant 2021) &middot; by count it's 48 grants to 8 loans, but loans carry more money per record</p>
+        <div class="chart-wrap"><canvas id="chartFinFlow"></canvas></div>
+      </div>
+    </div>
+    <div class="note-block">
+      <strong>Aid is a side channel, not the main story.</strong> AidData's Global Chinese Development Finance Dataset tracks
+      $310.6M of aggregable Chinese government grants and loans to Algeria, 2000–2021 — driven mostly by one-off grants and
+      loans for individual buildings (an opera house, a foreign ministry office, youth culture centers, a state telecom
+      project) plus COVID-era vaccine donations, not sustained development financing — versus the tens of billions in
+      commercial construction-contract revenue on the Overview tab. Algeria's oil wealth means it hires Chinese state-owned
+      contractors directly rather than borrowing from China to pay for infrastructure, unlike many lower-income African states.
+      Totals here count only AidData's aggregable records, which is why the cancelled $3.4B El Hamdania port on the Flagship
+      projects tab isn't included — see <strong>Notes &amp; method</strong> for why.
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="panel-view" id="view-compare">
+    <div class="compare-controls">
+      <label for="compareMetric">Metric</label>
+      <select id="compareMetric"></select>
+    </div>
+    <div class="chart-card wide">
+      <h3 id="compareTitle">Compare across countries</h3>
+      <p class="chart-sub" id="compareSub"></p>
+      <div class="chart-wrap tall"><canvas id="chartCompare"></canvas></div>
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table" id="compareTable"></table>
+    </div>
+  </section>
+
+  <!-- EXPLORE -->
+  <section class="panel-view" id="view-explore">
+    <div class="compare-controls">
+      <label for="exploreDataset">Dataset</label>
+      <select id="exploreDataset">
+        <option value="revenue">Contract revenue by country &amp; year (SAIS-CARI)</option>
+        <option value="aiddata">Algeria official-finance project records (AidData)</option>
+      </select>
+    </div>
+    <div class="explore-controls" style="margin-top:14px;">
+      <input type="search" id="exploreSearch" placeholder="Search by year&hellip; e.g. 2016">
+      <button id="exploreCsv" class="btn-ghost">Download CSV</button>
+    </div>
+    <div class="explore-table-wrap">
+      <table class="explore-table" id="exploreTable"></table>
+    </div>
+  </section>
+
+  <!-- NOTES & METHOD -->
+  <section class="panel-view" id="view-method">
+
+    <div class="method-intro">
+      <h2>How to read these numbers</h2>
+      <p>
+        This site draws on two datasets that count different things, over different periods, in
+        different dollars. Most of the apparent contradictions between tabs come from those
+        differences rather than from disagreement about the facts. The important ones are below.
+      </p>
+    </div>
+
+    <div class="method-block">
+      <h3>Why one cancelled port is bigger than all official finance combined</h3>
+      <p>
+        The <strong>Flagship projects</strong> tab shows the El Hamdania port at <strong>$3.4B</strong>
+        in pledged China Eximbank financing. The <strong>Official financing</strong> tab puts
+        <em>all</em> Chinese official finance to Algeria at <strong>$310.6M</strong>. Both are correct.
+      </p>
+      <p>
+        AidData marks each record with a <code>Recommended For Aggregates</code> flag, and excludes
+        records that would double-count or that never became real money — pledges and commitments
+        that were announced but never disbursed. El Hamdania is precisely that case: pledged in 2017,
+        suspended in 2019, formally shelved in 2025. Not a dollar of it moved.
+      </p>
+      <p>
+        Every total on the Official financing tab uses only aggregable records. Counting all 57 records
+        regardless of status would give <strong>$4.23B</strong> — a figure that mostly measures
+        announcements rather than transfers, which is why it isn't the headline. The port still earns
+        its place on the projects tab, because a $3.4B project collapsing is itself the story.
+      </p>
+    </div>
+
+    <div class="method-block">
+      <h3>&ldquo;Contract revenue&rdquo; is not the same as contracts signed</h3>
+      <p>
+        The SAIS-CARI figures are <strong>gross annual revenue booked</strong> by Chinese construction
+        firms on work performed in Algeria that year — closer to an income statement than to a deal
+        announcement. A single megaproject shows up spread across many years as it is built, not as
+        one spike when it is signed.
+      </p>
+      <p>
+        This is why the flagship project markers on the Overview chart line up with sustained plateaus
+        rather than one-year jumps, and why Algeria's revenue stays high through the 2010s while the
+        highway and airport were under construction.
+      </p>
+    </div>
+
+    <div class="method-block">
+      <h3>The two datasets cover different periods</h3>
+      <p>
+        Contract revenue runs <strong>1998–2024</strong>. Official finance runs
+        <strong>2000–2021</strong>, because AidData's version 3.0 tracks commitments only through 2021.
+        Comparisons between the two are therefore directional, not year-matched — the gap between
+        commercial contracting and official finance is large enough (roughly two orders of magnitude)
+        that the three missing years don't change the conclusion.
+      </p>
+    </div>
+
+    <div class="method-block">
+      <h3>Dollars are not all the same dollars</h3>
+      <p>
+        Contract revenue is <strong>nominal, unadjusted US$</strong> as reported in China's statistical
+        yearbooks. Official finance is <strong>constant 2021 US$</strong>, inflation-adjusted by AidData.
+        Flagship project values are as-reported at the time, with the original currency noted where the
+        source used euros or renminbi rather than dollars.
+      </p>
+      <p>
+        Practically: the cumulative $100.4B contract figure is a sum of nominal dollars across 27 years,
+        so it overstates recent years relative to early ones in real terms. It is presented that way
+        because it is how the source publishes it.
+      </p>
+    </div>
+
+    <div class="method-block">
+      <h3>The megaprojects are mostly absent from the aid data — deliberately</h3>
+      <p>
+        The Grand Mosque, the East–West Highway, and the airport terminal do not appear in AidData's
+        Algeria records, because they were not Chinese-financed. Algeria paid for them from hydrocarbon
+        revenue and hired Chinese state-owned firms as contractors. That distinction is the site's
+        central argument: Algeria is a major <em>customer</em> of Chinese construction, not a major
+        <em>borrower</em> from Chinese state lenders.
+      </p>
+    </div>
+
+    <div class="method-block">
+      <h3>Limitations</h3>
+      <ul>
+        <li>Contract revenue is reported by China's own statistical agencies and is not independently
+          audited. SAIS-CARI notes that its country sum and the published Africa total disagree in some
+          years.</li>
+        <li>The four flagship projects are a curated selection of the largest and most documented, not
+          a complete inventory of Chinese construction in Algeria.</li>
+        <li>Flagship project values come from press and corporate reporting and vary between sources;
+          where estimates conflict, the range is shown on the card rather than a single number.</li>
+        <li>Only five North African countries are shown for comparison. Rank and share figures,
+          however, are computed against all 56 African countries in the source data.</li>
+      </ul>
+    </div>
+
+    <div class="method-block">
+      <h3>Reproducing this</h3>
+      <p>
+        Every figure is derived programmatically from the two source files rather than transcribed by
+        hand; <code>data.js</code> is generated output. Both datasets are public and free:
+      </p>
+      <ul>
+        <li><a href="https://www.sais-cari.org/data-chinese-contracts-in-africa" target="_blank" rel="noopener">SAIS-CARI — Chinese construction contract revenue in Africa</a> (updated November 2025)</li>
+        <li><a href="https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0" target="_blank" rel="noopener">AidData — Global Chinese Development Finance Dataset, v3.0</a></li>
+      </ul>
+      <p>
+        The full underlying tables, including every AidData record with its status and flow type, are
+        browsable and downloadable as CSV on the <strong>Explore data</strong> tab.
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    Data: <a href="https://www.sais-cari.org/data-chinese-contracts-in-africa" target="_blank" rel="noopener">SAIS China-Africa Research Initiative, Johns Hopkins SAIS</a>
+    (construction contract revenue, updated Nov 2025) and
+    <a href="https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0" target="_blank" rel="noopener">AidData Global Chinese Development Finance Dataset v3.0</a>
+    (official finance, 2000–2021), plus project-level reporting cited on the Flagship projects tab. All dollar figures are nominal/current unless noted.
+  </p>
+  <div class="byline">
+    <p class="byline-name">Built by Mariam Benamer <span class="byline-affil">| KCL China Studies Society</span></p>
+    <p class="byline-links">
+      <a href="https://www.linkedin.com/in/mariam-ben/" target="_blank" rel="noopener" aria-label="LinkedIn profile" title="LinkedIn">
+        <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </p>
+  </div>
+</footer>
+
+<div id="chartLoadError" class="load-error" hidden>
+  Charts couldn't load because <code>chart.js</code> didn't download from either CDN (cdnjs or jsdelivr) — check your
+  internet connection or firewall/ad-blocker settings for this page. Everything else (tabs, data explorer, CSV export)
+  still works normally.
+</div>
+
+<script src="data.js"></script>
+<script>
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+  loadScript("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js")
+    .catch(function () {
+      return loadScript("https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js");
+    })
+    .catch(function () {
+      document.getElementById("chartLoadError").hidden = false;
+    })
+    .then(function () {
+      return loadScript("app.js");
+    });
+</script>
+</body>
+</html>

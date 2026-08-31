@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From a Summer of Voices to a Winter of Silence | Red Thread</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400;1,8..60,600&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fefcf5;
+            color: #1e1e1e;
+            line-height: 1.6;
+        }
+
+        :root {
+            --kcl-red: #9b1b30;
+            --china-gold: #d4af37;
+            --dark-bg: #2c2c2c;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--kcl-red);
+        }
+
+        .logo span {
+            color: var(--china-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #333;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--kcl-red);
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--kcl-red) 0%, #6e1223 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .article-content {
+            padding: 3rem 0;
+        }
+
+        .article-content h2 {
+            color: var(--kcl-red);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1rem;
+        }
+
+        .pull-quote {
+            color: var(--kcl-red);
+            font-size: 1.6rem;
+            font-weight: 600;
+            line-height: 1.4;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 0 1rem;
+            font-style: italic;
+            letter-spacing: -0.3px;
+        }
+
+        .references {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .references p {
+            margin-bottom: 0.6rem;
+            word-break: break-word;
+        }
+
+        .references a {
+            color: var(--kcl-red);
+            text-decoration: none;
+        }
+
+        .references a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--kcl-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer {
+            background: var(--dark-bg);
+            color: #ccc;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
+            }
+            .article-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+
+<style id="kcl-theme-system">
+    :root {
+        --bg: #fef7e8;
+        --ink: #2c3a47;
+        --muted-ink: #5c6e77;
+        --faint-ink: #8a7a5f;
+        --card-bg: #f2e8cf;
+        --card-border: #d9c7a7;
+        --rule: #d9c7a7;
+        --nav-bg: rgba(254,247,232,0.94);
+        --deep-red: #9e3c2c;
+        --deep-red-hover: #7c2f22;
+        --accent-teal: #2f5d5a;
+    }
+
+    :root[data-theme="dark"] {
+        --bg: #1c1712;
+        --ink: #f2e8cf;
+        --muted-ink: #c9baa0;
+        --faint-ink: #a3927a;
+        --card-bg: #2a2118;
+        --card-border: #4a3a28;
+        --rule: #4a3a28;
+        --nav-bg: rgba(28,23,18,0.94);
+        --deep-red: #c65a42;
+        --deep-red-hover: #e07456;
+        --accent-teal: #4a8a85;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        background-color: var(--bg) !important;
+        color: var(--ink) !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav {
+        background: var(--nav-bg) !important;
+        border-bottom: 1px solid var(--rule) !important;
+        box-shadow: none !important;
+        backdrop-filter: blur(6px);
+    }
+
+    .logo {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.01em;
+        color: var(--ink) !important;
+    }
+    .logo span { color: var(--deep-red) !important; }
+
+    .nav-links a {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink) !important;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 2px;
+        transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .nav-links a:hover {
+        color: var(--accent-teal) !important;
+        border-bottom-color: var(--accent-teal);
+    }
+
+    /* ---- Masthead-style article header: plain ground, kicker, serif headline, rule ---- */
+    .article-header {
+        background: var(--bg) !important;
+        color: var(--ink) !important;
+        text-align: left !important;
+        padding: 3rem 0 2rem !important;
+        border-bottom: 3px solid var(--rule);
+    }
+    .article-header h1 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        font-weight: 700 !important;
+        color: var(--ink) !important;
+        line-height: 1.12 !important;
+        letter-spacing: -0.01em;
+    }
+    .article-meta {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.85rem !important;
+        font-style: normal !important;
+        color: var(--muted-ink) !important;
+        opacity: 1 !important;
+        margin-top: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .article-content { background: var(--bg); }
+    .article-content h2,
+    .article-content h3,
+    .article-content h4 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+        font-weight: 700 !important;
+        border-top: 1px solid var(--rule);
+        padding-top: 1rem;
+    }
+    .article-content p {
+        color: var(--ink) !important;
+        font-size: 1.08rem;
+        line-height: 1.75;
+    }
+    .article-content a { color: var(--deep-red) !important; }
+    .article-content a:hover { color: var(--deep-red-hover) !important; }
+
+    .pull-quote {
+        color: var(--ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        border-top: 1px solid var(--deep-red);
+        border-bottom: 1px solid var(--deep-red);
+        padding: 1.25rem 0 !important;
+    }
+
+    .back-link {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--deep-red) !important;
+    }
+
+    footer {
+        background: var(--bg) !important;
+        color: var(--faint-ink) !important;
+        border-top: 3px solid var(--rule);
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 0.03em;
+    }
+
+    .theme-toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid var(--card-border);
+        background: var(--bg);
+        padding: 0;
+        cursor: pointer;
+        margin-left: 0.5rem;
+        flex-shrink: 0;
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .theme-toggle:hover { border-color: var(--deep-red); }
+    .theme-toggle .knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--deep-red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    :root[data-theme="dark"] .theme-toggle .knob {
+        transform: translateX(24px);
+        background: var(--accent-teal);
+    }
+    .theme-toggle .knob svg { width: 13px; height: 13px; display: block; }
+
+    /* ---- Class-based dark-mode fixes (structured outro/author markup) ---- */
+    .outro-section,
+    .author-bio {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+    .outro-section:hover,
+    .author-bio:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    .outro-section h3 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+    }
+    .outro-section p,
+    .author-bio .bio,
+    .references {
+        color: var(--muted-ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+    }
+    .author-bio .name { color: var(--ink) !important; font-family: 'Libre Franklin', sans-serif !important; }
+    .author-tag {
+        background: var(--deep-red) !important;
+        border-radius: 2px !important;
+    }
+    .author-tag span { color: #fff !important; }
+    .btn-submit,
+    a.btn-submit {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.03em;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    .btn-submit:hover,
+    a.btn-submit:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    /* ---- Inline-style dark-mode fixes (articles using an inline-styled outro div) ---- */
+    [style*="#faf7f0"] {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease;
+    }
+    [style*="#faf7f0"]:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    [style*="color: #555"],
+    [style*="color: #888"],
+    [style*="color: #444"] {
+        color: var(--muted-ink) !important;
+    }
+    a[href^="mailto"][style*="background"] {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    a[href^="mailto"][style*="background"]:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    @media (max-width: 768px) {
+        .nav-container { flex-wrap: wrap; }
+    }
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">Red <span>Thread</span></div>
+                <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#manifesto">About</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="submissions.html">Submissions</a></li>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="knob"><svg id="theme-icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"></svg></span></button>
+    </div>
+</nav>
+
+<header class="article-header">
+    <div class="container">
+        <h1>From a Summer of Voices to a Winter of Silence: Political Imagination and Repertoires of Contention in China's 1989 and 2022 Protests</h1>
+        <div class="article-meta">By Eden Wang | 10.08.2026</div>
+    </div>
+</header>
+
+<article class="article-content">
+    <div class="container">
+
+        <h2>Introduction</h2>
+        <p>How valid is the comparison between the demands of protesters in 1989 and 2022? The comparison is valid, but only if it is not understood to imply that 2022 simply repeated 1989. Like the 1989 movement, the 2022 "White Paper" protests, often described as the largest nationwide demonstrations in China since 1989, carried broader political implications. Together, these two movements show how urban grievances in China can become politically meaningful when citizens connect their everyday suffering to broader issues such as corruption, censorship, accountability, and arbitrary state power. However, one important difference lies not only in their scale, slogans, or immediate demands, but also in the different political environments and political imaginations behind each movement.</p>
+
+        <p>The 1989 movement ultimately failed, but at the time it seemed to carry a strong sense of hope and political possibility. It began with the mourning of Hu Yaobang, a former CCP general secretary who was widely seen by students and intellectuals as a symbol of suppressed liberalising possibilities. This act of mourning quickly developed into demands for anti-corruption measures, constitutional rights, press freedom, political reform, and dialogue with the state (Nathan, 2001, p. 3). Notably, the movement did not begin as a fully anti-regime revolution. This reveals an important limitation of the movement: its political imagination, especially regarding possible democratisation and liberalisation, remained invested in the hope that the authoritarian communist party-state ruling China could reform itself politically. However, any meaningful political reform would almost inevitably threaten the Communist Party's monopoly on power. In this sense, asking the Party to realise the protesters' vision of a democratic China was almost equivalent to asking it to commit political suicide.</p>
+
+        <p>By contrast, the 2022 White Paper protests took place under much tighter political control. They were not depoliticised, but rather politicised within a more restrictive context. Unlike in 1989, there was no visible reformist political figure to mourn. Instead, the White Paper protests were sparked by the Ürümqi fire, which ignited public anger and brought long-suppressed public grievances to the surface. These grievances had accumulated through a series of inhumane zero-Covid policies: lockdowns, repeated testing, and the suppression of public expression. Soon, a wave of blank sheets of paper transformed silence itself into a visible form of dissent. Protesters did not always articulate a specific programme of political reform, although some slogans escalated into direct criticism of censorship, Xi Jinping, and the CCP (Human Rights Watch, 2023; Pollard, 2022). The blank paper mattered precisely because it said nothing. As a symbol, this silence itself became a political statement of dissent, reflecting a more compressed repertoire of contention in a more tightly controlled China (Pollard & Goh, 2022).</p>
+
+        <p>This essay therefore argues that the comparison reveals not the depoliticisation of public discontent in urban China, but its transformation. In 1989, protest demands were articulated through a more open and direct political vocabulary during a relatively liberal period. In 2022, by contrast, political criticism was often expressed through symbolic silence. The shift, then, was not from politics to non-politics, but from a period in which reformist imagination could still be publicly articulated to one in which political expression became more risk-sensitive, fragmented, and compressed under intensified authoritarian control.</p>
+
+        <h2>Continuity: The Politicisation of Grievances</h2>
+        <p>The comparison between 1989 and 2022 is valid because both protests show that urban grievances in China were not merely material. In both cases, protesters began from experiences of loss, repression, or injustice, but these grievances developed into political claims as protesters connected their suffering to failures of governance. Social movement framing theory suggests that grievances become politically meaningful when they are framed as injustices, attributed to authority, and connected to wider questions of accountability (Snow & Benford, 1988). The continuity between the two movements, therefore, does not lie in their sharing identical demands, but in a shared process of politicisation: everyday suffering was eventually converted into criticism of governance.</p>
+
+        <p>In 1989, this process was visible not only in the student movement but also in workers' participation. For students, the movement was rooted in accumulated frustration over stalled political reform and the problems generated by economic reform, especially corruption and inflation. Its direct trigger, however, was the death of Hu Yaobang, and the movement escalated after the 22 April memorial service, when students felt that their petition had been ignored by the authorities. What began as mourning therefore became a wider political protest (Brown, 2021). As young people who saw themselves as connected to the country's future, students transformed their sense of frustration, humiliation, and blocked reformist hope into a movement with broader political significance. Student protesters did not treat corruption, inflation, and the ignored petition as isolated problems, but attributed them to broader failures of governance, articulating their demands through the language of reform, democracy, anti-corruption, press freedom, accountability, and dialogue.</p>
+
+        <p>For workers, this process began with a different focus. At first, they were more immediately concerned with practical everyday livelihood issues than with the students' broader reformist ideals. Walder and Gong (1993, pp. 1–2) show that workers gathering around Tiananmen Square in April discussed inflation, corruption, and victimisation within their work units. What workers shared with students, however, was that they soon interpreted these problems politically. The Beijing Workers' Autonomous Federation criticised the decline in living standards and uncontrolled inflation as consequences of "long-term control of a dictatorial bureaucracy," while demanding price stabilisation and the disclosure of senior officials' incomes and privileges (Walder & Gong, 1993, p. 5).</p>
+
+        <p>The 2022 White Paper protests followed the same broad logic. People initially perceived the accumulated suffering produced by zero-Covid controls as embodied experiences of coercive governance. However, these grievances did not remain merely private or material. After the Ürümqi fire, anger over one tragedy expanded into a wider sense that, under such controls, ordinary Chinese people had become so vulnerable that even their basic personal safety could not be guaranteed. The protests therefore quickly developed political claims. Amnesty International (2023) reported that protesters across several Chinese cities and universities commemorated the victims of the fire, called for lockdown measures to be eased, demanded an end to censorship, and in some cases called for Xi Jinping to step down. Similarly, Boyd (2022) documented slogans ranging from mourning the dead to demands for freedom of expression, democracy, and the rule of law. These slogans show how what initially appeared as bodily oppression expanded into political meaning.</p>
+
+        <p>Therefore, this essay argues that there is continuity between 1989 and 2022. Both movements show how urban grievances in China can become politically meaningful when citizens connect everyday suffering to government responsibility. In this sense, even under tighter control and more cautious forms of protest, everyday suffering could still develop into political criticism that touched on deeper systemic problems.</p>
+
+        <h2>Difference: Targets, Language, and Organisation</h2>
+        <p>While this comparison is valid to some extent because both movements embody the politicisation of urban discontent, it must also be pointed out that it has limitations, given the significant differences between the two protests in terms of their targets, language, and organisation. A more precise overall distinction lies in the fact that the 1989 protests expressed demands for reform more openly and coherently, while the 2022 protests often expressed political criticism in more fragmented, symbolic, and less centralised ways. This difference reflects the evolution of urban public discontent over time: political discontent has not disappeared, but its expression has become more cautious and constrained in an increasingly restrictive political environment.</p>
+
+        <p>The first difference is about the targets of these two protests. In 1989, protesters' targets were closely connected to institutional reform. They were not simply asking for the adjustment of one specific policy, but imagining a possible, more liberal future for China. Whether or not they fully recognised it, this political imagination could not coexist with the party-state system. This made the movement difficult for the government to accommodate, because even seemingly moderate demands, such as recognition of autonomous student organisations and dialogue with the authorities, were seen as posing a fundamental challenge to the CCP's claim to be the sole legitimate representative of the people (Calhoun, 1994). By contrast, the targets of the White Paper protests were more practical and policy-oriented. Protesters mainly objected to the zero-Covid policy and demanded its adjustment. It is undeniable that some slogans directly criticised Xi Jinping or the CCP, but the movement as a whole did not have a coherent and specific agenda of national political reform. It emerged in a more politically constrained and risk-sensitive era, when many protesters were demanding a return to normal life rather than calling for a fundamental transformation of the existing political order. Therefore, while 1989 was shaped by a reformist idealism that made compromise with the state extremely difficult, 2022 lacked a central political goal and focused more on practical policy adjustment. This helps explain why the protests largely ended once the government changed its zero-Covid policy.</p>
+
+        <p>The second difference is the language of protest. In 1989, protest language was more direct and reformist. Students could publicly speak of democracy, freedom, press freedom, constitutional rights, and political reform, which is difficult to imagine today without the risk of immediate arrest. Workers, the very group the CCP claimed to represent, used more practical but no less politically challenging language, criticising bureaucratic domination and official privilege (Walder & Gong, 1993). In other words, the language of 1989 was not ideologically unified, but it was comparatively explicit. This directness also made the language more communicable: more people could understand it, recognise its political meaning, and potentially be mobilised by it. By contrast, the language of 2022 was more compressed, symbolic, and coded. Some slogans were direct, such as demands for freedom or calls for Xi Jinping and the CCP to step down. However, such language was usually suppressed quickly before it could spread widely (Freedom House, 2023). The most powerful language available to the movement, although still highly risky in the Xi era, was also the least literal: the blank sheet of paper, which gave the movement its name. The blank paper did not signal an absence of meaning, but the impossibility of speaking openly. As Perrigo (2022) and Lawler and Chen (2022) suggest, the blank paper expressed unspoken grievances while functioning as a silent form of dissent in a context where explicit protest language could be dangerous. Yet because of the ambiguity of the blank paper, it was difficult to mobilise wider groups of people. People did not always know each other's positions and demands, and the movement lacked a central organising focus. This made the movement powerful as a symbolic act, but difficult to sustain as a long-term movement or develop into a deeper form of political mobilisation. This reveals a crucial evolution in urban discontent. In 1989, protesters could still imagine political reform through publicly spoken demands and written declarations. In 2022, political meaning was often carried by silence, irony, symbols, and fragments. The political language of urban protest had not vanished, but it appeared in a more indirect way, which to some extent weakened its mobilising capacity and confrontational force.</p>
+
+        <p>The third difference is organisation. The 1989 movement was more coalitional and organisationally visible. It had Tiananmen Square as a central site of mobilisation, where student organisations could hold rallies and hunger strikes and submit public petitions, while also attracting growing participation from people from different walks of life. To be sure, its organisation was rough, imperfect, and even internally divided, but it was still threatening to the regime because of its organisational capacity. The participation of workers was especially significant. Walder and Gong (1993) show that gongzilian was not a Party-controlled official union, but rather an attempt to create a genuinely autonomous workers' organisation, with its own leadership structure, propaganda work, mobilisation networks, and strike appeals. The formation of gongzilian was important not just because workers could disrupt production and urban order, but also because an autonomous workers' organisation challenged the CCP's claim to represent the working class, thereby threatening its legitimacy. However, the 2022 protests were much less organisationally consolidated. They involved students, young urban residents, residents of locked-down communities, and online participants, and spread across cities such as Beijing, Shanghai, Chengdu, Wuhan, Lanzhou, and Nanjing, as well as university campuses (Davidson, 2022). Despite their apparent social and geographical breadth, the White Paper protests lacked a lasting national centre like Tiananmen Square, widely recognised leadership, and a durable organisational structure. Consequently, it was difficult for such a fragmented protest to develop into a sustained collective movement. This reveals another dimension of the evolution of public discontent: urban grievances have become more networked and geographically dispersed, but less able to consolidate into sustained collective organisation.</p>
+
+        <p>The comparison between these two movements can be made, but it is still necessary to note their significant differences. The two movements are comparable because both turned urban suffering into political criticism. However, they reveal different forms of urban discontent. The 1989 movement was more vocal and confrontational, whereas the 2022 protests were more hushed and defensive. The evolution from 1989 to 2022 is therefore not a shift from political to non-political protest, but from articulated reformist contention to fragmented, decentralised, and coded political discontent under a more controlling authoritarian state.</p>
+
+        <h2>Explanation: Why Urban Discontent Evolved</h2>
+        <p>The shift from 1989 to 2022 cannot be simply attributed to a decline in the political consciousness of protesters; it is also a result of changes in the political environment that have reshaped citizens' political imagination, repertoires of contention, and organisational capacities. Three mechanisms are especially important: the disappearance of visible elite divisions, the institutional control of students and universities, and more preventive forms of repression under Xi Jinping. All of them can, to some extent, help explain this transformation.</p>
+
+        <p>The first mechanism was the disappearance of visible elite divisions. In 1989, students could still imagine that political change might come from within the Party because divisions among top leaders were visible. After Mao's death, Deng Xiaoping and other CCP leaders promoted collective leadership to avoid another personal dictatorship. Deng remained the de facto top leader, but he still had to work within a leadership system where other senior figures and factions mattered. This left some room for different voices within the Party (Shirk, 2018). Nathan (2001) shows that the debate over martial law exposed serious conflict within the leadership: among the five Politburo Standing Committee members, Zhao Ziyang and Hu Qili opposed martial law, while Qiao Shi abstained (p. 7). Their less hardline positions stood in contrast to the tougher line of Li Peng and Deng Xiaoping. Zhao's final visit to Tiananmen Square further suggested that some senior leaders were unwilling to treat the students simply as enemies of the state, and may have given protesters a sense that they were not fighting alone. Deng later accused Zhao of having "exposed the differences within the Standing Committee for all to see" (p. 27). By 2022, this kind of visible elite division could no longer be seen. Xi Jinping's leadership had become more personalised and centralised, and the 2018 removal of presidential term limits enabled him to stay in power beyond the earlier two-term norm (Buckley & Wu, 2018). This concentration of power became even clearer after the Twentieth Party Congress, when the Politburo Standing Committee, the most important leadership body in Chinese politics, was dominated by Xi's close allies and former subordinates. The Youth League faction was pushed out of the top leadership, while the Shanghai faction was no longer clearly represented as an independent counterweight (Brødsgaard & Beck, 2023). Protesters could neither point to a Zhao Ziyang-like figure nor see figures such as Hu Qili or Qiao Shi, whose positions in 1989 suggested that there was still some room for disagreement within the top leadership. Unlike in 1989, there were no clearly visible reformists and hardliners, nor were there retired revolutionary elders who could constrain the top leader. Protesters could no longer see much hope or potential support from the top. The disappearance of elite divisions therefore narrowed not only political opportunity, but also political imagination.</p>
+
+        <p>The second mechanism was tighter control over university students. In 1989, university students were still a relatively small elite group. As educated citizens, they saw themselves as bearers of national political responsibility and believed that they had a legitimate role in fighting for a better future for China. After 1989, however, the mass expansion of higher education gradually transformed students into a much larger but more vulnerable population. As the labour market became more competitive, a university degree alone became less sufficient for securing future employment. In this context, students became increasingly dependent on additional opportunities within the university system, such as CCP membership (Guo, 2005, pp. 386–387), which gave the Party-state greater leverage to strengthen control over university campuses. Yan's (2014) research shows that, in the post-Deng era, the CCP controlled universities through Party and Youth League structures, student cadres, ideological rituals, surveillance, and material incentives to maintain student compliance. This suggests that the expansion of higher education did not necessarily generate stronger political resistance. Instead, students became increasingly accustomed to weighing personal gains and losses, making open political participation more dependent on a specific trigger, such as the Ürümqi fire. Even then, their participation was often temporary and symbolic, making it difficult to form a sustained student movement.</p>
+
+        <p>The third mechanism was the sharpening of the boundary between tolerated grievance expression and criminalised collective contention under Xi Jinping. The state did not eliminate all forms of grievance expression. Citizens could still use some institutionalised channels of appeal. However, collective and politically sensitive participation became much more dangerous. Fu and Distelhorst (2018) argue that under Xi, repression shifted from fragmentation to consolidation, leaving less room for contentious participation. More specifically, they identify a change from sporadic harassment to criminalisation, from reactive to proactive repression, and from a social-stability frame to a national-security frame. This shift is crucial for understanding why 2022 looked so different from 1989. When open organisation, leadership, and collective claim-making are more likely to be criminalised, protest carries much greater risks. Against this background, the White Paper protests may have contributed to the rapid abandonment of zero-Covid, but this did not mean that the state accepted political dissent as legitimate. Under Xi's more preventive control environment, the state could make a policy concession while preventing protest from becoming organised, institutionalised, or connected to a wider reform agenda. In other words, the end of zero-Covid was a policy retreat, not a political opening.</p>
+
+        <h2>Conclusion</h2>
+        <p>A comparison between 1989 and 2022 is reasonable, as both movements demonstrate how discontent among urban Chinese citizens can acquire political significance. However, their value lies not in proving similarity, but in revealing transformation. The 1989 movement embodied a reformist imagination rooted in the later stages of reform and opening up: protesters could still speak relatively openly about anti-corruption, press freedom, dialogue, and political reform, although many hoped that change would come from within the Party. The 2022 White Paper protests, by contrast, took place in a more closed political environment. Their demands often began with the suffering caused by zero-Covid controls, but sometimes escalated into criticism of censorship, Xi Jinping, and the CCP. Unlike in 1989, however, this criticism appeared through scattered slogans, symbolic silence, and temporary, decentralised mobilisation, rather than through a coherent reform agenda. The blank paper precisely reflected this shift: it did not offer an alternative political blueprint, but instead exposed the severe constraints on political expression. Therefore, the evolution from 1989 to 2022 does not indicate depoliticisation, but rather shows that political discontent continued in a more subtle, defensive, and risk-sensitive form.</p>
+
+        <h2>References</h2>
+        <div class="references">
+            <p>Amnesty International. (2023, June 1). The hidden history of China's protest movement. <a href="https://www.amnesty.org/en/latest/news/2023/06/right-to-peaceful-protest-in-china-on-tiananmen-anniversary/" target="_blank" rel="noopener">amnesty.org</a></p>
+            <p>Boyd, A. (2022, December 7). Five slogans show protest movement's diversity, unity. China Digital Times. <a href="https://chinadigitaltimes.net/2022/12/five-slogans-show-protest-movements-diversity-unity/" target="_blank" rel="noopener">chinadigitaltimes.net</a></p>
+            <p>Brødsgaard, K. E., & Beck, K. I. (2023). The 20th Congress of the CCP: Personnel appointments and policy directions. Policy Brief / China Horizons. https://doi.org/10.22439/101061700_1</p>
+            <p>Brown, J. (2021). June Fourth: The Tiananmen protests and Beijing massacre of 1989. Cambridge University Press. https://doi.org/10.1017/9781107323728</p>
+            <p>Buckley, C., & Wu, A. (2018, March 10). Ending term limits for China's Xi is a big deal. Here's why. The New York Times. <a href="https://www.nytimes.com/2018/03/10/world/asia/china-xi-jinping-term-limit-explainer.html" target="_blank" rel="noopener">nytimes.com</a></p>
+            <p>Calhoun, C. (1994). Neither gods nor emperors: Students and the struggle for democracy in China. University of California Press. https://doi.org/10.2307/jj.5973190</p>
+            <p>Davidson, H. (2022, November 28). China Covid protests explained: Why are people demonstrating and what will happen next? The Guardian. <a href="https://www.theguardian.com/world/2022/nov/28/china-protests-explained-why-are-people-demonstrating-blank-piece-white-paper-a4-what-will-happen-next-zero-covid-policy-protest" target="_blank" rel="noopener">theguardian.com</a></p>
+            <p>Freedom House. (2023). Freedom on the Net 2023: China. <a href="https://freedomhouse.org/country/china/freedom-net/2023" target="_blank" rel="noopener">freedomhouse.org</a></p>
+            <p>Fu, D., & Distelhorst, G. (2018). Grassroots participation and repression under Hu Jintao and Xi Jinping. The China Journal, 79, 100–122. https://doi.org/10.1086/694299</p>
+            <p>Guo, G. (2005). Party recruitment of college students in China. Journal of Contemporary China, 14(43), 371–393. https://doi.org/10.1080/10670560500065504</p>
+            <p>Human Rights Watch. (2023, November 19). China: Allow commemorations of "White Paper" protests. <a href="https://www.hrw.org/news/2023/11/19/china-allow-commemorations-white-paper-protests" target="_blank" rel="noopener">hrw.org</a></p>
+            <p>Lawler, D., & Chen, H. (2022, November 28). How a blank piece of paper became the symbol of China's protests. Axios. <a href="https://www.axios.com/2022/11/28/china-protests-blank-paper-covid" target="_blank" rel="noopener">axios.com</a></p>
+            <p>Nathan, A. J. (2001). The Tiananmen papers. Foreign Affairs, 80(1), 2–48. https://doi.org/10.2307/20050041</p>
+            <p>Perrigo, B. (2022, December 1). Why a blank sheet of paper became a protest symbol in China. TIME. <a href="https://time.com/6238050/china-protests-censorship-urumqi-a4/" target="_blank" rel="noopener">time.com</a></p>
+            <p>Pollard, M. Q. (2022, December 2). 'Don't yell that': Fears compete with calls for 'freedom' at China protests. Reuters. <a href="https://www.reuters.com/world/china/dont-yell-that-fears-compete-with-calls-freedom-china-protests-2022-12-02/" target="_blank" rel="noopener">reuters.com</a></p>
+            <p>Pollard, M. Q., & Goh, B. (2022, November 28). Blank sheets of paper become symbol of defiance in China protests. Reuters. <a href="https://www.reuters.com/world/china/blank-sheets-paper-become-symbol-defiance-china-protests-2022-11-27/" target="_blank" rel="noopener">reuters.com</a></p>
+            <p>Shirk, S. L. (2018). China in Xi's "new era": The return to personalistic rule. Journal of Democracy, 29(2), 22–36. https://doi.org/10.1353/jod.2018.0022</p>
+            <p>Snow, D. A., & Benford, R. D. (1988). Ideology, frame resonance, and participant mobilization. International Social Movement Research, 1, 197–217.</p>
+            <p>Walder, A. G., & Gong, X. (1993). Workers in the Tiananmen protests: The politics of the Beijing Workers' Autonomous Federation. The Australian Journal of Chinese Affairs, 29, 1–29. https://doi.org/10.2307/2949950</p>
+            <p>Yan, X. (2014). Engineering stability: Authoritarian political control over university students in post-Deng China. The China Quarterly, 218, 493–513. https://doi.org/10.1017/S0305741014000332</p>
+        </div>
+
+        <!-- Outro Section (calls for submissions) -->
+        <div style="margin-top: 3rem; padding: 2rem; background: #faf7f0; border-radius: 20px; text-align: center; border-left: 5px solid var(--china-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <h3 style="color: var(--kcl-red); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">✍️ Share Your Voice</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 1rem; color: #555;">Red Thread welcomes submissions from all KCL students.</p>
+            <p style="font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 450px; margin-left: auto; margin-right: auto;">Whether you're writing about politics, culture, economy, or history — we want to hear from you.</p>
+            <a href="mailto:k23008291@kcl.ac.uk?subject=Article%20Submission%20for%20KCL%20China%20Review" style="display: inline-block; background: var(--china-gold); color: #1e1e1e; padding: 0.7rem 2rem; border-radius: 40px; text-decoration: none; font-weight: 600; transition: transform 0.2s, background 0.2s;">📧 Submit Your Article →</a>
+            <p style="font-size: 0.8rem; margin-top: 1.5rem; color: #888;">Questions? Reach us at <a href="mailto:k23008291@kcl.ac.uk" style="color: var(--kcl-red); text-decoration: none; font-weight: 500;">k23008291@kcl.ac.uk</a></p>
+        </div>
+
+        <a href="publications.html" class="back-link">← Back to Publications</a>
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Red Thread &mdash; brought to you by the KCL China Studies Society, King's College London</p>
+    </div>
+</footer>
+
+
+
+<script>
+(function(){
+    var btn = document.getElementById('theme-toggle');
+    var icon = document.getElementById('theme-icon');
+    var SUN_ICON = '<circle cx="12" cy="12" r="4.2"/><g stroke="#fff" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="3.5"/><line x1="12" y1="20.5" x2="12" y2="22.5"/><line x1="3.5" y1="12" x2="1.5" y2="12"/><line x1="22.5" y1="12" x2="20.5" y2="12"/><line x1="18.7" y1="5.3" x2="17.3" y2="6.7"/><line x1="6.7" y1="17.3" x2="5.3" y2="18.7"/><line x1="18.7" y1="18.7" x2="17.3" y2="17.3"/><line x1="6.7" y1="6.7" x2="5.3" y2="5.3"/></g>';
+    var MOON_ICON = '<path d="M20.6 15.3A8.5 8.5 0 019.7 4.4a8.5 8.5 0 1010.9 10.9z"/>';
+    function applyIcon(){
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (icon) icon.innerHTML = isDark ? MOON_ICON : SUN_ICON;
+    }
+    applyIcon();
+    if (btn) {
+        btn.addEventListener('click', function(){
+            var root = document.documentElement;
+            var isDark = root.getAttribute('data-theme') === 'dark';
+            if (isDark) { root.removeAttribute('data-theme'); }
+            else { root.setAttribute('data-theme', 'dark'); }
+            try { localStorage.setItem('kcl-article-theme', isDark ? 'light' : 'dark'); } catch(e){}
+            applyIcon();
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

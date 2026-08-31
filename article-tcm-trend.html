@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCM, TikTok, and Soft Power | Red Thread</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400;1,8..60,600&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #fefcf5; color: #1e1e1e; line-height: 1.6; }
+        :root { --kcl-red: #9b1b30; --china-gold: #d4af37; --dark-bg: #2c2c2c; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+        nav {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .logo { font-weight: 800; font-size: 1.4rem; color: var(--kcl-red); }
+        .logo span { color: var(--china-gold); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: #333; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--kcl-red); }
+        .article-header {
+            background: linear-gradient(135deg, var(--kcl-red) 0%, #6e1223 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .article-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .article-meta { font-size: 0.9rem; opacity: 0.9; }
+        .article-content { padding: 3rem 0; }
+        .article-content h2 { color: var(--kcl-red); margin: 2rem 0 1rem; font-size: 1.6rem; }
+        .article-content h3 { color: var(--kcl-red); margin: 1.5rem 0 0.75rem; font-size: 1.2rem; }
+        .article-content p { margin-bottom: 1rem; }
+        .article-content ul { margin: 1rem 0 1.5rem 1.5rem; }
+        .article-content ul li { margin-bottom: 0.5rem; }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .article-content table th {
+            background: var(--kcl-red);
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .article-content table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #eee;
+        }
+        .article-content table tr:nth-child(even) { background: #f9f7f0; }
+        .pull-quote {
+            color: var(--kcl-red);
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.4;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 0 1rem;
+            font-style: italic;
+            letter-spacing: -0.3px;
+        }
+        .back-link { display: inline-block; margin-top: 2rem; color: var(--kcl-red); text-decoration: none; font-weight: 500; }
+        .outro-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #faf7f0;
+            border-radius: 20px;
+            text-align: center;
+            border-left: 5px solid var(--china-gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .outro-section h3 { color: var(--kcl-red); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .outro-section p { font-size: 0.95rem; margin-bottom: 1rem; color: #555; }
+        .btn-submit {
+            display: inline-block;
+            background: var(--china-gold);
+            color: #1e1e1e;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn-submit:hover { background: #c2a030; transform: translateY(-2px); }
+        footer {
+            background: var(--dark-bg);
+            color: #ccc;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 1rem; }
+            .nav-links { gap: 1rem; justify-content: center; }
+            .article-header h1 { font-size: 1.8rem; }
+            .article-content table { font-size: 0.8rem; }
+            .article-content table th, .article-content table td { padding: 0.5rem; }
+        }
+    </style>
+
+<style id="kcl-theme-system">
+    :root {
+        --bg: #fef7e8;
+        --ink: #2c3a47;
+        --muted-ink: #5c6e77;
+        --faint-ink: #8a7a5f;
+        --card-bg: #f2e8cf;
+        --card-border: #d9c7a7;
+        --rule: #d9c7a7;
+        --nav-bg: rgba(254,247,232,0.94);
+        --deep-red: #9e3c2c;
+        --deep-red-hover: #7c2f22;
+        --accent-teal: #2f5d5a;
+    }
+
+    :root[data-theme="dark"] {
+        --bg: #1c1712;
+        --ink: #f2e8cf;
+        --muted-ink: #c9baa0;
+        --faint-ink: #a3927a;
+        --card-bg: #2a2118;
+        --card-border: #4a3a28;
+        --rule: #4a3a28;
+        --nav-bg: rgba(28,23,18,0.94);
+        --deep-red: #c65a42;
+        --deep-red-hover: #e07456;
+        --accent-teal: #4a8a85;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        background-color: var(--bg) !important;
+        color: var(--ink) !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav {
+        background: var(--nav-bg) !important;
+        border-bottom: 1px solid var(--rule) !important;
+        box-shadow: none !important;
+        backdrop-filter: blur(6px);
+    }
+
+    .logo {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.01em;
+        color: var(--ink) !important;
+    }
+    .logo span { color: var(--deep-red) !important; }
+
+    .nav-links a {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.72rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink) !important;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 2px;
+        transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .nav-links a:hover {
+        color: var(--accent-teal) !important;
+        border-bottom-color: var(--accent-teal);
+    }
+
+    /* ---- Masthead-style article header: plain ground, kicker, serif headline, rule ---- */
+    .article-header {
+        background: var(--bg) !important;
+        color: var(--ink) !important;
+        text-align: left !important;
+        padding: 3rem 0 2rem !important;
+        border-bottom: 3px solid var(--rule);
+    }
+    .article-header h1 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        font-weight: 700 !important;
+        color: var(--ink) !important;
+        line-height: 1.12 !important;
+        letter-spacing: -0.01em;
+    }
+    .article-meta {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.85rem !important;
+        font-style: normal !important;
+        color: var(--muted-ink) !important;
+        opacity: 1 !important;
+        margin-top: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .article-content { background: var(--bg); }
+    .article-content h2,
+    .article-content h3,
+    .article-content h4 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+        font-weight: 700 !important;
+        border-top: 1px solid var(--rule);
+        padding-top: 1rem;
+    }
+    .article-content p {
+        color: var(--ink) !important;
+        font-size: 1.08rem;
+        line-height: 1.75;
+    }
+    .article-content a { color: var(--deep-red) !important; }
+    .article-content a:hover { color: var(--deep-red-hover) !important; }
+
+    .pull-quote {
+        color: var(--ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        border-top: 1px solid var(--deep-red);
+        border-bottom: 1px solid var(--deep-red);
+        padding: 1.25rem 0 !important;
+    }
+
+    .back-link {
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--deep-red) !important;
+    }
+
+    footer {
+        background: var(--bg) !important;
+        color: var(--faint-ink) !important;
+        border-top: 3px solid var(--rule);
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 0.03em;
+    }
+
+    .theme-toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid var(--card-border);
+        background: var(--bg);
+        padding: 0;
+        cursor: pointer;
+        margin-left: 0.5rem;
+        flex-shrink: 0;
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .theme-toggle:hover { border-color: var(--deep-red); }
+    .theme-toggle .knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--deep-red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    :root[data-theme="dark"] .theme-toggle .knob {
+        transform: translateX(24px);
+        background: var(--accent-teal);
+    }
+    .theme-toggle .knob svg { width: 13px; height: 13px; display: block; }
+
+    /* ---- Class-based dark-mode fixes (structured outro/author markup) ---- */
+    .outro-section,
+    .author-bio {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+    .outro-section:hover,
+    .author-bio:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    .outro-section h3 {
+        font-family: 'Source Serif 4', Georgia, serif !important;
+        color: var(--ink) !important;
+    }
+    .outro-section p,
+    .author-bio .bio,
+    .references {
+        color: var(--muted-ink) !important;
+        font-family: 'Source Serif 4', Georgia, serif !important;
+    }
+    .author-bio .name { color: var(--ink) !important; font-family: 'Libre Franklin', sans-serif !important; }
+    .author-tag {
+        background: var(--deep-red) !important;
+        border-radius: 2px !important;
+    }
+    .author-tag span { color: #fff !important; }
+    .btn-submit,
+    a.btn-submit {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        font-family: 'Libre Franklin', sans-serif !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.03em;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    .btn-submit:hover,
+    a.btn-submit:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    /* ---- Inline-style dark-mode fixes (articles using an inline-styled outro div) ---- */
+    [style*="#faf7f0"] {
+        background: var(--card-bg) !important;
+        border-radius: 18px !important;
+        border-left: none !important;
+        border-top: 3px solid var(--deep-red) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+        transition: box-shadow 0.35s ease;
+    }
+    [style*="#faf7f0"]:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1) !important;
+    }
+    [style*="color: #555"],
+    [style*="color: #888"],
+    [style*="color: #444"] {
+        color: var(--muted-ink) !important;
+    }
+    a[href^="mailto"][style*="background"] {
+        background: var(--deep-red) !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        display: inline-block;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    a[href^="mailto"][style*="background"]:hover {
+        background: var(--deep-red-hover) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    }
+
+    @media (max-width: 768px) {
+        .nav-container { flex-wrap: wrap; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">Red <span>Thread</span></div>
+                <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#manifesto">About</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="submissions.html">Submissions</a></li>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="knob"><svg id="theme-icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"></svg></span></button>
+    </div>
+</nav>
+
+<header class="article-header">
+    <div class="container">
+        <h1>TCM, TikTok, and Soft Power</h1>
+        <div class="article-meta">Is the Viral Wellness Trend a Form of Cultural Influence or Just Consumerism? | Autumn 2026</div>
+    </div>
+</header>
+
+<article class="article-content">
+    <div class="container">
+
+        <p>Scroll through TikTok or Instagram for five minutes, and you will see it. A young woman in Brooklyn boiling goji berries. A British influencer applying moxibustion patches. A Chinese American blogger explaining why you should drink hot water. Traditional Chinese Medicine has taken over social media, and Gen Z is driving the trend.</p>
+
+        <p>But this is not just a wellness story. It also sits at the heart of China Studies. The TCM trend raises questions about cultural influence, soft power, and how Chinese traditions are received and reinterpreted abroad. Is this a genuine cultural exchange, or a consumer-driven phenomenon stripped of deeper meaning?</p>
+
+        <div class="pull-quote">
+            "TCM is not just trending. It is a case study in China's cultural influence."
+        </div>
+
+        <h2>The Numbers</h2>
+
+        <p>The figures speak for themselves. On TikTok alone, #GuaSha has accumulated over 4.7 billion views. Acupuncture related content has surpassed 2 billion views. The #TCM tag hosts more than 230,000 videos. One creator, Sherry Zhu, saw her video on drinking hot water rack up over 5.5 million views. Another, oldtown_acupuncturist, has built a following of over 580,000 people through acupuncture demonstrations and TCM education.</p>
+
+        <p>These are not niche numbers. They represent a mainstream cultural moment, one that raises questions about how Chinese culture is being received and reinterpreted globally.</p>
+
+        <h2>What Is Soft Power?</h2>
+
+        <p>Soft power is a concept coined by political scientist Joseph Nye. It refers to a country's ability to influence others through culture, values, and policies, rather than through coercion or payment. China has invested heavily in soft power through Confucius Institutes, cultural exchanges, and its "cultural confidence" policy. But some of its most effective soft power has emerged organically from the grassroots, often through platforms like TikTok and Xiaohongshu.</p>
+
+        <p>TCM is a particularly interesting case study. It is deeply embedded in Chinese civilisation, with roots in Daoist philosophy, herbal medicine, and holistic healing. Its sudden popularity on Western social media raises a key question. Is this a form of cultural exchange, or is it cultural extraction, where the aesthetics of TCM are consumed without the underlying philosophy?</p>
+
+        <h2>Three Engines Driving the Trend</h2>
+
+        <p>The online TCM boom can be understood through three distinct types of content. Each has a different relationship to Chinese culture.</p>
+
+        <h3>1. Chinamaxxing</h3>
+
+        <p>Young Westerners are actively imitating Chinese daily habits. Boiling water. Wearing slippers indoors. Drinking warm beverages. Eating congee for breakfast. The trend has a name: Chinamaxxing. It is playful, self aware, and surprisingly earnest.</p>
+
+        <p>What is notable here is that this is not driven by state actors or official cultural promotion. It is an organic engagement with Chinese lifestyle practices, driven by curiosity and a search for alternatives to Western norms. This is soft power from below, and it is arguably more effective than any official campaign.</p>
+
+        <h3>2. Chinese Wellness on Social Media</h3>
+
+        <p>Traditional wellness practices are being reinvented for digital audiences. On Xiaohongshu, China's Instagram equivalent, simple posts like "TCM advice: boil apple water" can get over 100,000 likes. AI generated videos of ancient physicians like Bian Que and Hua Tuo "come back to life" to give health tips, mixing humour with genuine advice. TCM night markets, where young people get free pulse diagnoses and acupuncture demos, have become weekend destinations in cities like Zhengzhou and Chengdu.</p>
+
+        <p>This is a hybrid form of cultural transmission. Ancient wisdom is remixed for a digital, global audience. It is both authentic and adapted, a kind of cultural translation that makes TCM accessible without always preserving its full philosophical depth.</p>
+
+        <h3>3. The Chinese Baddie Aesthetic</h3>
+
+        <p>This is the visual side of the trend. Think dewy skin, minimalist makeup, elegant clothing, and a lifestyle that looks calm and put together. Influencers like Sherry Zhu pioneered this aesthetic. Her video on hot water drinking got over 5.5 million views and made her a face of the movement.</p>
+
+        <p>But here lies the tension. Is this cultural appreciation or cultural extraction? The Chinese Baddie aesthetic draws heavily from Chinese visual culture, but often without reference to its philosophical or historical roots. It is the most commercialised aspect of the trend, and the most distant from the tradition it draws from.</p>
+
+        <h2>Soft Power or Consumer Power?</h2>
+
+        <p>China's official soft power strategy has long promoted TCM as a key pillar of cultural confidence. The state has supported TCM research, international exhibitions, and the establishment of TCM clinics abroad. Yet the current trend is largely organic, driven by creators, algorithms, and consumer demand, not by state policy.</p>
+
+        <p>This raises an important question. Does a trend driven primarily by consumer power count as soft power? If TCM is reduced to viral aesthetics and detox teas, then it might be better described as consumer power, where China's culture is consumed as a product rather than understood as a tradition.</p>
+
+        <p>For soft power to be meaningful, it requires not just visibility, but understanding and respect for the culture behind the practice. The TCM trend succeeds on visibility, but often fails on depth. This is the tension at the heart of the phenomenon.</p>
+
+        <h2>What Experts Say</h2>
+
+        <p>The trend has drawn both enthusiasm and caution from those working at the intersection of traditional medicine and modern healthcare.</p>
+
+        <p>Some practitioners welcome the visibility. TCM practitioners have said that any attention on the field can only help, as long as it encourages genuine engagement rather than superficial consumption. Others worry that the online trend reduces a complete philosophical system to a set of viral aesthetics.</p>
+
+        <p>Academics have noted that the internationalisation of TCM reflects a broader cultural shift. China has long promoted traditional medicine as part of its heritage, and its growing global presence aligns with efforts to use culture as a form of soft power. The appeal of TCM abroad is not simply about health. It is also about a search for meaning, tradition, and alternatives to Western biomedical models.</p>
+
+        <p>Meanwhile, the medical establishment remains divided. A 2025 commentary in The Lancet noted that while traditional medicine is used by a significant portion of the global population, it receives less than 1% of research funding. The gap between popular enthusiasm and clinical evidence remains wide. Some researchers have called for more rigorous trials before TCM is fully integrated into mainstream healthcare.</p>
+
+        <p>What unites these perspectives is the recognition that TCM is no longer a niche practice. It has become a global cultural phenomenon, whether viewed as soft power, consumerism, or a genuine wellness movement.</p>
+
+        <h2>The Commercialisation of Culture</h2>
+
+        <p>Social media buzz has translated into real revenue. Nin Jiom Pei Pa Koa, a cough syrup, generates 635 million yuan in annual overseas sales. ULucky, a moxibustion heating belt, hit a peak daily revenue of 400,000 yuan. WTHN, a London based TCM brand, secured $5 million in investment from LVMH.</p>
+
+        <p>This commercialisation raises uncomfortable questions. When a philosophical system becomes a product, is its meaning preserved or eroded? The answer is likely both. Commercialisation has made TCM accessible to a global audience, but it has also stripped it of context, reducing it to a set of consumable practices.</p>
+
+        <h2>The Skeptics' View</h2>
+
+        <ul>
+            <li><strong>It is just consumerism.</strong> TCM themed cafes charge £6 for goji lattes. The same corporations that sold you fast fashion now sell you "ancient wisdom."</li>
+            <li><strong>It is cultural appropriation.</strong> TCM is a complete philosophical system, not just a collection of products. Reducing it to "hot water and goji berries" risks stripping it of meaning.</li>
+            <li><strong>The evidence is weak.</strong> A 2025 Lancet study found that only 20% of TCM therapies have strong clinical evidence. For those who want science based medicine, TCM feels like a step backward.</li>
+        </ul>
+
+        <h2>Why It Might Stick</h2>
+
+        <p>Despite the skepticism, TCM's online appeal has staying power. It offers control when healthcare feels impersonal. It offers connection to tradition in an age of loneliness. And it offers a window into Chinese culture, one that is accessible, visual, and engaging, even if imperfect.</p>
+
+        <p>For China Studies students, this trend is worth watching. It is not just a wellness fad. It is a case study in how Chinese culture is being received, adapted, and sometimes misunderstood in the globalised world.</p>
+
+        <h2>What This Tells Us About China and the World</h2>
+
+        <p>The TCM trend is not just about wellness. It is about how Chinese culture travels across borders, how it is consumed and reimagined by global audiences, and how tradition and commercialisation intersect in the digital age.</p>
+
+        <p>Whether this is soft power, cultural exchange, or consumerism, one thing is clear. China's traditions are no longer confined to China. They are being discovered, debated, and reshaped by a generation searching for meaning, connection, and alternatives to the world they inherited.</p>
+
+        <p><em>Follow us on Instagram <strong>@KCLChinaStudies</strong> for events, discussions, and more conversations about China, culture, and the future.</em></p>
+
+        <div class="outro-section">
+            <h3>✍️ Share Your Voice</h3>
+            <p>Red Thread welcomes submissions from all KCL students. Whether you're writing about politics, culture, economy, or history, we want to hear from you.</p>
+            <a href="mailto:k23008291@kcl.ac.uk?subject=Article%20Submission%20for%20KCL%20China%20Review" class="btn-submit">📧 Submit Your Article →</a>
+            <p style="font-size: 0.8rem; margin-top: 1rem; color: #888;">Questions? Reach us at <a href="mailto:k23008291@kcl.ac.uk" style="color: var(--kcl-red); text-decoration: none; font-weight: 500;">k23008291@kcl.ac.uk</a></p>
+        </div>
+
+        <a href="publications.html" class="back-link">← Back to Publications</a>
+
+    </div>
+</article>
+
+<footer>
+    <div class="container">
+        <p>Red Thread — brought to you by the KCL China Studies Society, King's College London</p>
+    </div>
+</footer>
+
+
+
+<script>
+(function(){
+    var btn = document.getElementById('theme-toggle');
+    var icon = document.getElementById('theme-icon');
+    var SUN_ICON = '<circle cx="12" cy="12" r="4.2"/><g stroke="#fff" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1.5" x2="12" y2="3.5"/><line x1="12" y1="20.5" x2="12" y2="22.5"/><line x1="3.5" y1="12" x2="1.5" y2="12"/><line x1="22.5" y1="12" x2="20.5" y2="12"/><line x1="18.7" y1="5.3" x2="17.3" y2="6.7"/><line x1="6.7" y1="17.3" x2="5.3" y2="18.7"/><line x1="18.7" y1="18.7" x2="17.3" y2="17.3"/><line x1="6.7" y1="6.7" x2="5.3" y2="5.3"/></g>';
+    var MOON_ICON = '<path d="M20.6 15.3A8.5 8.5 0 019.7 4.4a8.5 8.5 0 1010.9 10.9z"/>';
+    function applyIcon(){
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (icon) icon.innerHTML = isDark ? MOON_ICON : SUN_ICON;
+    }
+    applyIcon();
+    if (btn) {
+        btn.addEventListener('click', function(){
+            var root = document.documentElement;
+            var isDark = root.getAttribute('data-theme') === 'dark';
+            if (isDark) { root.removeAttribute('data-theme'); }
+            else { root.setAttribute('data-theme', 'dark'); }
+            try { localStorage.setItem('kcl-article-theme', isDark ? 'light' : 'dark'); } catch(e){}
+            applyIcon();
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

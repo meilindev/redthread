@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Red Thread | KCL China Studies Society</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --kcl-red: #d4425f;
+            --kcl-red-deep: #9b1b30;
+            --china-gold: #c9a86a;
+            --gold-light: #f5e7b2;
+            --bg: #07080c;
+            --bg-alt: #0c0e15;
+            --card: rgba(255,255,255,0.035);
+            --card-border: rgba(255,255,255,0.09);
+            --text: #eceaf0;
+            --muted: #9b9aa8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 span {
+            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            background: rgba(7,8,12,0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--card-border);
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: 'Libre Franklin', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            font-size: 1.3rem;
+            color: var(--text);
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .page-header {
+            background: radial-gradient(ellipse at 50% -20%, #241019 0%, var(--bg) 60%);
+            color: white;
+            padding: 9rem 0 3.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--muted);
+        }
+
+        /* Filter & Sort Controls */
+        .filter-bar {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+            backdrop-filter: blur(6px);
+        }
+
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .cat-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cat-btn.active {
+            background: linear-gradient(90deg, var(--china-gold), #e0b93f);
+            border-color: transparent;
+            color: #17130a;
+            font-weight: 600;
+        }
+
+        .sort-search {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--china-gold);
+        }
+
+        select, input {
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid var(--card-border);
+            font-family: 'Inter', sans-serif;
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+
+        select option {
+            background: var(--bg-alt);
+            color: var(--text);
+        }
+
+        input::placeholder {
+            color: var(--muted);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-box input {
+            width: 100%;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 1rem 0 3rem 0;
+        }
+
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(6px);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212,175,55,0.4);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .article-meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .article-category {
+            display: inline-block;
+            background: rgba(212,175,55,0.15);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--china-gold);
+        }
+
+        .article-excerpt {
+            font-size: 0.9rem;
+            color: #c7c6d1;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--china-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .read-more:hover {
+            color: var(--kcl-red);
+        }
+
+        .back-home {
+            text-align: center;
+            margin: 2rem 0 3rem;
+        }
+
+        .back-home a {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--kcl-red-deep), var(--kcl-red));
+            color: white;
+            padding: 0.75rem 1.8rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+
+        .back-home a:hover {
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background:
+                linear-gradient(115deg, rgba(155,27,48,0.16) 0%, transparent 42%),
+                linear-gradient(255deg, rgba(80,35,105,0.20) 0%, transparent 45%),
+                var(--bg);
+            color: var(--muted);
+            padding: 4rem 0 2.5rem;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+        }
+
+        footer .container { max-width: 1200px; }
+
+        footer a {
+            color: var(--china-gold);
+            text-decoration: none;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-brand img { height: 34px; width: auto; }
+
+        .footer-brand span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text);
+        }
+
+        .footer-desc {
+            color: var(--muted);
+            font-size: 0.95rem;
+            max-width: 430px;
+            line-height: 1.75;
+        }
+
+        .footer-copy {
+            margin-top: 1.75rem;
+            font-size: 0.8rem;
+            color: #6f6e7c;
+        }
+
+        .footer-col h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col address {
+            font-style: normal;
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.9;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-connect-note {
+            margin-top: 1.1rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 260px;
+        }
+
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--card-border);
+            color: var(--muted);
+            transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+        }
+
+        .social-btn:hover {
+            background: rgba(212,175,55,0.14);
+            border-color: var(--china-gold);
+            color: var(--china-gold);
+            transform: translateY(-2px);
+        }
+
+        .social-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .sort-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">Red <span>Thread</span></div>
+                <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#manifesto">About</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="submissions.html">Submissions</a></li>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="page-header">
+    <div class="container">
+        <h1>Red <span class="hero-gradient-text" style="background: linear-gradient(90deg, var(--china-gold), var(--kcl-red)); -webkit-background-clip: text; background-clip: text; color: transparent;">Thread</span></h1>
+        <p>Past publications from our student-run academic journal, brought to you by the KCL China Studies Society</p>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Filter & Sort Controls -->
+    <div class="filter-bar">
+        <div class="category-buttons" id="category-buttons">
+            <!-- Buttons will be added by JavaScript -->
+        </div>
+        <div class="sort-search">
+            <div class="filter-group">
+                <label>Sort by:</label>
+                <select id="sort-select">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="author">Author A-Z</option>
+                </select>
+            </div>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search by title or author...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Articles Grid -->
+    <div id="articles-grid" class="articles-grid"></div>
+
+    <div class="back-home">
+        <a href="index.html">← Back to Home</a>
+    </div>
+</div>
+
+<script>
+    const navEl = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        navEl.classList.toggle('scrolled', window.scrollY > 20);
+    });
+</script>
+
+<footer id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">
+                    <img src="images/logo.png" alt="KCL China Studies Society">
+                    <span>KCL CHINA REVIEW</span>
+                </div>
+                <p class="footer-desc">The student-led China Studies Society at King's College London, supported by the Lau China Institute. Open to anyone seeking a clearer understanding of China in the modern world.</p>
+                <p class="footer-copy">&copy; 2026 KCL China Studies. All rights reserved</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Society Headquarters</h4>
+                <address>
+                    Strand, London.<br>
+                    King's College London<br>
+                    WC2B 4BG London UK
+                </address>
+            </div>
+
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <div class="social-row">
+                    <a class="social-btn" href="https://instagram.com/KCLChinaStudies" target="_blank" rel="noopener noreferrer" title="@KCLChinaStudies on Instagram" aria-label="KCL China Studies on Instagram">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z"/></svg>
+                    </a>
+                    <a class="social-btn" href="https://instagram.com/KCLChinaReview" target="_blank" rel="noopener noreferrer" title="@KCLChinaReview on Instagram" aria-label="KCL China Review on Instagram">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h11a3 3 0 013 3v14a3 3 0 01-3 3H6a2 2 0 01-2-2V4a2 2 0 012-2zm0 2v16h11a1 1 0 001-1V5a1 1 0 00-1-1H6zm2 3h9v1.6H8V7zm0 3.6h9v1.6H8v-1.6zm0 3.6h6v1.6H8v-1.6z"/></svg>
+                    </a>
+                    <a class="social-btn" href="https://www.linkedin.com/company/the-kcl-china-studies-society/" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.06c.53-.95 1.83-1.96 3.76-1.96 4.02 0 4.76 2.5 4.76 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.19 1.47-2.19 2.99V21h-4V9z"/></svg>
+                    </a>
+                    <a class="social-btn" href="mailto:k23008291@kcl.ac.uk" title="Email us" aria-label="Email us">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1zm9 7.2L4.4 7H3v.4l9 6.2 9-6.2V7h-1.4L12 12.2z"/></svg>
+                    </a>
+                </div>
+                <p class="footer-connect-note">For submissions, collaborations, or general inquiries, email us directly or reach out on Instagram.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Article data with categories
+    const articlesData = [
+        {
+    title: "China in Algeria: Contracts, Finance and Flagship Projects",
+    author: "Mariam Benamer",
+    date: "2026-08-28",
+    category: "Economy",
+    excerpt: "An interactive dashboard on 27 years of Chinese construction and development finance in Algeria, showing why Africa's largest market for Chinese contractors carries almost none of the debt exposure usually associated with them.",
+    link: "china-algeria/"
+},
+        {
+            title: "Winning the Consumer AI Promotion War",
+            author: "Mariam Benamer",
+            date: "2026-02-25",
+            category: "Technology",
+            excerpt: "How Doubao reshaped China's LLM race, beyond technical spec, and instead into real people and real usage.",
+            link: "article-ai-war.html"
+        },
+        {
+    title: "When the EU Competition Law Meets Chinese State-Platform Capitalism",
+    author: "Emilija Žebrauskaitė",
+    date: "2026-08-27",
+    category: "Politics",
+    excerpt: "Examining the JD.com–Ceconomy case as the first real test of whether the EU's Foreign Subsidies Regulation can be enforced against Chinese state-platform capitalism.",
+    link: "article-eu-china-competition.html"
+},
+        {
+    title: "RMB Internationalisation After the 2008 Crisis: Pragmatism and Intentional Restraint",
+    author: "Mariam Benamer",
+    date: "2026-08-25",
+    category: "Economy",
+    excerpt: "Examining China's cautious and selective renminbi internationalisation policies after the 2008 financial crisis and the deliberate policy restraint that shaped the RMB's global development.",
+    link: "article-rmb-internationalisation.html"
+},
+        {
+    title: "How TCM Took Over Your Feed: Inside the Viral Wellness Trend",
+    author: "Mariam Benamer",
+    date: "2026-08-02",
+    category: "Culture",
+    excerpt: "Exploring the rise of Traditional Chinese Medicine on social media and why Gen Z is driving the trend.",
+    link: "article-tcm-trend.html"
+},
+        {
+            title: "Should stop President Xi Jinping going on about national humiliation?",
+            author: "Hannah Zou",
+            date: "2026-02-27",
+            category: "History",
+            excerpt: "Exploring whether President Xi Jinping should continue wielding the national humiliation narrative and assesses how useful it is for himself, the party, and the country.",
+            link: "article-humiliation.html"
+        },
+        {
+    title: "Relations at 50: From Asymmetric Partnership to Managed Rivalry",
+    author: "Mariam Benamer",
+    date: "2026-04-13",      // YYYY-MM-DD format
+    category: "Politics",
+    excerpt: "Exploring Germany-China’s 50-year diplomatic shift from asymmetric partnership to managed rivalry, analysing productivity concerns, industrial competition and EU tensions.",
+    link: "article-merz.html"
+},
+        {
+            title: "From a Summer of Voices to a Winter of Silence: Political Imagination and Repertoires of Contention in China's 1989 and 2022 Protests",
+            author: "Eden Wang",
+            date: "2026-08-10",
+            category: "Politics",
+            excerpt: "From mourning a fallen leader in 1989 to holding up a blank sheet of paper in 2022 — what changed in how Chinese citizens express political dissent?",
+            link: "article-protest.html"
+        },
+        {
+    title: "Automation, AI & Employment: A Comparative Study of the United States and China",
+    author: "Mevis Tan Qian Ying",
+    date: "2026-08-25",
+    category: "Economy",
+    excerpt: "Examining how automation and AI are reshaping employment structures differently in the US and China, and what this means for the future of work.",
+    link: "article-ai-automation-us-china.html"
+},
+          {
+            title: "Beyond “Made in China”: The Rise of China’s Consumer Economy",
+            author: "Catherine Omartins",
+            date: "2026-08-15",
+            category: "Economy",
+            excerpt: "From mourning a fallen leader in 1989 to holding up a blank sheet of paper in 2022 — what changed in how Chinese citizens express political dissent?",
+            link: "article-consumer-economy.html"
+        },
+        {
+    title: "AI for the Global South? China's Bid for Leadership in Global AI Governance",
+    author: "Li Yang and Long Ting",
+    date: "2026-08-20",
+    category: "Politics",
+    excerpt: "Examining China's overseas AI engagement, policy risks, and the question of whether partner countries can turn external investment into durable domestic capacity.",
+    link: "article-ai-global-south.html"
+},
+];
+    // Define available categories (order matters for display)
+    const categories = ["All", "Politics", "Economy", "Culture", "Travel", "History", "Technology", "Environment"];
+
+    let activeCategory = "All";
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderCategoryButtons() {
+        const container = document.getElementById('category-buttons');
+        container.innerHTML = categories.map(cat => `
+            <button class="cat-btn ${cat === activeCategory ? 'active' : ''}" data-category="${cat}">${escapeHtml(cat)}</button>
+        `).join('');
+        
+        // Attach event listeners
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeCategory = btn.dataset.category;
+                renderCategoryButtons();
+                renderArticles();
+            });
+        });
+    }
+
+    function renderArticles() {
+        let filtered = [...articlesData];
+        
+        // Filter by category
+        if (activeCategory !== "All") {
+            filtered = filtered.filter(article => article.category === activeCategory);
+        }
+        
+        // Search filter
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        if (searchTerm) {
+            filtered = filtered.filter(article => 
+                article.title.toLowerCase().includes(searchTerm) || 
+                article.author.toLowerCase().includes(searchTerm)
+            );
+        }
+        
+        // Sort
+        const sortBy = document.getElementById('sort-select').value;
+        if (sortBy === 'newest') {
+            filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else if (sortBy === 'oldest') {
+            filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+        } else if (sortBy === 'author') {
+            filtered.sort((a, b) => a.author.localeCompare(b.author));
+        }
+        
+        const grid = document.getElementById('articles-grid');
+        if (filtered.length === 0) {
+            grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 3rem;">No articles found. Try adjusting filters.</p>';
+            return;
+        }
+        
+        grid.innerHTML = filtered.map(article => `
+            <div class="article-card">
+                <div class="article-content">
+                    <div class="article-title">${escapeHtml(article.title)}</div>
+                    <div class="article-meta">
+                        <span>${escapeHtml(article.date.split('-').reverse().join('/'))}</span>
+                        <span>By ${escapeHtml(article.author)}</span>
+                        <span class="article-category">${escapeHtml(article.category)}</span>
+                    </div>
+                    <div class="article-excerpt">${escapeHtml(article.excerpt)}</div>
+                    <a href="${escapeHtml(article.link)}" class="read-more">Read more →</a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCategoryButtons();
+        renderArticles();
+        
+        document.getElementById('sort-select').addEventListener('change', renderArticles);
+        document.getElementById('search-input').addEventListener('input', renderArticles);
+    });
+</script>
+
+</body>
+</html>
