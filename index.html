@@ -674,6 +674,80 @@
             line-height: 1.75;
         }
 
+        /* ---------- SUBMIT CTA ---------- */
+        .submit-cta {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            background:
+                radial-gradient(ellipse at 50% 120%, rgba(212,175,55,0.10) 0%, transparent 60%),
+                var(--bg);
+        }
+
+        .cta-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            animation: cta-pulse 7s ease-in-out infinite;
+        }
+
+        .cta-glow.g1 {
+            width: 420px; height: 420px;
+            background: rgba(155,27,48,0.32);
+            top: -140px; left: -100px;
+        }
+
+        .cta-glow.g2 {
+            width: 380px; height: 380px;
+            background: rgba(212,175,55,0.16);
+            bottom: -160px; right: -100px;
+            animation-delay: -3.5s;
+        }
+
+        @keyframes cta-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.18); opacity: 0.75; }
+        }
+
+        .submit-cta h2 {
+            font-size: clamp(1.8rem, 4.2vw, 2.9rem);
+            max-width: 720px;
+            margin: 0 auto 1.25rem;
+            line-height: 1.15;
+        }
+
+        .submit-cta h2:after { display: none; }
+
+        .submit-cta .lead {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--muted);
+            max-width: 640px;
+            margin: 0 auto 1rem;
+            line-height: 1.75;
+        }
+
+        .submit-cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .btn-ghost {
+            background: rgba(255,255,255,0.04);
+            color: var(--text);
+            border: 1px solid var(--card-border);
+            box-shadow: none;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--china-gold);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.2);
+        }
+
         /* ---------- FOOTER ---------- */
         footer {
             background:
@@ -929,6 +1003,26 @@
     </div>
 </section>
 
+<div class="marquee-wrap">
+    <div class="marquee-track" id="marquee-track-2">
+        <!-- populated by JS from the real Topics of Interest, duplicated for seamless loop -->
+    </div>
+</div>
+
+<section class="submit-cta">
+    <span class="cta-glow g1"></span>
+    <span class="cta-glow g2"></span>
+    <div class="container reveal">
+        <span class="eyebrow">Write For Us</span>
+        <h2>We'd Love to Hear From You</h2>
+        <p class="lead">Got a perspective on China's politics, economy, culture or history? Red Thread is always looking for new student voices — whether it's your first piece or your fifth.</p>
+        <div class="submit-cta-buttons">
+            <a href="publications.html" class="btn btn-ghost">See Past Publications →</a>
+            <a href="submissions.html" class="btn">How to Submit →</a>
+        </div>
+    </div>
+</section>
+
 <section id="events" class="section-alt">
     <div class="container reveal">
         <span class="eyebrow">What's On</span>
@@ -1045,6 +1139,14 @@
     const track = document.getElementById('marquee-track');
     const loopTopics = [...topics, ...topics];
     track.innerHTML = loopTopics.map(t => `<span>${t}</span><span class="dot">•</span>`).join('');
+
+    const topics2 = [
+        "Culture & Society", "History & Memory", "Technology & Environment",
+        "Travel & Regional Studies", "Politics & Governance", "Economy & Trade"
+    ];
+    const track2 = document.getElementById('marquee-track-2');
+    const loopTopics2 = [...topics2, ...topics2];
+    track2.innerHTML = loopTopics2.map(t => `<span>${t}</span><span class="dot">•</span>`).join('');
 
     // Endorsement card: subtle 3D tilt following the cursor
     (function () {
