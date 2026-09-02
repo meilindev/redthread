@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Headline or Fake? | Red Thread</title>
+    <meta name="description" content="Can you spot the real China news headline from the fake one? A quick media-literacy game from Red Thread." />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================================
+           ROOT VARIABLES — Nomad Earth Palette (matches 56 Blossoms / Timeline Sort)
+           ============================================================ */
+        :root {
+            --sand: #E8DDD0;
+            --clay: #A68B7A;
+            --steppe: #3A5A40;
+            --moss: #588157;
+            --sage: #A3B18A;
+            --cream: #FAF7F2;
+            --terracotta: #B4654A;
+            --gold: #C9A96E;
+            --charcoal: #2C2C1E;
+            --text-muted: #6A6A5A;
+            --shadow: 0 12px 40px rgba(58, 90, 64, 0.10);
+            --radius: 28px;
+            --transition: 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+        .bg-blobs span { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.45; animation: drift 26s ease-in-out infinite; }
+        .bg-blobs span:nth-child(1) { width: 420px; height: 420px; background: var(--sage); top: -120px; left: -100px; animation-duration: 24s; }
+        .bg-blobs span:nth-child(2) { width: 380px; height: 380px; background: var(--terracotta); top: 30%; right: -140px; animation-duration: 30s; animation-delay: -6s; }
+        .bg-blobs span:nth-child(3) { width: 340px; height: 340px; background: var(--gold); bottom: -140px; left: 20%; animation-duration: 28s; animation-delay: -12s; }
+        .bg-blobs span:nth-child(4) { width: 300px; height: 300px; background: var(--steppe); bottom: 10%; right: 15%; opacity: 0.3; animation-duration: 22s; animation-delay: -3s; }
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.08); }
+            66% { transform: translate(-30px, 25px) scale(0.95); }
+        }
+        @media (prefers-reduced-motion: reduce) { .bg-blobs span { animation: none; } }
+
+        .back-to-games { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s ease; }
+        .back-to-games:hover { color: var(--terracotta); }
+
+        .container { max-width: 820px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
+
+        header {
+            padding: 1.2rem 0 1rem;
+            border-bottom: 1px solid rgba(166, 139, 122, 0.15);
+            background: rgba(250, 247, 242, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+
+        .logo { font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px; color: var(--steppe); }
+        .logo span { color: var(--terracotta); }
+        .logo small { font-weight: 400; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-left: 0.4rem; }
+
+        .header-score { font-size: 0.85rem; font-weight: 600; color: var(--steppe); background: var(--sage); padding: 0.3rem 1.2rem; border-radius: 60px; opacity: 0.7; transition: var(--transition); }
+        .header-score.active { opacity: 1; background: var(--steppe); color: white; }
+
+        .hero { padding: 2.5rem 0 1.5rem; text-align: center; }
+        .hero .badge { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--terracotta); background: rgba(180, 101, 74, 0.08); padding: 0.3rem 1.2rem; border-radius: 60px; margin-bottom: 0.5rem; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: var(--steppe); }
+        .hero h1 .highlight { color: var(--terracotta); position: relative; }
+        .hero p { font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0.4rem auto 0; font-weight: 400; }
+
+        .controls-row { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-bottom: 1.5rem; align-items: center; }
+        .controls-row label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+        .controls-row select {
+            padding: 0.5rem 1.2rem; border-radius: 60px; border: 2px solid var(--sand); background: white;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--charcoal);
+            cursor: pointer; outline: none; transition: var(--transition);
+        }
+        .controls-row select:focus { border-color: var(--steppe); box-shadow: 0 0 0 4px rgba(58, 90, 64, 0.10); }
+        .controls-row .start-btn {
+            background: var(--steppe); color: white; border: none; padding: 0.5rem 1.8rem; border-radius: 60px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: var(--transition);
+        }
+        .controls-row .start-btn:hover { background: var(--moss); transform: translateY(-2px); }
+
+        .quiz-box {
+            background: white; border-radius: var(--radius); padding: 2.2rem 2.5rem; box-shadow: var(--shadow);
+            margin: 1rem 0 2.5rem; border: 1px solid rgba(166, 139, 122, 0.08); min-height: 380px;
+            display: flex; flex-direction: column;
+        }
+
+        .progress-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 0.5rem; }
+        .progress-track { flex: 1; min-width: 120px; height: 4px; background: var(--sand); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: var(--steppe); border-radius: 4px; transition: width 0.5s ease; }
+        .progress-text { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; white-space: nowrap; }
+        .progress-text strong { color: var(--steppe); }
+
+        .streak-display {
+            font-size: 0.75rem; font-weight: 600; color: var(--gold); background: rgba(201, 169, 110, 0.12);
+            padding: 0.2rem 0.8rem; border-radius: 60px; display: none;
+        }
+        .streak-display.show { display: inline-block; }
+
+        .question-number { font-size: 0.75rem; font-weight: 600; color: var(--terracotta); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.3rem; }
+        .question-text { font-size: 1.15rem; font-weight: 600; line-height: 1.5; color: var(--text-muted); margin-bottom: 1.4rem; }
+
+        /* --- Headline cards --- */
+        .headline-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        .headline-card {
+            background: var(--cream);
+            border: 2px solid var(--sand);
+            border-radius: 18px;
+            padding: 1.4rem 1.3rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--charcoal);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            position: relative;
+        }
+        .headline-card .pick-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--clay);
+            background: rgba(166,139,122,0.12);
+            padding: 0.2rem 0.7rem;
+            border-radius: 60px;
+            margin-bottom: 0.7rem;
+        }
+        .headline-card:hover:not(.disabled) {
+            background: var(--sand);
+            border-color: var(--clay);
+            transform: translateY(-3px);
+        }
+        .headline-card.disabled { cursor: default; }
+        .headline-card.real {
+            background: #D4EDDA;
+            border-color: var(--steppe);
+        }
+        .headline-card.real .pick-tag { color: var(--steppe); background: rgba(58,90,64,0.12); }
+        .headline-card.fake {
+            background: #F8DDDD;
+            border-color: var(--terracotta);
+        }
+        .headline-card.fake .pick-tag { color: var(--terracotta); background: rgba(180,101,74,0.12); }
+        .headline-card.picked { box-shadow: 0 0 0 3px rgba(44,44,30,0.15) inset; }
+
+        /* --- Feedback --- */
+        .feedback {
+            margin-top: 0.5rem; padding: 1rem 1.2rem; border-radius: 16px; font-size: 0.95rem;
+            display: none; align-items: flex-start; gap: 0.8rem; line-height: 1.6;
+        }
+        .feedback.show { display: flex; }
+        .feedback .icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .feedback.correct { background: #EAF5EA; border-left: 4px solid var(--steppe); color: var(--steppe); }
+        .feedback.wrong { background: #FDF0EE; border-left: 4px solid var(--terracotta); color: var(--charcoal); }
+        .feedback .knowledge-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem; font-weight: 400; }
+        .feedback .knowledge-note strong { color: var(--steppe); font-weight: 600; }
+
+        .next-btn {
+            align-self: flex-end; margin-top: 1.5rem; background: var(--steppe); color: white; border: none;
+            padding: 0.8rem 2.2rem; border-radius: 60px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: var(--transition); letter-spacing: 0.3px; display: none;
+        }
+        .next-btn:hover { background: var(--moss); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(58, 90, 64, 0.20); }
+        .next-btn.show { display: inline-block; }
+
+        .results { display: none; text-align: center; padding: 1rem 0; }
+        .results.show { display: block; }
+        .results .score-circle {
+            width: 140px; height: 140px; border-radius: 50%; background: var(--steppe); color: white;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            margin: 0 auto 1rem; box-shadow: 0 12px 40px rgba(58, 90, 64, 0.20);
+        }
+        .results .score-circle .number { font-size: 3.2rem; font-weight: 800; line-height: 1; }
+        .results .score-circle .label { font-size: 0.8rem; font-weight: 400; opacity: 0.8; margin-top: 0.2rem; }
+        .results .stars { font-size: 2.8rem; margin-bottom: 0.5rem; letter-spacing: 0.4rem; }
+        .results h2 { font-size: 1.8rem; color: var(--steppe); margin-bottom: 0.2rem; }
+        .results p { color: var(--text-muted); max-width: 420px; margin: 0 auto 1.2rem; font-size: 0.95rem; }
+        .results .result-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 0.5rem; }
+        .results .result-actions button {
+            padding: 0.7rem 1.8rem; border-radius: 60px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: var(--transition); border: none;
+        }
+        .results .restart-btn { background: transparent; border: 2px solid var(--steppe); color: var(--steppe); }
+        .results .restart-btn:hover { background: var(--steppe); color: white; transform: translateY(-2px); }
+        .results .share-btn { background: var(--terracotta); color: white; }
+        .results .share-btn:hover { background: #9E5A42; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(180, 101, 74, 0.25); }
+        .results .share-btn.copied { background: var(--steppe); }
+
+        footer { text-align: center; padding: 2rem 0 1.8rem; border-top: 1px solid rgba(166, 139, 122, 0.10); margin-top: auto; color: var(--text-muted); font-size: 0.8rem; }
+        footer span { color: var(--terracotta); font-weight: 600; }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .quiz-box { padding: 1.5rem 1.2rem; }
+            .question-text { font-size: 1rem; }
+            .headline-pair { grid-template-columns: 1fr; }
+            .headline-card { font-size: 0.95rem; padding: 1.1rem 1rem; }
+            .controls-row select { font-size: 0.75rem; padding: 0.4rem 1rem; }
+            .controls-row .start-btn { font-size: 0.75rem; padding: 0.4rem 1.2rem; }
+            .header-score { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
+            .logo { font-size: 1.1rem; }
+            .logo small { display: none; }
+            .results .score-circle { width: 110px; height: 110px; }
+            .results .score-circle .number { font-size: 2.4rem; }
+            .results .stars { font-size: 2rem; }
+        }
+    </style>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Red Thread">
+    <meta property="og:title" content="Headline or Fake? | Red Thread">
+    <meta property="og:description" content="Can you spot the real China news headline from the fake one? A quick media-literacy game from Red Thread.">
+    <meta property="og:url" content="https://kclchinastudies.org/game-headline-or-fake.html">
+    <meta property="og:image" content="https://kclchinastudies.org/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Headline or Fake? | Red Thread">
+    <meta name="twitter:description" content="Can you spot the real China news headline from the fake one? A quick media-literacy game from Red Thread.">
+    <meta name="twitter:image" content="https://kclchinastudies.org/images/og-image.png">
+</head>
+<body>
+
+    <div class="bg-blobs">
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span>⏺</span> Red Thread
+                <small>KCL China Studies Society</small>
+            </div>
+            <a href="games.html" class="back-to-games">← Back to Games</a>
+            <div class="header-score" id="headerScore">✦ 0 / 0</div>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">✦ Media Literacy ✦</div>
+            <h1>
+                Real headline,<br />
+                <span class="highlight">or fake?</span>
+            </h1>
+            <p>
+                One of these two China-related headlines is real. The other is a plausible fake.
+                Can you tell them apart?
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== CONTROLS ===== -->
+    <div class="container">
+        <div class="controls-row">
+            <label for="categorySelect">📂 Category</label>
+            <select id="categorySelect">
+                <option value="all">🌐 All Categories</option>
+                <option value="Politics & Governance">🏛️ Politics & Governance</option>
+                <option value="Economy & Trade">📈 Economy & Trade</option>
+                <option value="Technology">💻 Technology</option>
+                <option value="Culture & Society">🎭 Culture & Society</option>
+            </select>
+
+            <label for="roundsSelect">🔢 Rounds</label>
+            <select id="roundsSelect">
+                <option value="8">8 rounds</option>
+                <option value="12" selected>12 rounds</option>
+                <option value="16">16 rounds</option>
+            </select>
+
+            <button class="start-btn" id="startBtn">🔄 New Game</button>
+        </div>
+
+        <!-- ===== QUIZ BOX ===== -->
+        <div class="quiz-box" id="quizBox">
+
+            <!-- Progress -->
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">
+                    <strong id="currentQ">0</strong> / <span id="totalQ">0</span>
+                </span>
+                <span class="streak-display" id="streakDisplay">🔥 Streak: <span id="streakCount">0</span></span>
+            </div>
+
+            <!-- Question Area -->
+            <div id="questionArea">
+                <div class="question-number" id="qNumber">Round 1</div>
+                <div class="question-text" id="qText">Which one is the real headline?</div>
+
+                <div class="headline-pair" id="headlinePair"></div>
+
+                <div class="feedback" id="feedback">
+                    <span class="icon" id="feedbackIcon">🌿</span>
+                    <div>
+                        <div id="feedbackText">Feedback</div>
+                        <div class="knowledge-note" id="feedbackKnowledge"></div>
+                    </div>
+                </div>
+
+                <button class="next-btn" id="nextBtn">Next Round →</button>
+            </div>
+
+            <!-- Results Area -->
+            <div class="results" id="resultsArea">
+                <div class="stars" id="starsDisplay">⭐⭐⭐</div>
+                <div class="score-circle">
+                    <span class="number" id="finalScore">0</span>
+                    <span class="label">/ <span id="finalTotal">0</span></span>
+                </div>
+                <h2 id="resultTitle">You're a Sharp Reader! 🏆</h2>
+                <p id="resultDesc">You have a keen eye for spotting real reporting from a convincing fake.</p>
+                <div class="result-actions">
+                    <button class="restart-btn" id="restartBtn">🔄 Play Again</button>
+                    <button class="share-btn" id="shareBtn">📤 Share Score</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <span>⏺</span> Red Thread · A KCL China Studies Society project · 2026
+        </div>
+    </footer>
+
+    <script>
+        // ================================================================
+        // 1. HEADLINE BANK — each entry has one real (paraphrased, general-knowledge)
+        //    headline and one plausible fake, plus a short explanatory note.
+        // ================================================================
+
+        const PAIRS = [
+            {
+                category: 'Politics & Governance',
+                real: "China unveils Five-Year Plan targeting self-reliance in key technologies",
+                fake: "China announces it will abolish all Five-Year Plans starting next decade",
+                note: "China has used Five-Year Plans to set economic and technological priorities since 1953 — scrapping the system entirely would be a radical, unreported break with decades of policy practice."
+            },
+            {
+                category: 'Politics & Governance',
+                real: "Beijing tightens data-export rules for companies handling personal information",
+                fake: "Beijing announces it will fully privatise the internet regulator by 2027",
+                note: "China has steadily tightened, not loosened, state control over data and internet governance — full privatisation of the regulator runs against the entire policy direction."
+            },
+            {
+                category: 'Politics & Governance',
+                real: "Hong Kong passes new national security legislation under Article 23",
+                fake: "Hong Kong votes to restore its pre-1997 currency, the Hong Kong pound",
+                note: "Hong Kong passed Article 23 national security legislation in 2024; its currency, the Hong Kong dollar, was never called a 'pound' and remains unchanged."
+            },
+            {
+                category: 'Politics & Governance',
+                real: "China and the Philippines clash over resupply missions near a disputed shoal",
+                fake: "China formally cedes all claims in the South China Sea to ASEAN",
+                note: "Tensions over resupply missions to contested reefs have been a recurring flashpoint; a full renunciation of claims would reverse decades of stated policy and hasn't happened."
+            },
+            {
+                category: 'Economy & Trade',
+                real: "China's exports rise as manufacturers rush shipments ahead of new tariffs",
+                fake: "China becomes the first country to abolish all import tariffs worldwide",
+                note: "Front-loading exports ahead of tariff deadlines is a well-documented pattern in US-China trade; no major economy has abolished tariffs entirely."
+            },
+            {
+                category: 'Economy & Trade',
+                real: "China's central bank cuts key interest rates to support a slowing economy",
+                fake: "China ties the yuan directly to the price of gold, ending its managed float",
+                note: "The People's Bank of China regularly adjusts rates to manage growth; it has not returned to a gold standard, which would be an extraordinary policy reversal."
+            },
+            {
+                category: 'Economy & Trade',
+                real: "Youth unemployment in China's cities remains a persistent policy concern",
+                fake: "China guarantees a government job to every university graduate by law",
+                note: "Elevated youth unemployment has been widely reported and debated; a universal legal jobs guarantee for graduates has never been enacted."
+            },
+            {
+                category: 'Economy & Trade',
+                real: "Chinese property developers continue to struggle with debt amid a housing slowdown",
+                fake: "China nationalises its entire real estate industry overnight",
+                note: "The property sector's debt troubles (including major developer defaults) have run for years, but the state has not seized the industry outright."
+            },
+            {
+                category: 'Technology',
+                real: "Chinese AI startup DeepSeek releases a low-cost model rivalling top US systems",
+                fake: "China bans all use of artificial intelligence in schools nationwide",
+                note: "DeepSeek's low-cost, competitive AI models made real international headlines in 2025; China has instead promoted AI adoption in education, not banned it."
+            },
+            {
+                category: 'Technology',
+                real: "US restricts exports of advanced semiconductor equipment to China",
+                fake: "China achieves full self-sufficiency in advanced chipmaking equipment",
+                note: "Export controls on chip equipment are real and ongoing policy; despite major investment, China has not achieved full self-sufficiency in cutting-edge chip equipment."
+            },
+            {
+                category: 'Technology',
+                real: "TikTok's US ownership dispute drags on amid national security concerns",
+                fake: "TikTok voluntarily deletes its entire global user base to comply with regulators",
+                note: "The prolonged fight over TikTok's US ownership and possible ban has been extensively reported; no such user-base deletion has occurred anywhere."
+            },
+            {
+                category: 'Technology',
+                real: "China expands its high-speed rail network to over 45,000 kilometres",
+                fake: "China completes a high-speed rail tunnel connecting Beijing to Tokyo",
+                note: "China's high-speed rail network genuinely is the world's largest; no undersea or overland rail tunnel to Japan exists or is under construction."
+            },
+            {
+                category: 'Culture & Society',
+                real: "Traditional Chinese Medicine content sees a surge in popularity among Gen Z online",
+                fake: "China bans all Western medicine from public hospitals",
+                note: "A documented TCM revival among younger users on social media is real; Western/modern medicine remains standard in Chinese public hospitals alongside TCM."
+            },
+            {
+                category: 'Culture & Society',
+                real: "China's population declines for a second consecutive year",
+                fake: "China offers every newborn a free apartment to reverse its birth rate",
+                note: "Population decline driven by low birth rates has been officially confirmed; incentive policies exist (subsidies, tax breaks) but no nationwide free-apartment scheme has been introduced."
+            },
+            {
+                category: 'Culture & Society',
+                real: "Chinese moviegoers help sci-fi blockbuster 'The Wandering Earth II' top box office charts",
+                fake: "China closes all cinemas permanently in favour of state-only streaming",
+                note: "Chinese sci-fi films have had major box-office success in recent years; cinemas remain open and commercially active across the country."
+            },
+            {
+                category: 'Culture & Society',
+                real: "Mandarin-language content creators see rising followings on global platforms",
+                fake: "China makes Mandarin the sole legally permitted language in daily broadcasting",
+                note: "Growing global interest in Mandarin content is a real trend; regional languages and dialects continue to appear in Chinese media despite Mandarin's official promotion."
+            }
+        ];
+
+        // ================================================================
+        // 2. QUIZ ENGINE
+        // ================================================================
+
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function getFilteredPairs(category) {
+            let filtered = PAIRS;
+            if (category !== 'all') {
+                filtered = filtered.filter(p => p.category === category);
+            }
+            if (filtered.length === 0) filtered = PAIRS;
+            return shuffleArray(filtered);
+        }
+
+        let currentRounds = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+        let totalRounds = 12;
+        let streak = 0;
+
+        const questionArea = document.getElementById('questionArea');
+        const resultsArea = document.getElementById('resultsArea');
+        const progressFill = document.getElementById('progressFill');
+        const currentQ = document.getElementById('currentQ');
+        const totalQ = document.getElementById('totalQ');
+        const qNumber = document.getElementById('qNumber');
+        const headlinePair = document.getElementById('headlinePair');
+        const feedback = document.getElementById('feedback');
+        const feedbackIcon = document.getElementById('feedbackIcon');
+        const feedbackText = document.getElementById('feedbackText');
+        const feedbackKnowledge = document.getElementById('feedbackKnowledge');
+        const nextBtn = document.getElementById('nextBtn');
+        const headerScore = document.getElementById('headerScore');
+        const streakDisplay = document.getElementById('streakDisplay');
+        const streakCount = document.getElementById('streakCount');
+
+        const finalScore = document.getElementById('finalScore');
+        const finalTotal = document.getElementById('finalTotal');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultDesc = document.getElementById('resultDesc');
+        const starsDisplay = document.getElementById('starsDisplay');
+        const restartBtn = document.getElementById('restartBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const startBtn = document.getElementById('startBtn');
+        const categorySelect = document.getElementById('categorySelect');
+        const roundsSelect = document.getElementById('roundsSelect');
+
+        function renderRound(index) {
+            const pair = currentRounds[index];
+            if (!pair) return;
+
+            answered = false;
+            feedback.classList.remove('show', 'correct', 'wrong');
+            nextBtn.classList.remove('show');
+
+            const progress = (index / totalRounds) * 100;
+            progressFill.style.width = progress + '%';
+            currentQ.textContent = index + 1;
+            totalQ.textContent = totalRounds;
+
+            qNumber.textContent = `Round ${index + 1} · ${pair.category}`;
+
+            const cards = shuffleArray([
+                { text: pair.real, isReal: true },
+                { text: pair.fake, isReal: false }
+            ]);
+
+            headlinePair.innerHTML = '';
+            cards.forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'headline-card';
+                div.innerHTML = `<span class="pick-tag">Pick this one</span><div>${c.text}</div>`;
+                div.addEventListener('click', () => handlePick(c.isReal, div));
+                headlinePair.appendChild(div);
+            });
+
+            headerScore.textContent = `✦ ${score} / ${totalRounds}`;
+            headerScore.classList.add('active');
+
+            if (streak > 0) {
+                streakDisplay.classList.add('show');
+                streakCount.textContent = streak;
+            } else {
+                streakDisplay.classList.remove('show');
+            }
+        }
+
+        function handlePick(isReal, div) {
+            if (answered) return;
+            answered = true;
+            const pair = currentRounds[currentIndex];
+
+            const allCards = document.querySelectorAll('.headline-card');
+            allCards.forEach(c => c.classList.add('disabled'));
+            allCards.forEach(c => {
+                const wasRealPick = c === div;
+                const cardIsReal = c.textContent.includes(pair.real);
+                if (cardIsReal) c.classList.add('real');
+                else c.classList.add('fake');
+                if (wasRealPick) c.classList.add('picked');
+            });
+
+            feedback.className = 'feedback show ' + (isReal ? 'correct' : 'wrong');
+            feedbackIcon.textContent = isReal ? '✅' : '❌';
+            feedbackText.textContent = isReal ?
+                'Correct! That one is real.' :
+                'Not quite — the other headline was the real one.';
+            feedbackKnowledge.innerHTML = `<strong>🌿 Why:</strong> ${pair.note}`;
+
+            if (isReal) { score++; streak++; }
+            else { streak = 0; }
+
+            headerScore.textContent = `✦ ${score} / ${totalRounds}`;
+            if (streak > 1) {
+                streakDisplay.classList.add('show');
+                streakCount.textContent = streak;
+            } else {
+                streakDisplay.classList.remove('show');
+            }
+
+            nextBtn.textContent = currentIndex < totalRounds - 1 ? 'Next Round →' : 'See Results →';
+            nextBtn.classList.add('show');
+        }
+
+        function goToNext() {
+            if (currentIndex < totalRounds - 1) {
+                currentIndex++;
+                renderRound(currentIndex);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            questionArea.style.display = 'none';
+            resultsArea.classList.add('show');
+            progressFill.style.width = '100%';
+
+            finalScore.textContent = score;
+            finalTotal.textContent = totalRounds;
+
+            const pct = score / totalRounds;
+            let stars = '⭐';
+            if (pct >= 0.9) stars = '⭐⭐⭐';
+            else if (pct >= 0.7) stars = '⭐⭐';
+            starsDisplay.textContent = stars;
+
+            let title, desc;
+            if (pct >= 0.9) {
+                title = '🏆 Fact-Checker Extraordinaire!';
+                desc = 'You have a sharp, reliable instinct for spotting real reporting from a convincing fake.';
+            } else if (pct >= 0.7) {
+                title = '🔍 Sharp Reader!';
+                desc = 'You catch most fakes — a little more reading and you\'ll rarely be fooled.';
+            } else if (pct >= 0.5) {
+                title = '🧭 Curious Skeptic';
+                desc = 'You\'re building good instincts. Keep questioning headlines before you trust them.';
+            } else {
+                title = '🌱 Apprentice Reader';
+                desc = 'Everyone starts somewhere! Reading widely — including Red Thread\'s own articles — sharpens your eye.';
+            }
+
+            resultTitle.textContent = title;
+            resultDesc.textContent = desc;
+            headerScore.textContent = `✦ ${score} / ${totalRounds}`;
+        }
+
+        function startGame() {
+            const category = categorySelect.value;
+            const rounds = parseInt(roundsSelect.value, 10);
+
+            let filtered = getFilteredPairs(category);
+            let count = Math.min(rounds, filtered.length);
+
+            currentRounds = filtered.slice(0, count);
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            answered = false;
+            totalRounds = currentRounds.length;
+
+            resultsArea.classList.remove('show');
+            questionArea.style.display = 'block';
+
+            if (totalRounds > 0) {
+                renderRound(0);
+            } else {
+                headlinePair.innerHTML = '';
+                feedback.classList.remove('show');
+                nextBtn.classList.remove('show');
+            }
+
+            headerScore.textContent = `✦ 0 / ${totalRounds}`;
+            headerScore.classList.add('active');
+            streakDisplay.classList.remove('show');
+        }
+
+        function shareScore() {
+            const text = `📰 I scored ${score}/${totalRounds} on the Red Thread "Headline or Fake?" game! Can you beat me?`;
+            const copy = () => {
+                shareBtn.textContent = '✅ Copied!';
+                shareBtn.classList.add('copied');
+                setTimeout(() => {
+                    shareBtn.textContent = '📤 Share Score';
+                    shareBtn.classList.remove('copied');
+                }, 2000);
+            };
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(copy);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copy();
+            }
+        }
+
+        nextBtn.addEventListener('click', goToNext);
+        restartBtn.addEventListener('click', startGame);
+        startBtn.addEventListener('click', startGame);
+        shareBtn.addEventListener('click', shareScore);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (nextBtn.classList.contains('show')) {
+                    e.preventDefault();
+                    goToNext();
+                }
+            }
+        });
+
+        startGame();
+    </script>
+
+</body>
+</html>
