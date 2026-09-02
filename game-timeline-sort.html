@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>China Timeline Sort | Red Thread</title>
+    <meta name="description" content="Put pivotal moments in China's modern history, politics and economy in the right order. A quick history game from Red Thread." />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================================
+           ROOT VARIABLES — Nomad Earth Palette (matches 56 Blossoms)
+           ============================================================ */
+        :root {
+            --sand: #E8DDD0;
+            --clay: #A68B7A;
+            --steppe: #3A5A40;
+            --moss: #588157;
+            --sage: #A3B18A;
+            --cream: #FAF7F2;
+            --terracotta: #B4654A;
+            --gold: #C9A96E;
+            --charcoal: #2C2C1E;
+            --text-muted: #6A6A5A;
+            --shadow: 0 12px 40px rgba(58, 90, 64, 0.10);
+            --radius: 28px;
+            --transition: 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+        .bg-blobs span { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.45; animation: drift 26s ease-in-out infinite; }
+        .bg-blobs span:nth-child(1) { width: 420px; height: 420px; background: var(--sage); top: -120px; left: -100px; animation-duration: 24s; }
+        .bg-blobs span:nth-child(2) { width: 380px; height: 380px; background: var(--terracotta); top: 30%; right: -140px; animation-duration: 30s; animation-delay: -6s; }
+        .bg-blobs span:nth-child(3) { width: 340px; height: 340px; background: var(--gold); bottom: -140px; left: 20%; animation-duration: 28s; animation-delay: -12s; }
+        .bg-blobs span:nth-child(4) { width: 300px; height: 300px; background: var(--steppe); bottom: 10%; right: 15%; opacity: 0.3; animation-duration: 22s; animation-delay: -3s; }
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.08); }
+            66% { transform: translate(-30px, 25px) scale(0.95); }
+        }
+        @media (prefers-reduced-motion: reduce) { .bg-blobs span { animation: none; } }
+
+        .back-to-games { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s ease; }
+        .back-to-games:hover { color: var(--terracotta); }
+
+        .container { max-width: 820px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
+
+        header {
+            padding: 1.2rem 0 1rem;
+            border-bottom: 1px solid rgba(166, 139, 122, 0.15);
+            background: rgba(250, 247, 242, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+
+        .logo { font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px; color: var(--steppe); }
+        .logo span { color: var(--terracotta); }
+        .logo small { font-weight: 400; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-left: 0.4rem; }
+
+        .header-score { font-size: 0.85rem; font-weight: 600; color: var(--steppe); background: var(--sage); padding: 0.3rem 1.2rem; border-radius: 60px; opacity: 0.7; transition: var(--transition); }
+        .header-score.active { opacity: 1; background: var(--steppe); color: white; }
+
+        .hero { padding: 2.5rem 0 1.5rem; text-align: center; }
+        .hero .badge { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--terracotta); background: rgba(180, 101, 74, 0.08); padding: 0.3rem 1.2rem; border-radius: 60px; margin-bottom: 0.5rem; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: var(--steppe); }
+        .hero h1 .highlight { color: var(--terracotta); position: relative; }
+        .hero p { font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0.4rem auto 0; font-weight: 400; }
+
+        .controls-row { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-bottom: 1.5rem; align-items: center; }
+        .controls-row label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+        .controls-row select {
+            padding: 0.5rem 1.2rem; border-radius: 60px; border: 2px solid var(--sand); background: white;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--charcoal);
+            cursor: pointer; outline: none; transition: var(--transition);
+        }
+        .controls-row select:focus { border-color: var(--steppe); box-shadow: 0 0 0 4px rgba(58, 90, 64, 0.10); }
+        .controls-row .start-btn {
+            background: var(--steppe); color: white; border: none; padding: 0.5rem 1.8rem; border-radius: 60px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: var(--transition);
+        }
+        .controls-row .start-btn:hover { background: var(--moss); transform: translateY(-2px); }
+
+        .quiz-box {
+            background: white; border-radius: var(--radius); padding: 2.2rem 2.5rem; box-shadow: var(--shadow);
+            margin: 1rem 0 2.5rem; border: 1px solid rgba(166, 139, 122, 0.08); min-height: 380px;
+            display: flex; flex-direction: column;
+        }
+
+        .progress-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 0.5rem; }
+        .progress-track { flex: 1; min-width: 120px; height: 4px; background: var(--sand); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: var(--steppe); border-radius: 4px; transition: width 0.5s ease; }
+        .progress-text { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; white-space: nowrap; }
+        .progress-text strong { color: var(--steppe); }
+
+        .question-number { font-size: 0.75rem; font-weight: 600; color: var(--terracotta); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.3rem; }
+        .question-text { font-size: 1.3rem; font-weight: 600; line-height: 1.5; color: var(--charcoal); margin-bottom: 1.4rem; }
+
+        /* --- Timeline sort UI --- */
+        .timeline-slots {
+            display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.6rem;
+            min-height: 3.2rem;
+        }
+        .timeline-slot {
+            display: flex; align-items: center; gap: 0.8rem;
+            background: var(--cream); border: 2px dashed var(--sand); border-radius: 14px;
+            padding: 0.7rem 1rem; min-height: 2.6rem; font-size: 0.9rem; color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .timeline-slot .slot-num {
+            flex-shrink: 0; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+            background: var(--sand); color: var(--clay); font-weight: 700; font-size: 0.8rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .timeline-slot.filled {
+            border-style: solid; border-color: var(--clay); background: white; cursor: pointer;
+            color: var(--charcoal); font-weight: 500;
+        }
+        .timeline-slot.filled:hover { border-color: var(--terracotta); }
+        .timeline-slot.filled .slot-num { background: var(--steppe); color: white; }
+        .timeline-slot.correct { border-color: var(--steppe); background: #EAF5EA; }
+        .timeline-slot.correct .slot-num { background: var(--steppe); }
+        .timeline-slot.wrong { border-color: var(--terracotta); background: #FDF0EE; }
+        .timeline-slot.wrong .slot-num { background: var(--terracotta); }
+        .timeline-slot .slot-hint { margin-left: auto; font-size: 0.75rem; color: var(--text-muted); font-style: italic; }
+
+        .event-pool { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.6rem; }
+        .event-card {
+            background: white; border: 2px solid var(--sand); border-radius: 14px;
+            padding: 0.7rem 1.1rem; font-size: 0.9rem; font-weight: 500; color: var(--charcoal);
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .event-card:hover { background: var(--sand); border-color: var(--clay); transform: translateY(-2px); }
+        .event-card.used { display: none; }
+
+        .check-btn {
+            align-self: flex-start; margin-top: auto; background: var(--steppe); color: white; border: none;
+            padding: 0.8rem 2.2rem; border-radius: 60px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: var(--transition); letter-spacing: 0.3px;
+            opacity: 0.4; pointer-events: none;
+        }
+        .check-btn.ready { opacity: 1; pointer-events: auto; }
+        .check-btn:hover.ready { background: var(--moss); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(58, 90, 64, 0.20); }
+
+        .next-btn {
+            align-self: flex-end; margin-top: 1.5rem; background: var(--terracotta); color: white; border: none;
+            padding: 0.8rem 2.2rem; border-radius: 60px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: var(--transition); letter-spacing: 0.3px; display: none;
+        }
+        .next-btn:hover { background: #9E5A42; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(180, 101, 74, 0.20); }
+        .next-btn.show { display: inline-block; }
+
+        .round-feedback {
+            margin-top: 1.2rem; padding: 1rem 1.2rem; border-radius: 16px; font-size: 0.9rem;
+            display: none; gap: 0.6rem; line-height: 1.6; background: #F3F0E9; border-left: 4px solid var(--gold);
+        }
+        .round-feedback.show { display: block; }
+        .round-feedback strong { color: var(--steppe); }
+
+        .results { display: none; text-align: center; padding: 1rem 0; }
+        .results.show { display: block; }
+        .results .score-circle {
+            width: 140px; height: 140px; border-radius: 50%; background: var(--steppe); color: white;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            margin: 0 auto 1rem; box-shadow: 0 12px 40px rgba(58, 90, 64, 0.20);
+        }
+        .results .score-circle .number { font-size: 3.2rem; font-weight: 800; line-height: 1; }
+        .results .score-circle .label { font-size: 0.8rem; font-weight: 400; opacity: 0.8; margin-top: 0.2rem; }
+        .results .stars { font-size: 2.8rem; margin-bottom: 0.5rem; letter-spacing: 0.4rem; }
+        .results h2 { font-size: 1.8rem; color: var(--steppe); margin-bottom: 0.2rem; }
+        .results p { color: var(--text-muted); max-width: 420px; margin: 0 auto 1.2rem; font-size: 0.95rem; }
+        .results .result-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 0.5rem; }
+        .results .result-actions button {
+            padding: 0.7rem 1.8rem; border-radius: 60px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: var(--transition); border: none;
+        }
+        .results .restart-btn { background: transparent; border: 2px solid var(--steppe); color: var(--steppe); }
+        .results .restart-btn:hover { background: var(--steppe); color: white; transform: translateY(-2px); }
+        .results .share-btn { background: var(--terracotta); color: white; }
+        .results .share-btn:hover { background: #9E5A42; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(180, 101, 74, 0.25); }
+        .results .share-btn.copied { background: var(--steppe); }
+
+        footer { text-align: center; padding: 2rem 0 1.8rem; border-top: 1px solid rgba(166, 139, 122, 0.10); margin-top: auto; color: var(--text-muted); font-size: 0.8rem; }
+        footer span { color: var(--terracotta); font-weight: 600; }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .quiz-box { padding: 1.5rem 1.2rem; }
+            .question-text { font-size: 1.05rem; }
+            .controls-row select { font-size: 0.75rem; padding: 0.4rem 1rem; }
+            .controls-row .start-btn { font-size: 0.75rem; padding: 0.4rem 1.2rem; }
+            .header-score { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
+            .logo { font-size: 1.1rem; }
+            .logo small { display: none; }
+            .event-card { font-size: 0.8rem; padding: 0.6rem 0.9rem; }
+            .timeline-slot { font-size: 0.8rem; padding: 0.6rem 0.8rem; }
+            .results .score-circle { width: 110px; height: 110px; }
+            .results .score-circle .number { font-size: 2.4rem; }
+            .results .stars { font-size: 2rem; }
+        }
+    </style>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Red Thread">
+    <meta property="og:title" content="China Timeline Sort | Red Thread">
+    <meta property="og:description" content="Put pivotal moments in China's modern history, politics and economy in the right order. A quick history game from Red Thread.">
+    <meta property="og:url" content="https://kclchinastudies.org/game-timeline-sort.html">
+    <meta property="og:image" content="https://kclchinastudies.org/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="China Timeline Sort | Red Thread">
+    <meta name="twitter:description" content="Put pivotal moments in China's modern history, politics and economy in the right order. A quick history game from Red Thread.">
+    <meta name="twitter:image" content="https://kclchinastudies.org/images/og-image.png">
+</head>
+<body>
+
+    <div class="bg-blobs">
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span>⏺</span> Red Thread
+                <small>KCL China Studies Society</small>
+            </div>
+            <a href="games.html" class="back-to-games">← Back to Games</a>
+            <div class="header-score" id="headerScore">✦ 0 / 0</div>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">✦ History in Order ✦</div>
+            <h1>
+                Can you put<br />
+                <span class="highlight">China's modern history</span> in order?
+            </h1>
+            <p>
+                Sort pivotal moments in China's politics, economy and society — from the 19th century to today — into the correct chronological order.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== CONTROLS ===== -->
+    <div class="container">
+        <div class="controls-row">
+            <label for="difficultySelect">📊 Difficulty</label>
+            <select id="difficultySelect">
+                <option value="easy">🌱 Easy — 4 events per round</option>
+                <option value="medium" selected>🌿 Medium — 5 events per round</option>
+                <option value="hard">🌲 Hard — 6 events per round</option>
+            </select>
+
+            <button class="start-btn" id="startBtn">🔄 New Game</button>
+        </div>
+
+        <!-- ===== GAME BOX ===== -->
+        <div class="quiz-box" id="quizBox">
+
+            <!-- Progress -->
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">
+                    Round <strong id="currentQ">0</strong> / <span id="totalQ">0</span>
+                </span>
+            </div>
+
+            <!-- Round Area -->
+            <div id="questionArea">
+                <div class="question-number" id="qNumber">Round 1</div>
+                <div class="question-text" id="qText">Click the events below in the order you think they happened — earliest first.</div>
+
+                <div class="timeline-slots" id="timelineSlots"></div>
+                <div class="event-pool" id="eventPool"></div>
+
+                <div class="round-feedback" id="feedback"></div>
+
+                <div style="display:flex; align-items:center; gap:0.8rem; margin-top: auto;">
+                    <button class="check-btn" id="checkBtn">Check Order ✓</button>
+                    <button class="next-btn" id="nextBtn">Next Round →</button>
+                </div>
+            </div>
+
+            <!-- Results Area -->
+            <div class="results" id="resultsArea">
+                <div class="stars" id="starsDisplay">⭐⭐⭐</div>
+                <div class="score-circle">
+                    <span class="number" id="finalScore">0</span>
+                    <span class="label">/ <span id="finalTotal">0</span></span>
+                </div>
+                <h2 id="resultTitle">You're a History Scholar! 🏆</h2>
+                <p id="resultDesc">You have a sharp sense of how modern China's story unfolded.</p>
+                <div class="result-actions">
+                    <button class="restart-btn" id="restartBtn">🔄 Play Again</button>
+                    <button class="share-btn" id="shareBtn">📤 Share Score</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <span>⏺</span> Red Thread · A KCL China Studies Society project · 2026
+        </div>
+    </footer>
+
+    <script>
+        // ================================================================
+        // 1. EVENT BANK — grouped into rounds, each with a correct chronological order
+        //    (year kept internally only, for sorting/validation — not shown to player)
+        // ================================================================
+
+        const EVENT_BANK = [
+            { text: 'The First Opium War ends with the Treaty of Nanjing', year: 1842 },
+            { text: 'The Qing dynasty falls and the Republic of China is founded', year: 1912 },
+            { text: 'The Chinese Communist Party is founded in Shanghai', year: 1921 },
+            { text: 'Japan launches a full-scale invasion of China', year: 1937 },
+            { text: 'The People\'s Republic of China is proclaimed', year: 1949 },
+            { text: 'The Great Leap Forward begins', year: 1958 },
+            { text: 'The Cultural Revolution begins', year: 1966 },
+            { text: 'The United Nations recognises the PRC in place of Taiwan', year: 1971 },
+            { text: 'US President Nixon visits China', year: 1972 },
+            { text: 'Deng Xiaoping launches "Reform and Opening Up"', year: 1978 },
+            { text: 'China\'s one-child policy is formally introduced', year: 1980 },
+            { text: 'The Shenzhen Special Economic Zone is established', year: 1980 },
+            { text: 'Hong Kong is handed back to China by Britain', year: 1997 },
+            { text: 'China joins the World Trade Organization', year: 2001 },
+            { text: 'Beijing hosts the Summer Olympic Games', year: 2008 },
+            { text: 'China overtakes Japan to become the world\'s second-largest economy', year: 2010 },
+            { text: 'Xi Jinping becomes General Secretary of the CCP', year: 2012 },
+            { text: 'The Belt and Road Initiative is launched', year: 2013 },
+            { text: 'China ends its one-child policy, allowing two children', year: 2015 },
+            { text: 'The US-China trade war begins with new tariffs', year: 2018 },
+            { text: 'COVID-19 is first identified in Wuhan', year: 2019 },
+            { text: 'China ends its zero-COVID policy', year: 2022 },
+        ];
+
+        // Rounds are built dynamically per difficulty by slicing chronological chunks and shuffling.
+
+        function buildRounds(size) {
+            const sorted = [...EVENT_BANK].sort((a, b) => a.year - b.year);
+            const rounds = [];
+            for (let i = 0; i + size <= sorted.length; i += size) {
+                rounds.push(sorted.slice(i, i + size));
+            }
+            // Shuffle round order itself
+            return shuffleArray(rounds);
+        }
+
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        // ================================================================
+        // 2. STATE
+        // ================================================================
+
+        let rounds = [];
+        let roundIndex = 0;
+        let correctPositions = 0; // running total across rounds
+        let totalEvents = 0;      // total events across all rounds
+        let currentRoundEvents = [];   // correct chronological order for this round
+        let currentRoundOrder = [];    // player's chosen order (array of event objects)
+        let checked = false;
+
+        // DOM refs
+        const questionArea = document.getElementById('questionArea');
+        const resultsArea = document.getElementById('resultsArea');
+        const progressFill = document.getElementById('progressFill');
+        const currentQ = document.getElementById('currentQ');
+        const totalQ = document.getElementById('totalQ');
+        const qNumber = document.getElementById('qNumber');
+        const timelineSlots = document.getElementById('timelineSlots');
+        const eventPool = document.getElementById('eventPool');
+        const feedback = document.getElementById('feedback');
+        const checkBtn = document.getElementById('checkBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const headerScore = document.getElementById('headerScore');
+
+        const finalScore = document.getElementById('finalScore');
+        const finalTotal = document.getElementById('finalTotal');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultDesc = document.getElementById('resultDesc');
+        const starsDisplay = document.getElementById('starsDisplay');
+        const restartBtn = document.getElementById('restartBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const startBtn = document.getElementById('startBtn');
+        const difficultySelect = document.getElementById('difficultySelect');
+
+        // ================================================================
+        // 3. RENDER ROUND
+        // ================================================================
+
+        function renderRound(index) {
+            const round = rounds[index];
+            currentRoundEvents = round;
+            currentRoundOrder = [];
+            checked = false;
+
+            feedback.classList.remove('show');
+            feedback.innerHTML = '';
+            nextBtn.classList.remove('show');
+            checkBtn.classList.remove('ready');
+            checkBtn.textContent = 'Check Order ✓';
+
+            const progress = (index / rounds.length) * 100;
+            progressFill.style.width = progress + '%';
+            currentQ.textContent = index + 1;
+            totalQ.textContent = rounds.length;
+            qNumber.textContent = `Round ${index + 1} of ${rounds.length}`;
+
+            // Slots
+            timelineSlots.innerHTML = '';
+            round.forEach((_, i) => {
+                const slot = document.createElement('div');
+                slot.className = 'timeline-slot';
+                slot.dataset.pos = i;
+                slot.innerHTML = `<span class="slot-num">${i + 1}</span><span class="slot-text">Click an event below to place it here</span>`;
+                timelineSlots.appendChild(slot);
+            });
+
+            // Pool — shuffled
+            const shuffled = shuffleArray(round);
+            eventPool.innerHTML = '';
+            shuffled.forEach((ev, i) => {
+                const card = document.createElement('button');
+                card.className = 'event-card';
+                card.textContent = ev.text;
+                card.dataset.id = ev.text;
+                card.addEventListener('click', () => placeEvent(ev, card));
+                eventPool.appendChild(card);
+            });
+
+            headerScore.textContent = `✦ ${correctPositions} / ${totalEvents}`;
+            headerScore.classList.add('active');
+        }
+
+        function placeEvent(ev, card) {
+            if (checked || currentRoundOrder.length >= currentRoundEvents.length) return;
+            currentRoundOrder.push(ev);
+            card.classList.add('used');
+
+            const slots = timelineSlots.querySelectorAll('.timeline-slot');
+            const slot = slots[currentRoundOrder.length - 1];
+            slot.classList.add('filled');
+            slot.querySelector('.slot-text') ? (slot.innerHTML = `<span class="slot-num">${currentRoundOrder.length}</span><span class="slot-text">${ev.text}</span>`) : null;
+            slot.addEventListener('click', () => removeEvent(ev, card, slot), { once: true });
+
+            if (currentRoundOrder.length === currentRoundEvents.length) {
+                checkBtn.classList.add('ready');
+            }
+        }
+
+        function removeEvent(ev, card, slot) {
+            if (checked) return;
+            const idx = currentRoundOrder.indexOf(ev);
+            if (idx === -1) return;
+            currentRoundOrder.splice(idx, 1);
+            card.classList.remove('used');
+            checkBtn.classList.remove('ready');
+
+            // Rebuild slots to keep numbering clean
+            const slots = timelineSlots.querySelectorAll('.timeline-slot');
+            slots.forEach((s, i) => {
+                if (i < currentRoundOrder.length) {
+                    const e = currentRoundOrder[i];
+                    s.className = 'timeline-slot filled';
+                    s.innerHTML = `<span class="slot-num">${i + 1}</span><span class="slot-text">${e.text}</span>`;
+                    const newSlot = s;
+                    newSlot.onclick = () => removeEvent(e, [...eventPool.children].find(c => c.dataset.id === e.text), newSlot);
+                } else {
+                    s.className = 'timeline-slot';
+                    s.innerHTML = `<span class="slot-num">${i + 1}</span><span class="slot-text">Click an event below to place it here</span>`;
+                    s.onclick = null;
+                }
+            });
+
+            if (currentRoundOrder.length === currentRoundEvents.length) {
+                checkBtn.classList.add('ready');
+            }
+        }
+
+        // ================================================================
+        // 4. CHECK ORDER
+        // ================================================================
+
+        function checkOrder() {
+            if (checked || currentRoundOrder.length !== currentRoundEvents.length) return;
+            checked = true;
+
+            const correctSorted = [...currentRoundEvents].sort((a, b) => a.year - b.year);
+            const slots = timelineSlots.querySelectorAll('.timeline-slot');
+            let roundCorrect = 0;
+
+            slots.forEach((s, i) => {
+                const isRight = currentRoundOrder[i].year === correctSorted[i].year;
+                s.classList.add(isRight ? 'correct' : 'wrong');
+                if (isRight) roundCorrect++;
+            });
+
+            correctPositions += roundCorrect;
+            totalEvents += currentRoundEvents.length;
+            headerScore.textContent = `✦ ${correctPositions} / ${totalEvents}`;
+
+            const pct = roundCorrect / currentRoundEvents.length;
+            let msg;
+            if (pct === 1) msg = `✅ Perfect! All ${roundCorrect} events in the right order.`;
+            else msg = `You placed ${roundCorrect} / ${currentRoundEvents.length} correctly. Here's the true order: <br><strong>${correctSorted.map((e, i) => `${i + 1}. ${e.text} (${e.year})`).join('<br>')}</strong>`;
+
+            feedback.innerHTML = msg;
+            feedback.classList.add('show');
+            checkBtn.classList.remove('ready');
+
+            if (roundIndex < rounds.length - 1) {
+                nextBtn.textContent = 'Next Round →';
+            } else {
+                nextBtn.textContent = 'See Results →';
+            }
+            nextBtn.classList.add('show');
+        }
+
+        function goToNext() {
+            if (roundIndex < rounds.length - 1) {
+                roundIndex++;
+                renderRound(roundIndex);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            questionArea.style.display = 'none';
+            resultsArea.classList.add('show');
+            progressFill.style.width = '100%';
+
+            finalScore.textContent = correctPositions;
+            finalTotal.textContent = totalEvents;
+
+            const pct = correctPositions / totalEvents;
+            let stars = '⭐';
+            if (pct >= 0.9) stars = '⭐⭐⭐';
+            else if (pct >= 0.7) stars = '⭐⭐';
+            starsDisplay.textContent = stars;
+
+            let title, desc;
+            if (pct >= 0.9) {
+                title = '🏆 History Scholar Extraordinaire!';
+                desc = 'You have a remarkably sharp sense of how modern China\'s story unfolded, decade by decade.';
+            } else if (pct >= 0.7) {
+                title = '📜 Sharp Historian!';
+                desc = 'You know the sequence of events well — a bit more reading and you\'ll have it locked in.';
+            } else if (pct >= 0.5) {
+                title = '🧭 Curious Reader';
+                desc = 'You\'re getting there. The timeline of modern China has a few more twists to learn.';
+            } else {
+                title = '🌱 Apprentice Historian';
+                desc = 'Everyone starts somewhere! Explore Red Thread\'s publications to sharpen your timeline.';
+            }
+            resultTitle.textContent = title;
+            resultDesc.textContent = desc;
+            headerScore.textContent = `✦ ${correctPositions} / ${totalEvents}`;
+        }
+
+        function startGame() {
+            const difficulty = difficultySelect.value;
+            let size = 5;
+            if (difficulty === 'easy') size = 4;
+            else if (difficulty === 'hard') size = 6;
+
+            rounds = buildRounds(size);
+            roundIndex = 0;
+            correctPositions = 0;
+            totalEvents = 0;
+
+            resultsArea.classList.remove('show');
+            questionArea.style.display = 'block';
+
+            renderRound(0);
+            headerScore.textContent = `✦ 0 / 0`;
+            headerScore.classList.add('active');
+        }
+
+        // ================================================================
+        // 5. SHARE
+        // ================================================================
+
+        function shareScore() {
+            const text = `📜 I scored ${correctPositions}/${totalEvents} on the Red Thread China Timeline Sort! Can you beat me?`;
+            const copy = () => {
+                shareBtn.textContent = '✅ Copied!';
+                shareBtn.classList.add('copied');
+                setTimeout(() => {
+                    shareBtn.textContent = '📤 Share Score';
+                    shareBtn.classList.remove('copied');
+                }, 2000);
+            };
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(copy);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copy();
+            }
+        }
+
+        // ================================================================
+        // 6. EVENT LISTENERS
+        // ================================================================
+
+        checkBtn.addEventListener('click', checkOrder);
+        nextBtn.addEventListener('click', goToNext);
+        restartBtn.addEventListener('click', startGame);
+        startBtn.addEventListener('click', startGame);
+        shareBtn.addEventListener('click', shareScore);
+
+        // ================================================================
+        // 7. START
+        // ================================================================
+
+        startGame();
+    </script>
+
+</body>
+</html>

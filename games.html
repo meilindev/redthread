@@ -458,6 +458,22 @@
             </div>
         </a>
 
+        <a href="game-timeline-sort.html" class="game-card">
+            <div class="game-thumb">
+                <canvas id="thumb-net-2"></canvas>
+                <div class="emoji">📜</div>
+            </div>
+            <div class="game-content">
+                <div class="game-title">China Timeline Sort</div>
+                <div class="game-meta">
+                    <span class="game-tag">History</span>
+                    <span class="game-tag">Politics</span>
+                </div>
+                <div class="game-excerpt">Put pivotal moments in China's modern history and politics in the correct chronological order, from the Opium Wars to the zero-COVID era.</div>
+                <span class="play-now">Play now →</span>
+            </div>
+        </a>
+
         <div class="game-card coming-soon-card">
             More games coming soon
         </div>
@@ -474,9 +490,9 @@
         navEl.classList.toggle('scrolled', window.scrollY > 20);
     });
 
-    // Small animated constellation on the game thumbnail, matching the site's motif
-    (function () {
-        const canvas = document.getElementById('thumb-net');
+    // Small animated constellation on the game thumbnails, matching the site's motif
+    function initThumbNet(canvasId) {
+        const canvas = document.getElementById(canvasId);
         if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const ctx = canvas.getContext('2d');
         let w, h, nodes;
@@ -529,7 +545,9 @@
         resize();
         makeNodes();
         requestAnimationFrame(tick);
-    })();
+    }
+    initThumbNet('thumb-net');
+    initThumbNet('thumb-net-2');
 </script>
 
 <footer id="contact">
