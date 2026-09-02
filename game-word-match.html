@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>China Word Match | Red Thread</title>
+    <meta name="description" content="Match everyday Chinese terms and slang — from guanxi to neijuan — to their English meaning. A quick vocabulary game from Red Thread." />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================================
+           ROOT VARIABLES — Nomad Earth Palette (matches the other games)
+           ============================================================ */
+        :root {
+            --sand: #E8DDD0;
+            --clay: #A68B7A;
+            --steppe: #3A5A40;
+            --moss: #588157;
+            --sage: #A3B18A;
+            --cream: #FAF7F2;
+            --terracotta: #B4654A;
+            --gold: #C9A96E;
+            --charcoal: #2C2C1E;
+            --text-muted: #6A6A5A;
+            --shadow: 0 12px 40px rgba(58, 90, 64, 0.10);
+            --radius: 28px;
+            --transition: 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+        .bg-blobs span { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.45; animation: drift 26s ease-in-out infinite; }
+        .bg-blobs span:nth-child(1) { width: 420px; height: 420px; background: var(--sage); top: -120px; left: -100px; animation-duration: 24s; }
+        .bg-blobs span:nth-child(2) { width: 380px; height: 380px; background: var(--terracotta); top: 30%; right: -140px; animation-duration: 30s; animation-delay: -6s; }
+        .bg-blobs span:nth-child(3) { width: 340px; height: 340px; background: var(--gold); bottom: -140px; left: 20%; animation-duration: 28s; animation-delay: -12s; }
+        .bg-blobs span:nth-child(4) { width: 300px; height: 300px; background: var(--steppe); bottom: 10%; right: 15%; opacity: 0.3; animation-duration: 22s; animation-delay: -3s; }
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.08); }
+            66% { transform: translate(-30px, 25px) scale(0.95); }
+        }
+        @media (prefers-reduced-motion: reduce) { .bg-blobs span { animation: none; } }
+
+        .back-to-games { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s ease; }
+        .back-to-games:hover { color: var(--terracotta); }
+
+        .container { max-width: 820px; margin: 0 auto; padding: 0 1.5rem; width: 100%; }
+
+        header {
+            padding: 1.2rem 0 1rem;
+            border-bottom: 1px solid rgba(166, 139, 122, 0.15);
+            background: rgba(250, 247, 242, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+
+        .logo { font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px; color: var(--steppe); }
+        .logo span { color: var(--terracotta); }
+        .logo small { font-weight: 400; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-left: 0.4rem; }
+
+        .header-score { font-size: 0.85rem; font-weight: 600; color: var(--steppe); background: var(--sage); padding: 0.3rem 1.2rem; border-radius: 60px; opacity: 0.7; transition: var(--transition); }
+        .header-score.active { opacity: 1; background: var(--steppe); color: white; }
+
+        .hero { padding: 2.5rem 0 1.5rem; text-align: center; }
+        .hero .badge { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--terracotta); background: rgba(180, 101, 74, 0.08); padding: 0.3rem 1.2rem; border-radius: 60px; margin-bottom: 0.5rem; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: var(--steppe); }
+        .hero h1 .highlight { color: var(--terracotta); position: relative; }
+        .hero p { font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0.4rem auto 0; font-weight: 400; }
+
+        .controls-row { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-bottom: 1.5rem; align-items: center; }
+        .controls-row label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+        .controls-row select {
+            padding: 0.5rem 1.2rem; border-radius: 60px; border: 2px solid var(--sand); background: white;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--charcoal);
+            cursor: pointer; outline: none; transition: var(--transition);
+        }
+        .controls-row select:focus { border-color: var(--steppe); box-shadow: 0 0 0 4px rgba(58, 90, 64, 0.10); }
+        .controls-row .start-btn {
+            background: var(--steppe); color: white; border: none; padding: 0.5rem 1.8rem; border-radius: 60px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: var(--transition);
+        }
+        .controls-row .start-btn:hover { background: var(--moss); transform: translateY(-2px); }
+
+        .quiz-box {
+            background: white; border-radius: var(--radius); padding: 2.2rem 2.5rem; box-shadow: var(--shadow);
+            margin: 1rem 0 2.5rem; border: 1px solid rgba(166, 139, 122, 0.08); min-height: 380px;
+            display: flex; flex-direction: column;
+        }
+
+        .progress-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 0.5rem; }
+        .progress-track { flex: 1; min-width: 120px; height: 4px; background: var(--sand); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: var(--steppe); border-radius: 4px; transition: width 0.5s ease; }
+        .progress-text { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; white-space: nowrap; }
+        .progress-text strong { color: var(--steppe); }
+
+        .streak-display {
+            font-size: 0.75rem; font-weight: 600; color: var(--gold); background: rgba(201, 169, 110, 0.12);
+            padding: 0.2rem 0.8rem; border-radius: 60px; display: none;
+        }
+        .streak-display.show { display: inline-block; }
+
+        .question-number { font-size: 0.75rem; font-weight: 600; color: var(--terracotta); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.3rem; }
+
+        .term-display { text-align: center; margin-bottom: 1.8rem; }
+        .term-display .hanzi { font-size: 2.6rem; font-weight: 700; color: var(--steppe); line-height: 1.2; }
+        .term-display .pinyin { font-size: 1.1rem; font-weight: 600; color: var(--terracotta); font-style: italic; margin-top: 0.2rem; }
+        .term-display .prompt { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.6rem; }
+
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .option-btn {
+            background: var(--cream); border: 2px solid var(--sand); border-radius: 16px; padding: 0.9rem 1.2rem;
+            font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--charcoal);
+            cursor: pointer; transition: all 0.2s ease; text-align: left; display: flex; align-items: center;
+            gap: 0.6rem; line-height: 1.3;
+        }
+        .option-btn .letter { font-weight: 700; color: var(--clay); font-size: 0.8rem; width: 1.6rem; flex-shrink: 0; }
+        .option-btn:hover:not(.disabled) { background: var(--sand); border-color: var(--clay); transform: translateY(-2px); }
+        .option-btn.correct { background: #D4EDDA; border-color: var(--steppe); color: var(--steppe); }
+        .option-btn.wrong { background: #F8DDDD; border-color: var(--terracotta); color: var(--terracotta); }
+        .option-btn.disabled { cursor: default; opacity: 0.6; }
+        .option-btn.disabled:hover { transform: none; }
+        .option-btn.correct.disabled { opacity: 1; }
+        .option-btn.wrong.disabled { opacity: 1; }
+
+        .feedback {
+            margin-top: 1.5rem; padding: 1rem 1.2rem; border-radius: 16px; font-size: 0.95rem;
+            display: none; align-items: flex-start; gap: 0.8rem; line-height: 1.6;
+        }
+        .feedback.show { display: flex; }
+        .feedback .icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .feedback.correct { background: #EAF5EA; border-left: 4px solid var(--steppe); color: var(--steppe); }
+        .feedback.wrong { background: #FDF0EE; border-left: 4px solid var(--terracotta); color: var(--charcoal); }
+        .feedback .knowledge-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem; font-weight: 400; }
+        .feedback .knowledge-note strong { color: var(--steppe); font-weight: 600; }
+
+        .next-btn {
+            align-self: flex-end; margin-top: 1.5rem; background: var(--steppe); color: white; border: none;
+            padding: 0.8rem 2.2rem; border-radius: 60px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: var(--transition); letter-spacing: 0.3px; display: none;
+        }
+        .next-btn:hover { background: var(--moss); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(58, 90, 64, 0.20); }
+        .next-btn.show { display: inline-block; }
+
+        .results { display: none; text-align: center; padding: 1rem 0; }
+        .results.show { display: block; }
+        .results .score-circle {
+            width: 140px; height: 140px; border-radius: 50%; background: var(--steppe); color: white;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            margin: 0 auto 1rem; box-shadow: 0 12px 40px rgba(58, 90, 64, 0.20);
+        }
+        .results .score-circle .number { font-size: 3.2rem; font-weight: 800; line-height: 1; }
+        .results .score-circle .label { font-size: 0.8rem; font-weight: 400; opacity: 0.8; margin-top: 0.2rem; }
+        .results .stars { font-size: 2.8rem; margin-bottom: 0.5rem; letter-spacing: 0.4rem; }
+        .results h2 { font-size: 1.8rem; color: var(--steppe); margin-bottom: 0.2rem; }
+        .results p { color: var(--text-muted); max-width: 420px; margin: 0 auto 1.2rem; font-size: 0.95rem; }
+        .results .result-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 0.5rem; }
+        .results .result-actions button {
+            padding: 0.7rem 1.8rem; border-radius: 60px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; transition: var(--transition); border: none;
+        }
+        .results .restart-btn { background: transparent; border: 2px solid var(--steppe); color: var(--steppe); }
+        .results .restart-btn:hover { background: var(--steppe); color: white; transform: translateY(-2px); }
+        .results .share-btn { background: var(--terracotta); color: white; }
+        .results .share-btn:hover { background: #9E5A42; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(180, 101, 74, 0.25); }
+        .results .share-btn.copied { background: var(--steppe); }
+
+        footer { text-align: center; padding: 2rem 0 1.8rem; border-top: 1px solid rgba(166, 139, 122, 0.10); margin-top: auto; color: var(--text-muted); font-size: 0.8rem; }
+        footer span { color: var(--terracotta); font-weight: 600; }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .quiz-box { padding: 1.5rem 1.2rem; }
+            .term-display .hanzi { font-size: 2rem; }
+            .options { grid-template-columns: 1fr; gap: 0.6rem; }
+            .option-btn { padding: 0.7rem 1rem; font-size: 0.85rem; }
+            .controls-row select { font-size: 0.75rem; padding: 0.4rem 1rem; }
+            .controls-row .start-btn { font-size: 0.75rem; padding: 0.4rem 1.2rem; }
+            .header-score { font-size: 0.7rem; padding: 0.2rem 0.8rem; }
+            .logo { font-size: 1.1rem; }
+            .logo small { display: none; }
+            .results .score-circle { width: 110px; height: 110px; }
+            .results .score-circle .number { font-size: 2.4rem; }
+            .results .stars { font-size: 2rem; }
+        }
+    </style>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Red Thread">
+    <meta property="og:title" content="China Word Match | Red Thread">
+    <meta property="og:description" content="Match everyday Chinese terms and slang — from guanxi to neijuan — to their English meaning. A quick vocabulary game from Red Thread.">
+    <meta property="og:url" content="https://kclchinastudies.org/game-word-match.html">
+    <meta property="og:image" content="https://kclchinastudies.org/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="China Word Match | Red Thread">
+    <meta name="twitter:description" content="Match everyday Chinese terms and slang — from guanxi to neijuan — to their English meaning. A quick vocabulary game from Red Thread.">
+    <meta name="twitter:image" content="https://kclchinastudies.org/images/og-image.png">
+</head>
+<body>
+
+    <div class="bg-blobs">
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <span>⏺</span> Red Thread
+                <small>KCL China Studies Society</small>
+            </div>
+            <a href="games.html" class="back-to-games">← Back to Games</a>
+            <div class="header-score" id="headerScore">✦ 0 / 0</div>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">✦ Vocabulary ✦</div>
+            <h1>
+                Do you know<br />
+                <span class="highlight">China's everyday words</span>?
+            </h1>
+            <p>
+                From social slang to political shorthand, match each Chinese term to its true English meaning.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== CONTROLS ===== -->
+    <div class="container">
+        <div class="controls-row">
+            <label for="categorySelect">📂 Category</label>
+            <select id="categorySelect">
+                <option value="all">🌐 All Categories</option>
+                <option value="Society & Slang">💬 Society & Slang</option>
+                <option value="Politics & Systems">🏛️ Politics & Systems</option>
+                <option value="Economy & Work">📈 Economy & Work</option>
+                <option value="Places & Culture">🏮 Places & Culture</option>
+            </select>
+
+            <label for="difficultySelect">📊 Rounds</label>
+            <select id="difficultySelect">
+                <option value="8">🌱 8 words</option>
+                <option value="12" selected>🌿 12 words</option>
+                <option value="18">🌲 18 words</option>
+            </select>
+
+            <button class="start-btn" id="startBtn">🔄 New Game</button>
+        </div>
+
+        <!-- ===== QUIZ BOX ===== -->
+        <div class="quiz-box" id="quizBox">
+
+            <!-- Progress -->
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">
+                    <strong id="currentQ">0</strong> / <span id="totalQ">0</span>
+                </span>
+                <span class="streak-display" id="streakDisplay">🔥 Streak: <span id="streakCount">0</span></span>
+            </div>
+
+            <!-- Question Area -->
+            <div id="questionArea">
+                <div class="question-number" id="qNumber">Word 1 · Society & Slang</div>
+
+                <div class="term-display">
+                    <div class="hanzi" id="hanziText">关系</div>
+                    <div class="pinyin" id="pinyinText">guānxi</div>
+                    <div class="prompt">What does this term mean?</div>
+                </div>
+
+                <div class="options" id="optionsContainer"></div>
+
+                <div class="feedback" id="feedback">
+                    <span class="icon" id="feedbackIcon">🌿</span>
+                    <div>
+                        <div id="feedbackText">Feedback</div>
+                        <div class="knowledge-note" id="feedbackKnowledge"></div>
+                    </div>
+                </div>
+
+                <button class="next-btn" id="nextBtn">Next Word →</button>
+            </div>
+
+            <!-- Results Area -->
+            <div class="results" id="resultsArea">
+                <div class="stars" id="starsDisplay">⭐⭐⭐</div>
+                <div class="score-circle">
+                    <span class="number" id="finalScore">0</span>
+                    <span class="label">/ <span id="finalTotal">0</span></span>
+                </div>
+                <h2 id="resultTitle">You're a Word Master! 🏆</h2>
+                <p id="resultDesc">You have a strong grasp of everyday Chinese vocabulary.</p>
+                <div class="result-actions">
+                    <button class="restart-btn" id="restartBtn">🔄 Play Again</button>
+                    <button class="share-btn" id="shareBtn">📤 Share Score</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <span>⏺</span> Red Thread · A KCL China Studies Society project · 2026
+        </div>
+    </footer>
+
+    <script>
+        // ================================================================
+        // 1. WORD BANK
+        // ================================================================
+
+        const WORDS = [
+            {
+                category: 'Society & Slang',
+                hanzi: '关系', pinyin: 'guānxi',
+                correct: 'A network of personal relationships and reciprocal favours',
+                wrong: ['A formal government job title', 'An arranged marriage ceremony', 'A style of calligraphy'],
+                note: 'Guanxi refers to the web of personal connections and mutual obligation that shapes business and social life in China.'
+            },
+            {
+                category: 'Society & Slang',
+                hanzi: '内卷', pinyin: 'nèijuǎn',
+                correct: 'Exhausting over-competition that yields no real progress',
+                wrong: ['A traditional folk dance', 'A type of steamed bun', 'A government subsidy programme'],
+                note: 'Neijuan ("involution") describes the feeling of working ever harder — in school, jobs, exams — just to stay in place.'
+            },
+            {
+                category: 'Society & Slang',
+                hanzi: '躺平', pinyin: 'tǎngpíng',
+                correct: '"Lying flat" — opting out of relentless competition and overwork',
+                wrong: ['A martial arts stance', 'A traditional nap after lunch', 'A style of poetry'],
+                note: 'Tangping became a viral term for young people rejecting hustle culture and "involution" in favour of minimal effort and lower expectations.'
+            },
+            {
+                category: 'Society & Slang',
+                hanzi: '996', pinyin: 'jiǔ jiǔ liù',
+                correct: 'A work schedule: 9am–9pm, six days a week',
+                wrong: ['A university entrance exam code', 'A stock market index', 'A national holiday'],
+                note: '"996" became shorthand for the demanding overtime culture at many Chinese tech firms, sparking public debate over labour rights.'
+            },
+            {
+                category: 'Society & Slang',
+                hanzi: '土豪', pinyin: 'tǔháo',
+                correct: 'A nouveau-riche person who flaunts their wealth',
+                wrong: ['A rural farmer', 'A government tax inspector', 'A traditional herbal doctor'],
+                note: 'Tuhao is a slightly mocking slang term for someone newly wealthy and ostentatious about it.'
+            },
+            {
+                category: 'Society & Slang',
+                hanzi: '愤青', pinyin: 'fènqīng',
+                correct: 'An "angry youth" — a young, often nationalistic online commentator',
+                wrong: ['A university dropout', 'A street food vendor', 'A rural migrant worker'],
+                note: 'Fenqing describes young, vocal nationalists active in online discourse, often reacting strongly to perceived foreign slights.'
+            },
+            {
+                category: 'Politics & Systems',
+                hanzi: '户口', pinyin: 'hùkǒu',
+                correct: 'A household registration system tying benefits to one\'s home region',
+                wrong: ['A national identity card for foreigners', 'A type of local council election', 'A tax on second homes'],
+                note: 'The hukou system determines where citizens can access public services like schools and healthcare, shaping rural-urban migration.'
+            },
+            {
+                category: 'Politics & Systems',
+                hanzi: '小康', pinyin: 'xiǎokāng',
+                correct: 'A "moderately prosperous" society — a long-standing policy goal',
+                wrong: ['A five-year military parade', 'A rural land reform law', 'A currency exchange rate'],
+                note: 'Xiaokang describes a state of modest, widely shared prosperity that has been a stated goal of Chinese economic policy for decades.'
+            },
+            {
+                category: 'Politics & Systems',
+                hanzi: '城管', pinyin: 'chéngguǎn',
+                correct: 'Local urban management officers enforcing city regulations',
+                wrong: ['Elected city mayors', 'National tax collectors', 'Traffic police only'],
+                note: 'Chengguan officers enforce local rules such as street-vendor licensing and have been a controversial, sometimes heavy-handed presence.'
+            },
+            {
+                category: 'Politics & Systems',
+                hanzi: '一带一路', pinyin: 'yí dài yí lù',
+                correct: 'The Belt and Road Initiative — China\'s global infrastructure strategy',
+                wrong: ['A domestic highway numbering system', 'A military alliance treaty', 'An anti-corruption campaign'],
+                note: 'The Belt and Road Initiative funds infrastructure projects across Asia, Africa and beyond, expanding China\'s global economic reach.'
+            },
+            {
+                category: 'Politics & Systems',
+                hanzi: '单位', pinyin: 'dānwèi',
+                correct: 'A work unit — the state-assigned employer that once organised daily life',
+                wrong: ['A unit of Chinese currency', 'A neighbourhood police station', 'A university degree level'],
+                note: 'Under the planned economy, the danwei (work unit) provided housing, healthcare and social identity, not just employment.'
+            },
+            {
+                category: 'Economy & Work',
+                hanzi: '高考', pinyin: 'gāokǎo',
+                correct: 'China\'s intensely competitive national university entrance exam',
+                wrong: ['A civil service promotion review', 'A property tax assessment', 'A national census'],
+                note: 'The gaokao is a multi-day exam that heavily determines university admission and is a defining, high-pressure rite of passage.'
+            },
+            {
+                category: 'Economy & Work',
+                hanzi: '打工人', pinyin: 'dǎgōngrén',
+                correct: 'A self-deprecating term for an ordinary wage worker',
+                wrong: ['A government official', 'A factory owner', 'A foreign investor'],
+                note: '"Dagongren" became a viral, half-ironic label for everyday workers grinding through long hours for modest pay.'
+            },
+            {
+                category: 'Economy & Work',
+                hanzi: '国潮', pinyin: 'guócháo',
+                correct: 'A wave of pride in homegrown Chinese brands and design',
+                wrong: ['A stock market crash', 'A state-run TV channel', 'A rural land dispute'],
+                note: 'Guochao ("national trend") describes rising consumer enthusiasm for domestic Chinese fashion, tech and cultural brands.'
+            },
+            {
+                category: 'Economy & Work',
+                hanzi: '出海', pinyin: 'chūhǎi',
+                correct: 'A Chinese company expanding into overseas markets',
+                wrong: ['A coastal fishing quota', 'A naval training exercise', 'An import tariff'],
+                note: 'Literally "going out to sea," chuhai describes the strategy of Chinese firms — from EVs to apps — pushing into global markets.'
+            },
+            {
+                category: 'Places & Culture',
+                hanzi: '胡同', pinyin: 'hútòng',
+                correct: 'A narrow traditional alleyway, especially in old Beijing',
+                wrong: ['A style of imperial robe', 'A tea ceremony ritual', 'A calligraphy brush'],
+                note: 'Hutongs are the historic, narrow lanes of old Beijing neighbourhoods, many preserved as cultural heritage sites.'
+            },
+            {
+                category: 'Places & Culture',
+                hanzi: '福娃', pinyin: 'fúwá',
+                correct: 'The mascots created for the Beijing 2008 Olympics',
+                wrong: ['A type of dumpling', 'A children\'s festival', 'A martial arts school'],
+                note: 'The Fuwa were the five official mascots of the Beijing 2008 Summer Olympics, each representing a wish for the Games.'
+            },
+            {
+                category: 'Places & Culture',
+                hanzi: '汉服', pinyin: 'hànfú',
+                correct: 'Traditional Han Chinese clothing enjoying a modern revival',
+                wrong: ['A regional dialect of Mandarin', 'A style of ink-wash painting', 'A traditional board game'],
+                note: 'Hanfu are historical Han-style garments that have seen a strong revival among young people as a cultural identity statement.'
+            }
+        ];
+
+        // ================================================================
+        // 2. QUIZ ENGINE
+        // ================================================================
+
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function getFilteredWords(category) {
+            let filtered = WORDS;
+            if (category !== 'all') {
+                filtered = filtered.filter(w => w.category === category);
+            }
+            if (filtered.length === 0) filtered = WORDS;
+            return shuffleArray(filtered);
+        }
+
+        let currentWords = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+        let totalWords = 12;
+        let streak = 0;
+
+        const questionArea = document.getElementById('questionArea');
+        const resultsArea = document.getElementById('resultsArea');
+        const progressFill = document.getElementById('progressFill');
+        const currentQ = document.getElementById('currentQ');
+        const totalQ = document.getElementById('totalQ');
+        const qNumber = document.getElementById('qNumber');
+        const hanziText = document.getElementById('hanziText');
+        const pinyinText = document.getElementById('pinyinText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const feedback = document.getElementById('feedback');
+        const feedbackIcon = document.getElementById('feedbackIcon');
+        const feedbackText = document.getElementById('feedbackText');
+        const feedbackKnowledge = document.getElementById('feedbackKnowledge');
+        const nextBtn = document.getElementById('nextBtn');
+        const headerScore = document.getElementById('headerScore');
+        const streakDisplay = document.getElementById('streakDisplay');
+        const streakCount = document.getElementById('streakCount');
+
+        const finalScore = document.getElementById('finalScore');
+        const finalTotal = document.getElementById('finalTotal');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultDesc = document.getElementById('resultDesc');
+        const starsDisplay = document.getElementById('starsDisplay');
+        const restartBtn = document.getElementById('restartBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const startBtn = document.getElementById('startBtn');
+        const categorySelect = document.getElementById('categorySelect');
+        const difficultySelect = document.getElementById('difficultySelect');
+
+        function renderWord(index) {
+            const w = currentWords[index];
+            if (!w) return;
+
+            answered = false;
+            feedback.classList.remove('show', 'correct', 'wrong');
+            nextBtn.classList.remove('show');
+
+            const progress = (index / totalWords) * 100;
+            progressFill.style.width = progress + '%';
+            currentQ.textContent = index + 1;
+            totalQ.textContent = totalWords;
+
+            qNumber.textContent = `Word ${index + 1} · ${w.category}`;
+            hanziText.textContent = w.hanzi;
+            pinyinText.textContent = w.pinyin;
+
+            const options = shuffleArray([w.correct, ...w.wrong]);
+            const letters = ['A', 'B', 'C', 'D'];
+            optionsContainer.innerHTML = '';
+            options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="letter">${letters[i]}</span> ${opt}`;
+                btn.addEventListener('click', () => handleOptionClick(opt === w.correct, btn, w));
+                optionsContainer.appendChild(btn);
+            });
+
+            headerScore.textContent = `✦ ${score} / ${totalWords}`;
+            headerScore.classList.add('active');
+
+            if (streak > 0) {
+                streakDisplay.classList.add('show');
+                streakCount.textContent = streak;
+            } else {
+                streakDisplay.classList.remove('show');
+            }
+        }
+
+        function handleOptionClick(isCorrect, btn, w) {
+            if (answered) return;
+            answered = true;
+
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(b => {
+                b.classList.add('disabled');
+                if (b.textContent.includes(w.correct)) b.classList.add('correct');
+                if (b === btn && !isCorrect) b.classList.add('wrong');
+            });
+
+            feedback.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+            feedbackIcon.textContent = isCorrect ? '✅' : '❌';
+            feedbackText.textContent = isCorrect ?
+                'Correct! That\'s exactly what it means.' :
+                `Not quite — it actually means "${w.correct}".`;
+            feedbackKnowledge.innerHTML = `<strong>🌿 Context:</strong> ${w.note}`;
+
+            if (isCorrect) { score++; streak++; }
+            else { streak = 0; }
+
+            headerScore.textContent = `✦ ${score} / ${totalWords}`;
+            if (streak > 1) {
+                streakDisplay.classList.add('show');
+                streakCount.textContent = streak;
+            } else {
+                streakDisplay.classList.remove('show');
+            }
+
+            nextBtn.textContent = currentIndex < totalWords - 1 ? 'Next Word →' : 'See Results →';
+            nextBtn.classList.add('show');
+        }
+
+        function goToNext() {
+            if (currentIndex < totalWords - 1) {
+                currentIndex++;
+                renderWord(currentIndex);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            questionArea.style.display = 'none';
+            resultsArea.classList.add('show');
+            progressFill.style.width = '100%';
+
+            finalScore.textContent = score;
+            finalTotal.textContent = totalWords;
+
+            const pct = score / totalWords;
+            let stars = '⭐';
+            if (pct >= 0.9) stars = '⭐⭐⭐';
+            else if (pct >= 0.7) stars = '⭐⭐';
+            starsDisplay.textContent = stars;
+
+            let title, desc;
+            if (pct >= 0.9) {
+                title = '🏆 Fluent in the Culture!';
+                desc = 'You clearly follow Chinese media and social trends closely — impressive vocabulary range.';
+            } else if (pct >= 0.7) {
+                title = '💬 Sharp Word Sleuth!';
+                desc = 'You know your terms well. A little more reading and you\'ll have the rest locked in.';
+            } else if (pct >= 0.5) {
+                title = '🧭 Curious Learner';
+                desc = 'You\'re picking up the vocabulary. Keep exploring Red Thread\'s articles for more context.';
+            } else {
+                title = '🌱 Apprentice Linguist';
+                desc = 'Everyone starts somewhere! These terms show up often in coverage of China — worth learning.';
+            }
+
+            resultTitle.textContent = title;
+            resultDesc.textContent = desc;
+            headerScore.textContent = `✦ ${score} / ${totalWords}`;
+        }
+
+        function startGame() {
+            const category = categorySelect.value;
+            const count = parseInt(difficultySelect.value, 10);
+
+            let filtered = getFilteredWords(category);
+            const finalCount = Math.min(count, filtered.length);
+
+            currentWords = filtered.slice(0, finalCount);
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            answered = false;
+            totalWords = currentWords.length;
+
+            resultsArea.classList.remove('show');
+            questionArea.style.display = 'block';
+
+            if (totalWords > 0) {
+                renderWord(0);
+            } else {
+                hanziText.textContent = '—';
+                pinyinText.textContent = '';
+                optionsContainer.innerHTML = '';
+                feedback.classList.remove('show');
+                nextBtn.classList.remove('show');
+            }
+
+            headerScore.textContent = `✦ 0 / ${totalWords}`;
+            headerScore.classList.add('active');
+            streakDisplay.classList.remove('show');
+        }
+
+        function shareScore() {
+            const text = `💬 I scored ${score}/${totalWords} on the Red Thread China Word Match game! Can you beat me?`;
+            const copy = () => {
+                shareBtn.textContent = '✅ Copied!';
+                shareBtn.classList.add('copied');
+                setTimeout(() => {
+                    shareBtn.textContent = '📤 Share Score';
+                    shareBtn.classList.remove('copied');
+                }, 2000);
+            };
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(copy);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copy();
+            }
+        }
+
+        nextBtn.addEventListener('click', goToNext);
+        restartBtn.addEventListener('click', startGame);
+        startBtn.addEventListener('click', startGame);
+        shareBtn.addEventListener('click', shareScore);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (nextBtn.classList.contains('show')) {
+                    e.preventDefault();
+                    goToNext();
+                }
+            }
+        });
+
+        startGame();
+    </script>
+
+</body>
+</html>
