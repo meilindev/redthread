@@ -35,7 +35,7 @@ window.PEOPLES.push(
   id:"jingpo", name:"Jingpo", endo:"Jinghpaw", alt:"Kachin, Singpho",
   pop:"160,471", fam:"tibeto", lang:"Jingpho and Zaiwa (Sal / Tibeto-Burman)",
   faith:"Christianity (majority), animist nat cults", life:"Ridge-top swidden farming, formerly warfare and trade control",
-  prov:"Dehong Dai and Jingpo Autonomous Prefecture, Yunnan", lat:24.44, lng:97.58, zone:"dehong",
+  prov:"Dehong Dai and Jingpo Autonomous Prefecture, Yunnan", lat:24.50, lng:98.10, zone:"dehong",
   sum:"The Chinese portion of the Kachin — hill people of the Dehong ridges whose kin across the border have fought one of the world's longest-running civil wars, and whose manau festival grounds stand in every large village.",
   detail:{
     origins:"Jingpo migration came south from the eastern Tibetan plateau margins over centuries into the hills between the Irrawaddy and the Salween. In Burma the same people are the Kachin, whose political history — the 1947 Panglong agreement, the failure of promised autonomy, and armed conflict from 1961 — has shaped the whole border region. The Chinese Jingpo were separated from that trajectory by the boundary.",
@@ -74,7 +74,7 @@ window.PEOPLES.push(
   id:"va", name:"Va", endo:"Vax / Parauk", alt:"Wa, Kawa, Va",
   pop:"430,977", fam:"austro", lang:"Wa (Palaungic, Austroasiatic)",
   faith:"Animism, Christianity, Theravada Buddhism", life:"Upland rice, tea, formerly headhunting and buffalo sacrifice",
-  prov:"Ximeng & Cangyuan, Pu'er and Lincang, Yunnan", lat:22.65, lng:99.15, zone:null,
+  prov:"Ximeng & Cangyuan, Pu'er and Lincang, Yunnan", lat:22.90, lng:99.45, zone:null,
   sum:"Austroasiatic highlanders of the Myanmar border — probably the region's oldest inhabitants, feared into the 20th century for headhunting, and today divided by a border with the autonomous Wa State on the other side.",
   detail:{
     origins:"Austroasiatic speakers are widely held to be the earliest layer of population in mainland Southeast Asia, predating Tai and Tibeto-Burman arrivals — which makes the Va, Blang and De'ang the region's aboriginal peoples in a real sense. The Va held the mountains between the Salween and the Mekong outside effective control by Chinese, Burmese or Tai states until the mid-20th century; the Anglo-Chinese boundary through their territory was not settled until 1941 and 1960.",
@@ -100,7 +100,7 @@ window.PEOPLES.push(
   id:"deang", name:"De'ang", endo:"Ta'ang", alt:"Palaung, Benglong",
   pop:"22,354", fam:"austro", lang:"Palaung (Palaungic, Austroasiatic)",
   faith:"Theravada Buddhism", life:"Tea growing, upland rice",
-  prov:"Santaishan, Luxi & Zhenkang, Dehong and Lincang, Yunnan", lat:24.10, lng:98.30, zone:"dehong",
+  prov:"Santaishan, Luxi & Zhenkang, Dehong and Lincang, Yunnan", lat:24.32, lng:98.52, zone:"dehong",
   sum:"The Chinese De'ang are the northern edge of the Palaung of Myanmar — Austroasiatic tea growers whose women wear rattan waist hoops said to descend from a gourd-origin myth.",
   detail:{
     origins:"The Palaung are among the oldest settled populations of the Shan hills, with a documented history in Burmese sources going back centuries, including a small state at Tawngpeng that specialised in tea. Chinese De'ang communities are the northern fringe of that population, separated by the modern border.",

@@ -294,7 +294,7 @@ window.GEO = [
 },
 {
   id:"heaven-lake", type:"water", name:"Heaven Lake (Paektu)", alt:"천지 · 天池 · Tianchi",
-  stat:"crater lake at 2,189 m", at:[42.01,128.06],
+  stat:"crater lake at 2,189 m", at:[42.00,128.03],
   sum:"The crater lake on the Chinese–North Korean border, sacred in both Korean and Manchu tradition.",
   detail:"The volcano erupted catastrophically around 946 CE in one of the largest eruptions of the last two millennia. Korean foundation myth places Dangun's origin here; Manchu myth places the birth of the Aisin Gioro ancestor at its foot. The border runs across the water.",
   divides:["korean","manchu"]
@@ -324,7 +324,7 @@ window.GEO = [
 },
 {
   id:"gobi", type:"dry", name:"Gobi", alt:"ᠭᠣᠪᠢ · the waterless place",
-  stat:"1,300,000 km² · gravel, not sand", at:[42.50,105.00],
+  stat:"1,300,000 km² · gravel, not sand", at:[41.60,104.50],
   sum:"The steppe's dry heart, and for two thousand years the barrier between the Chinese and Mongol worlds.",
   detail:"Mostly gravel plain rather than dune, the Gobi is crossable but hungry, and the ability to move armies and herds across it defined the history of the northern frontier. The Great Wall lines were drawn along its southern approaches. Inner and Outer Mongolia are, in the end, the two sides of this desert.",
   divides:["mongol-inner","han","hui-northwest"]
