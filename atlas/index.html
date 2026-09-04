@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Fifty-Six &mdash; Peoples of China</title>
+<meta name="description" content="An interactive atlas of the recognised ethnic groups of China and their internal divisions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,600;1,7..72,300&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/modes.css">
+<link rel="stylesheet" href="assets/css/borders.css">
+<link rel="stylesheet" href="assets/css/industry.css">
+<link rel="stylesheet" href="assets/css/about.css">
+<link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+<body class="is-loading">
+
+<!-- ============ LOADING SCREEN ============ -->
+<div id="loader" class="loader">
+  <div class="loader__grain"></div>
+  <div class="loader__panels">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="loader__inner">
+    <div class="loader__top">
+      <div class="loader__mark">
+        <span class="loader__mark-cn">五十六</span>
+        <span class="loader__mark-en">The Fifty&#8209;Six</span>
+      </div>
+      <div class="loader__sub">An atlas of the peoples of China</div>
+    </div>
+
+    <div class="loader__ticker" aria-hidden="true">
+      <div class="loader__ticker-inner" id="tickerName">Uyghur</div>
+      <div class="loader__ticker-endo" id="tickerEndo">ئۇيغۇر</div>
+    </div>
+
+    <div class="loader__bottom">
+      <div class="loader__status" id="loaderStatus">Unrolling the map</div>
+      <div class="loader__count"><span id="loaderNum">0</span><span class="loader__pct">%</span></div>
+    </div>
+    <div class="loader__bar"><i id="loaderBar"></i></div>
+  </div>
+</div>
+
+<!-- ============ MAP ============ -->
+<div id="map" class="map" role="application" aria-label="Map of ethnic groups in China"></div>
+
+<div class="topbar">
+  <div class="topbar__brand">
+    <span class="topbar__cn">五十六</span>
+    <span class="topbar__en">The Fifty-Six</span>
+  </div>
+  <div class="topbar__right">
+    <span class="topbar__hint">Click a marker &middot; zoom in to split shared territory</span>
+    <button class="topbar__about" id="aboutBtn">About &amp; sources</button>
+  </div>
+</div>
+
+<!-- ============ MAP TYPE SELECTOR ============ -->
+<div class="modes">
+  <div class="modes__bar" role="tablist" aria-label="Map type">
+    <button class="modes__btn is-on" data-mode="plain"  role="tab" aria-selected="true">Plain</button>
+    <button class="modes__btn" data-mode="earth"   role="tab" aria-selected="false">Earth</button>
+    <button class="modes__btn" data-mode="trade"   role="tab" aria-selected="false">Trade</button>
+    <button class="modes__btn" data-mode="industry" role="tab" aria-selected="false">Industry</button>
+    <button class="modes__btn" data-mode="density" role="tab" aria-selected="false">Density</button>
+  </div>
+  <p class="modes__caption" id="modeCaption"></p>
+</div>
+
+<div class="mapctl">
+  <button class="mapctl__btn" id="zoomIn" aria-label="Zoom in">+</button>
+  <button class="mapctl__btn" id="zoomOut" aria-label="Zoom out">&minus;</button>
+  <button class="mapctl__btn mapctl__btn--sm" id="zoomReset" aria-label="Reset view">&#9678;</button>
+</div>
+
+<div class="legendbar" id="legendbar">
+  <button class="legendbar__head" id="legendToggle" aria-expanded="true" aria-controls="legend">
+    <span class="legendbar__title" id="legendTitle">Legend</span>
+    <span class="legendbar__chev">&#9662;</span>
+  </button>
+  <div class="legendbar__body" id="legend"></div>
+</div>
+
+<!-- ============ SIDE PANEL ============ -->
+<aside id="panel" class="panel" aria-label="Information panel">
+  <button id="panelToggle" class="panel__tab" aria-expanded="true" aria-controls="panel">
+    <span class="panel__tab-arrow">&#9664;</span>
+    <span class="panel__tab-label">Index</span>
+  </button>
+
+  <button class="sheet__handle" id="sheetHandle" aria-label="Drag to resize, tap to open or close"><span></span></button>
+
+  <div class="panel__scroll" id="panelScroll">
+
+    <!-- INDEX VIEW -->
+    <section class="view view--index" id="viewIndex">
+      <header class="panel__head">
+        <h1 class="panel__title">The Fifty-Six</h1>
+        <p class="panel__lede">China recognises fifty-six <em>minzu</em>. The lines between them were drawn in the 1950s, and they never fit cleanly &mdash; several of the categories below hold peoples who do not share a language, a religion, or a history. Those are mapped separately here.</p>
+      </header>
+
+      <div class="modelayer" id="modeIndex"></div>
+
+      <div class="search">
+        <input type="search" id="search" placeholder="Search a people, language or place&hellip;" autocomplete="off">
+      </div>
+
+      <div class="filters" id="filters"></div>
+
+      <div class="list" id="list"></div>
+
+      <footer class="panel__foot">
+        <p>Population figures follow the 2020 national census. Coordinates mark a centre of gravity, not a border &mdash; almost every group here lives interleaved with others.</p>
+        <span class="caveat">The boundary and settlement geometry is sourced; the descriptive writing is not, and carries no citations. <button id="aboutLink">About &amp; sources</button></span>
+      </footer>
+    </section>
+
+    <!-- CLUSTER VIEW -->
+    <section class="view view--cluster" id="viewCluster" hidden>
+      <button class="back" data-back>&larr; Index</button>
+      <h2 class="cluster__title" id="clusterTitle"></h2>
+      <p class="cluster__note" id="clusterNote"></p>
+      <div class="cluster__list" id="clusterList"></div>
+      <button class="btn btn--ghost" id="clusterZoom">Zoom in to separate these</button>
+    </section>
+
+    <!-- DETAIL VIEW -->
+    <section class="view view--detail" id="viewDetail" hidden>
+      <button class="back" data-back>&larr; Index</button>
+      <div id="detail"></div>
+    </section>
+
+    <!-- GENERIC INFO VIEW: landforms, trade routes, provinces, autonomous units -->
+    <section class="view view--info" id="viewInfo" hidden>
+      <button class="back" data-back>&larr; Index</button>
+      <div id="info"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="view view--about" id="viewAbout" hidden>
+      <button class="back" data-back>&larr; Index</button>
+
+      <div class="i__kicker">About this atlas</div>
+      <h2 class="i__name">The Fifty-Six</h2>
+
+      <p class="i__sum">China recognises fifty-six <em>minzu</em> &mdash; nationalities.
+      The number is exact, official, and not a fact about the world. It is the
+      result of a specific bureaucratic project carried out in the 1950s, and
+      this map is an argument about where its lines fall awkwardly.</p>
+
+      <h3 class="about__h">How the fifty-six were made</h3>
+      <p>When the first census of the People's Republic was taken in 1953&ndash;54,
+      citizens were invited to register their nationality. More than four hundred
+      distinct names came back, over two hundred of them from Yunnan alone. That
+      was politically unworkable: the new state had promised regional autonomy and
+      guaranteed representation to its minority peoples, and it could not
+      administer four hundred of them.</p>
+
+      <p>So from 1954 teams of linguists, ethnologists and historians were sent
+      into the field to sort the submissions &mdash; the Ethnic Classification
+      Project, <em>minzu shibie</em>. Their nominal framework was Stalin's four
+      criteria for a nation: common language, common territory, common economic
+      life, common psychological character. In practice the criteria could not be
+      applied mechanically, and the anthropologists running the work &mdash; Fei
+      Xiaotong foremost among them &mdash; said so at the time. Language did most
+      of the real work, with historical and political judgement filling the gaps.</p>
+
+      <p>Thirty-eight nationalities were recognised by 1954, fifty-three by 1964,
+      the Lhoba in 1965, and the Jino in 1979. The list has not changed since.
+      Several hundred thousand people are still recorded in the census as
+      <em>undistinguished</em>, belonging to no official category at all.</p>
+
+      <h3 class="about__h">Why the lines are awkward</h3>
+      <p>Four hundred names became fifty-six boxes, and the compression left
+      marks. Some categories hold peoples who share neither language nor religion
+      nor history: the Yugur are two peoples speaking unrelated Turkic and
+      Mongolic languages; the Yao span three separate language families; the Hui
+      are defined by religion alone, so a Chinese-speaking Muslim in Gansu and an
+      Austronesian-speaking Cham in Hainan share a category. Elsewhere one people
+      was cut in two by a provincial boundary &mdash; the Mosuo are Naxi in Yunnan
+      and Mongol in Sichuan.</p>
+
+      <p>Those cases are what this map breaks out into separate markers. The
+      eighty-one dots are not a rival classification. They are the fifty-six with
+      the seams shown.</p>
+
+      <p>It cuts the other way too. The categories are seventy years old now, they
+      carry real entitlements, and people identify with them. A label assigned by
+      a work team in 1954 is, by 2026, simply who someone is.</p>
+
+      <h3 class="about__h">Where the data comes from</h3>
+      <p>Two different kinds of content sit in this atlas, and they deserve
+      different levels of trust.</p>
+
+      <p><strong>The geometry is real and sourced.</strong> Province, prefecture
+      and county boundaries come from DataV.GeoAtlas; rivers, coastlines,
+      landmasses and the 427 settlements behind the heat map come from Natural
+      Earth, which is public domain. Both are simplified but not invented.
+      Population figures are the 2020 national census. Basemap imagery and relief
+      are Esri's.</p>
+
+      <p><strong>The writing is not sourced.</strong> Every descriptive entry
+      &mdash; the peoples, the landforms, the trade goods, the industrial
+      clusters, the dwellings &mdash; was written from general knowledge and
+      carries no citations. It is intended to be accurate and is not a substitute
+      for a source. Treat it as an informed sketch, and check anything you intend
+      to rely on.</p>
+
+      <h3 class="about__h">Known limits</h3>
+      <ul class="about__list">
+        <li>A marker is a centre of gravity, not a territory. Almost every people
+        here lives interleaved with others, and no dot implies a boundary.</li>
+        <li>Population figures for groups split out of an official category are
+        estimates, and are marked as such.</li>
+        <li>Provincial minority shares are approximate.</li>
+        <li>County-level population data is not included; the county layer shows
+        the administrative map of ethnic autonomy instead.</li>
+        <li>The nine-dash line ships in the source boundary data and has been
+        deliberately excluded: it is a disputed maritime claim, not an
+        administrative border.</li>
+        <li>Several subjects here &mdash; classification itself, Xinjiang, Tibet
+        &mdash; are contested, and reasonable sources disagree. Where that is
+        true the entries try to say so rather than pick a side.</li>
+      </ul>
+
+      <h3 class="about__h">Colophon</h3>
+      <p class="about__colophon">Built as a static site: Leaflet, no framework, no
+      build step. Type is Literata and Barlow Condensed. Boundary, river and
+      settlement data is generated by scripts kept alongside the source.</p>
+      <p class="about__colophon"><em>Add your name, contact and a link here before
+      sharing this widely &mdash; readers of a map about contested material
+      reasonably want to know who made it.</em></p>
+    </section>
+
+  </div>
+</aside>
+
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script src="assets/js/data-zones.js"></script>
+<script src="assets/js/data-north.js"></script>
+<script src="assets/js/data-northeast.js"></script>
+<script src="assets/js/data-plateau.js"></script>
+<script src="assets/js/data-southwest.js"></script>
+<script src="assets/js/data-south.js"></script>
+<script src="assets/js/data-geography.js"></script>
+<script src="assets/js/data-rivers.js"></script>
+<script src="assets/js/data-trade.js"></script>
+<script src="assets/js/data-admin.js"></script>
+<script src="assets/js/data-industry.js"></script>
+<script src="assets/js/data-dwelling.js"></script>
+<script src="assets/js/data-borders.js"></script>
+<script src="assets/js/data-flatmap.js"></script>
+<script src="assets/js/data-places.js"></script>
+<script src="assets/js/heat.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

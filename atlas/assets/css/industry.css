@@ -1,0 +1,110 @@
+/* ============================================================
+   Modern manufacturing — a dark, cool, technical register that
+   deliberately breaks from the parchment of the other modes.
+   ============================================================ */
+:root{
+  --slate:      #0f1418;
+  --slate-2:    #161d23;
+  --slate-line: rgba(190,205,220,.16);
+  --steel:      #9fb0c0;
+  --steel-lt:   #dbe4ec;
+}
+
+body.mode-industry .leaflet-tile-pane{
+  filter:grayscale(.35) brightness(.82) contrast(1.12);
+}
+body.mode-industry .map,
+body.mode-industry .leaflet-container{ background:var(--slate); }
+
+/* ---------- the cluster nodes ---------- */
+.in__node{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  border-radius:2px; transition:transform .18s var(--ease), box-shadow .18s;
+  box-shadow:0 0 12px rgba(255,255,255,.28);
+}
+.in__ring{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:30px; height:30px; border-radius:50%;
+  border:1px solid currentColor; opacity:.3; pointer-events:none;
+  transition:transform .25s var(--ease), opacity .25s;
+}
+.in--t1 .in__ring{ width:42px; height:42px; opacity:.4; }
+.in--t3 .in__ring{ width:20px; height:20px; opacity:.22; }
+.in__label{
+  position:absolute; left:50%; transform:translateX(-50%);
+  width:170px; text-align:center; pointer-events:none;
+  font-family:var(--f-cond); font-size:12.5px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--steel-lt); line-height:1.25;
+  text-shadow:0 1px 4px rgba(0,0,0,.95), 0 0 12px rgba(0,0,0,.85);
+  transition:color .18s;
+}
+.in__label em{
+  display:block; margin-top:2px; font-style:normal;
+  font-size:10.5px; letter-spacing:.06em; text-transform:none;
+  color:var(--steel); opacity:.85;
+}
+.in--t1 .in__label{ font-size:14px; letter-spacing:.24em; }
+.in--t3 .in__label{ font-size:11px; }
+.in--t3 .in__label em{ display:none; }
+.in:hover{ z-index:1300!important; }
+.in:hover .in__node{ transform:translate(-50%,-50%) scale(1.5); box-shadow:0 0 20px rgba(255,255,255,.55); }
+.in:hover .in__ring{ transform:translate(-50%,-50%) scale(1.35); opacity:.75; }
+.in:hover .in__label{ color:#fff; }
+
+/* the peoples stay on the map, mute, as the counter-argument */
+body.mode-industry .mk--people .mk__dot{
+  width:6px; height:6px; opacity:.5; border-width:1px;
+  border-color:rgba(190,205,220,.4); box-shadow:none;
+}
+body.mode-industry .mk--people .mk__pulse{ display:none; }
+body.mode-industry .mk--group .mk__dot{ width:6px; height:6px; }
+body.mode-industry .mk--group .mk__count{ display:none; }
+
+/* ---------- chrome goes dark to match ---------- */
+body.mode-industry .topbar{
+  background:linear-gradient(180deg, rgba(15,20,24,.9), rgba(15,20,24,0));
+}
+body.mode-industry .topbar__en{ color:var(--steel-lt); }
+body.mode-industry .topbar__cn{ color:var(--steel); }
+body.mode-industry .topbar__hint{ color:var(--steel); opacity:.6; }
+
+body.mode-industry .modes__bar,
+body.mode-industry .legendbar,
+body.mode-industry .mapctl__btn{
+  background:rgba(22,29,35,.92); border-color:var(--slate-line); color:var(--steel);
+  box-shadow:0 3px 20px rgba(0,0,0,.45);
+}
+body.mode-industry .modes__btn{ color:var(--steel); }
+body.mode-industry .modes__btn:hover{ background:rgba(190,205,220,.12); color:#fff; }
+body.mode-industry .modes__btn.is-on{ background:var(--steel-lt); color:var(--slate); }
+body.mode-industry .modes__caption{
+  color:var(--steel); text-shadow:0 1px 5px rgba(0,0,0,.9);
+}
+body.mode-industry .mapctl__btn:hover{ background:var(--steel-lt); color:var(--slate); }
+
+body.mode-industry .legendbar__head{ color:var(--steel); }
+body.mode-industry .legendbar__head:hover{ color:#fff; }
+body.mode-industry .legendbar__chev{ color:var(--steel); }
+body.mode-industry .legendbar__body{ border-top-color:var(--slate-line); }
+body.mode-industry .legend__title{ color:var(--steel); border-bottom-color:var(--slate-line); }
+body.mode-industry .legend__note{ color:var(--steel); border-top-color:var(--slate-line); }
+body.mode-industry .legendbar__body::-webkit-scrollbar-thumb{ background:rgba(190,205,220,.3); }
+body.mode-industry .leaflet-control-attribution{
+  background:rgba(22,29,35,.85)!important; color:var(--steel)!important;
+}
+body.mode-industry .leaflet-control-attribution a{ color:var(--steel-lt)!important; }
+
+/* legend swatches for the three scales */
+.sw--node1, .sw--node2, .sw--node3{
+  border-radius:2px; background:var(--ink-soft); box-shadow:none;
+}
+.sw--node1{ width:12px; height:12px; }
+.sw--node2{ width:9px;  height:9px; }
+.sw--node3{ width:6px;  height:6px; }
+body.mode-industry .sw--node1,
+body.mode-industry .sw--node2,
+body.mode-industry .sw--node3{ background:var(--steel-lt); }
+
+/* panel rows for the clusters */
+.item--hub .item__dot{ border-radius:2px; }
+.item--hub .item__split{ font-style:normal; opacity:.8; }

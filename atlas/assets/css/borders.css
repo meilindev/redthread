@@ -1,0 +1,33 @@
+/* ============================================================
+   Plain mode: the administrative reference layer.
+   ============================================================ */
+
+/* province name, set in the base map's own register rather than
+   competing with the ethnonyms */
+.pv__label{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:var(--f-cond); font-size:13px; letter-spacing:.3em; text-transform:uppercase;
+  color:rgba(47,37,25,.72); white-space:nowrap; pointer-events:none; transition:.18s;
+  text-shadow:0 1px 0 rgba(252,248,240,.9), 0 0 8px rgba(252,248,240,.95), 0 0 3px rgba(252,248,240,1);
+}
+.pv:hover .pv__label{ color:var(--rust); }
+
+/* legend swatches for the boundary tiers */
+.legend__row em{ font-style:italic; text-transform:none; letter-spacing:0; opacity:.7; }
+.sw--prov{
+  width:18px; height:0; border-radius:0; box-shadow:none;
+  border-top:2px solid #2f2519;
+}
+.sw--pref{
+  width:18px; height:0; border-radius:0; box-shadow:none;
+  border-top:1.5px dashed #7d6a4e;
+}
+.sw--auto-p{
+  width:14px; height:10px; border-radius:1px; box-shadow:none;
+  border:1.5px solid #a4502c; background:rgba(192,138,53,.28);
+}
+.sw--auto-c{
+  width:14px; height:10px; border-radius:1px; box-shadow:none;
+  border:1px solid #8a6f2f; background:rgba(201,166,98,.28);
+}
+

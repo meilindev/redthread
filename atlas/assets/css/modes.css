@@ -1,0 +1,228 @@
+/* ============================================================
+   Map types: selector, per-mode grading, and the layers each
+   mode brings with it.
+   ============================================================ */
+
+/* ---------- selector ---------- */
+.modes{
+  position:fixed; top:58px; right:20px; z-index:620;
+  display:flex; flex-direction:column; align-items:flex-end; gap:8px;
+  transition:opacity .8s ease .35s; opacity:0;
+}
+body.is-done .modes{ opacity:1; }
+.modes__bar{
+  display:flex; background:rgba(243,236,221,.94); border:1px solid var(--line);
+  border-radius:3px; padding:3px; box-shadow:0 3px 16px rgba(40,30,18,.14);
+  backdrop-filter:blur(4px);
+}
+.modes__btn{
+  border:none; background:none; border-radius:2px;
+  padding:7px 15px; font-family:var(--f-cond); font-size:12.5px;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft);
+  transition:.18s var(--ease); white-space:nowrap;
+}
+.modes__btn:hover{ color:var(--ink); background:rgba(192,138,53,.18); }
+.modes__btn.is-on{ background:var(--ink); color:var(--parch); }
+.modes__caption{
+  margin:0; max-width:330px; text-align:right;
+  font-size:12.5px; line-height:1.5; font-style:italic; color:var(--ink-soft);
+  text-shadow:0 1px 0 rgba(247,241,228,.9), 0 0 7px rgba(247,241,228,.9);
+}
+
+/* ---------- per-mode tile grading ---------- */
+/* Plain is drawn from vectors, so the "basemap" is just the sea colour
+   behind them. Any raster it does carry is relief, so it goes to grey. */
+body.mode-plain .map,
+body.mode-plain .leaflet-container{ background:#cfdfe6; }
+body.mode-plain   .leaflet-tile-pane{ filter:grayscale(1) brightness(1.05) contrast(.95); }
+body.mode-trade   .leaflet-tile-pane{ filter:sepia(.85) saturate(.8) hue-rotate(-8deg) brightness(1.04) contrast(.9); }
+body.mode-density .leaflet-tile-pane{ filter:sepia(.26) saturate(.45) brightness(1.06) contrast(.94); }
+body.mode-earth   .leaflet-tile-pane{ filter:sepia(.16) saturate(1.06) brightness(1.02) contrast(1.04); }
+body.mode-earth .map, body.mode-earth .leaflet-container{ background:#26312e; }
+
+/* ---------- earth mode inverts the type ---------- */
+body.mode-earth .mk__label{
+  color:#f7f1e2;
+  text-shadow:0 1px 3px rgba(0,0,0,.95), 0 0 10px rgba(0,0,0,.8), 0 0 2px rgba(0,0,0,1);
+}
+body.mode-earth .mk:hover .mk__label{ color:var(--ochre-lt); }
+body.mode-earth .mk__dot{ border-color:rgba(247,241,228,.85); }
+body.mode-earth .topbar{ background:linear-gradient(180deg, rgba(22,27,25,.82), rgba(22,27,25,0)); }
+body.mode-earth .topbar__en, body.mode-earth .topbar__hint{ color:var(--parch); }
+body.mode-earth .topbar__cn{ color:var(--ochre-lt); }
+body.mode-earth .modes__caption{ color:var(--parch); text-shadow:0 1px 4px rgba(0,0,0,.9); }
+
+/* in Earth mode the peoples step back so the landforms lead */
+body.mode-earth .mk--people .mk__dot{ width:9px; height:9px; opacity:.9; }
+body.mode-earth .mk--people .mk__pulse{ display:none; }
+body.mode-earth .mk--people .mk__label{ font-size:11px; opacity:.8; letter-spacing:.06em; }
+
+/* ---------- landform markers ---------- */
+.gf__label{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:var(--f-cond); font-size:13px; letter-spacing:.22em; text-transform:uppercase;
+  white-space:nowrap; text-align:center; pointer-events:none; transition:.18s;
+  color:#fdf8ec; text-shadow:0 1px 3px rgba(0,0,0,.95), 0 0 10px rgba(0,0,0,.75);
+}
+body:not(.mode-earth) .gf__label{
+  color:var(--clay);
+  text-shadow:0 1px 0 rgba(247,241,228,.95), 0 0 7px rgba(247,241,228,.95);
+}
+.gf--point .gf__label{ top:calc(50% + 13px); transform:translateX(-50%); }
+.gf__mark{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:11px; height:11px; border:1.5px solid #fdf8ec; opacity:.92; transition:.18s;
+}
+body:not(.mode-earth) .gf__mark{ border-color:var(--clay); }
+.gf--water .gf__mark{ border-radius:50%; background:rgba(90,150,175,.6); }
+.gf--dry   .gf__mark{ transform:translate(-50%,-50%) rotate(45deg); background:rgba(205,165,85,.55); }
+.gf--land  .gf__mark{ border-radius:2px; background:rgba(140,150,110,.5); }
+.gf--river .gf__label{ font-family:var(--f-serif); font-style:italic; text-transform:none;
+  letter-spacing:.06em; font-size:14px; }
+.gf:hover{ z-index:1200!important; }
+.gf:hover .gf__label{ color:var(--ochre-lt); }
+.gf:hover .gf__mark{ transform:translate(-50%,-50%) scale(1.45); }
+.gf--dry:hover .gf__mark{ transform:translate(-50%,-50%) rotate(45deg) scale(1.45); }
+
+/* ---------- trade route markers ---------- */
+.rt__label{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:var(--f-cond); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+  white-space:nowrap; color:var(--rust); pointer-events:none; transition:.18s;
+  background:rgba(243,236,221,.86); padding:3px 9px; border:1px solid rgba(164,80,44,.35);
+  border-radius:2px;
+}
+.rt:hover{ z-index:1200!important; }
+.rt:hover .rt__label{ background:var(--rust); color:var(--bone); border-color:var(--rust); }
+.mk--trade .mk__label{ white-space:normal; max-width:150px; line-height:1.25; }
+.mk--trade .mk__label em{ font-style:normal; display:block; font-size:11px; opacity:.72; }
+
+/* ---------- density layer ---------- */
+.dn__label{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:var(--f-cond); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink); white-space:nowrap; pointer-events:none; text-align:center;
+  text-shadow:0 1px 0 rgba(250,246,238,.95), 0 0 7px rgba(250,246,238,.95);
+}
+.dn__sub{ display:block; font-size:10.5px; letter-spacing:.04em; opacity:.72; text-transform:none; }
+.au__mark{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent;
+  border-bottom:10px solid var(--clay); opacity:.9; transition:.18s;
+}
+.au__label{
+  position:absolute; left:50%; top:calc(50% + 10px); transform:translateX(-50%);
+  font-family:var(--f-cond); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--clay); white-space:nowrap; pointer-events:none;
+  text-shadow:0 1px 0 rgba(250,246,238,.95), 0 0 6px rgba(250,246,238,.95);
+}
+.au--county .au__mark{ border-bottom-color:var(--lichen); }
+.au--county .au__label{ color:var(--lichen); font-size:10.5px; }
+.au:hover{ z-index:1200!important; }
+.au:hover .au__mark{ border-bottom-color:var(--rust); transform:translate(-50%,-50%) scale(1.4); }
+.au:hover .au__label{ color:var(--rust); }
+
+/* ---------- legend, rendered per mode ---------- */
+.legend__title{
+  font-family:var(--f-cond); font-size:11px; letter-spacing:.22em; color:var(--clay);
+  padding-bottom:5px; margin-bottom:6px; border-bottom:1px solid var(--line);
+}
+.legend__note{
+  flex-basis:100%; margin-top:9px; padding-top:8px; border-top:1px solid var(--line);
+  text-transform:none; letter-spacing:0; font-style:italic; opacity:.85;
+  max-width:460px; line-height:1.45;
+}
+.sw--sq{ border-radius:2px; }
+.sw--dia{ border-radius:0; transform:rotate(45deg); }
+.sw--line{ width:18px; height:0; border-radius:0; border-top:2px dashed var(--clay); box-shadow:none; }
+.sw--wave{ width:18px; height:0; border-radius:0; border-top:2px solid #5a8fa0; box-shadow:none; }
+.sw--route{ width:18px; height:0; border-radius:0; border-top:2px dashed var(--rust); box-shadow:none; }
+.sw--tri{
+  width:0; height:0; border-radius:0; box-shadow:none;
+  border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:9px solid var(--clay);
+}
+
+/* ---------- the mode's own layer list in the panel ---------- */
+.modelayer{ margin-bottom:4px; }
+.modelayer__title{
+  font-family:var(--f-cond); font-size:11.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--clay); margin:18px 0 6px; padding-bottom:5px; border-bottom:1px solid var(--line);
+}
+.modelayer__intro{ font-size:13.5px; line-height:1.62; color:var(--ink-soft); margin:0 0 10px; }
+.item--range .item__dot{ background:var(--clay)!important; border-radius:1px; }
+.item--river .item__dot,
+.item--water .item__dot{ background:#5a8fa0!important; }
+.item--dry   .item__dot{ background:var(--ochre-lt)!important; border-radius:0; transform:rotate(45deg); }
+.item--land  .item__dot{ background:var(--lichen)!important; border-radius:2px; }
+.item--route .item__dot{ background:var(--rust)!important; border-radius:1px; }
+.item--prov  .item__dot{ border-radius:2px; }
+.item--auto  .item__dot{
+  background:none!important; width:0; height:0; border-radius:0;
+  border-left:5px solid transparent; border-right:5px solid transparent;
+  border-bottom:9px solid var(--clay);
+}
+
+/* ---------- generic info view ---------- */
+.i__kicker{ font-family:var(--f-cond); font-size:11.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--clay); }
+.i__name{ font-family:var(--f-cond); font-weight:400; font-size:36px; line-height:1.04; margin:6px 0 3px; }
+.i__alt{ font-size:15px; color:var(--rust); margin:0 0 4px; }
+.i__stat{
+  display:inline-block; margin:10px 0 14px; padding:4px 12px;
+  border:1px solid var(--line); border-radius:20px;
+  font-family:var(--f-cond); font-size:12px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-soft);
+}
+.i__sum{ font-size:16.5px; line-height:1.72; margin:0; }
+.i__body{ font-size:15px; line-height:1.72; margin:14px 0 0; }
+.i__h{ font-family:var(--f-cond); font-weight:500; font-size:13px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--clay); margin:24px 0 6px; }
+.i__bar{ margin-bottom:12px; }
+.i__bar b{ display:flex; justify-content:space-between; gap:10px; font-weight:400;
+  font-family:var(--f-cond); font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-soft); margin-bottom:5px; }
+.i__track{ display:block; height:7px; background:rgba(60,48,34,.13); border-radius:2px; overflow:hidden; }
+.i__fill{ display:block; height:7px; background:var(--ochre); border-radius:2px; }
+
+/* ---------- trade block inside a people's detail ---------- */
+.trade__block{
+  margin:18px 0; padding:15px 17px; background:rgba(192,138,53,.14);
+  border-left:3px solid var(--ochre);
+}
+.trade__sig{
+  font-family:var(--f-cond); font-size:21px; letter-spacing:.05em;
+  color:var(--rust); margin-bottom:12px; line-height:1.15;
+}
+.trade__block b{
+  font-family:var(--f-cond); letter-spacing:.14em; text-transform:uppercase;
+  font-size:11.5px; color:var(--clay); display:block; margin-bottom:3px; font-weight:500;
+}
+.trade__block p{ margin:0 0 11px; font-size:14.5px; line-height:1.65; }
+.trade__block p:last-child{ margin-bottom:0; }
+
+/* ---------- linked chips (peoples a landform divides) ---------- */
+.links{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.link{
+  font-family:var(--f-cond); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 11px; border:1px solid var(--line); border-radius:20px;
+  background:transparent; color:var(--ink-soft); transition:.18s;
+}
+.link:hover{ background:var(--ink); color:var(--parch); border-color:var(--ink); }
+
+@media (max-width:900px){
+  .modes{ top:auto; bottom:16px; right:50%; transform:translateX(50%); align-items:center; }
+  .modes__caption{ display:none; }
+  .modes__btn{ padding:7px 11px; font-size:11.5px; letter-spacing:.1em; }
+  .mapctl{ bottom:74px; }
+}
+body.mode-density .mk--people .mk__dot{ opacity:.7; }
+body.mode-density .mk--people .mk__pulse{ display:none; }
+
+/* the density ramp, shown as a continuous bar */
+.sw--heat{
+  width:70px; height:9px; border-radius:2px; box-shadow:none;
+  background:linear-gradient(90deg,#f5efe1 0%,#f0e2c0 14%,#e8c06a 34%,#d98b3a 57%,#b8512a 79%,#6b2012 100%);
+}
+.leaflet-heat{ pointer-events:none; }
+
+/* dwelling block sits in the same register as the trade block */
+.dwell__block{ background:rgba(90,105,110,.12); }
