@@ -133,7 +133,7 @@ window.PEOPLES.push(
   id:"mosuo", name:"Mosuo (Na)", endo:"Na", alt:"Moso; counted as Naxi in Yunnan, Mongol in Sichuan",
   pop:"~40,000", fam:"tibeto", lang:"Na / Narua (Naish)",
   faith:"Daba religion and Tibetan Buddhism", life:"Lake-shore farming, fishing, herding, tourism",
-  prov:"Lugu Lake — Ninglang (Yunnan) & Yanyuan (Sichuan)", lat:27.70, lng:100.78, zone:"hengduan",
+  prov:"Lugu Lake — Ninglang (Yunnan) & Yanyuan (Sichuan)", lat:27.66, lng:100.75, zone:"hengduan",
   split:"The Mosuo are split across two provinces and two nationalities: registered as Naxi in Yunnan and as Mongol in Sichuan, despite considering themselves one people, Na, and speaking one language.",
   sum:"A matrilineal society on Lugu Lake, best known for the 'walking marriage' — households built around brothers and sisters rather than spouses, with visiting partnerships that create no joint household.",
   detail:{

@@ -252,10 +252,10 @@ window.GEO = [
 },
 {
   id:"lugu", type:"water", name:"Lugu Lake", alt:"泸沽湖 · Mother Lake",
-  stat:"48 km² · 2,690 m", at:[27.70,100.78],
-  sum:"The lake on the Yunnan–Sichuan border around which the matrilineal Mosuo live.",
-  detail:"The provincial boundary runs through the water, which is why the same Na-speaking people are registered as Naxi on one shore and Mongol on the other. Gemu, the mountain above the lake, is worshipped as a goddess, and the lake's isolation until the 1990s is much of the reason the matrilineal household system survived intact.",
-  divides:["mosuo","naxi","pumi","yi-nuosu"]
+  stat:"48 km² · 2,690 m", at:[27.72,100.81],
+  sum:"The lake on the Yunnan–Sichuan border around which the matrilineal Mosuo live — and where one people is split between two nationalities by a provincial line drawn through the water.",
+  detail:"The boundary runs through the lake, and it is the reason the same Na-speaking people are registered as Naxi on the Yunnan shore and as Mongol on the Sichuan one. Pumi villages sit among the Mosuo ones all around Ninglang: the two peoples are neighbours rather than rivals, intermarry, and share much of the ritual world of the daba and hangui priests, but they speak different Qiangic and Naish languages and are counted separately. Gemu, the mountain above the lake, is worshipped as a goddess. The lake's isolation until the 1990s is much of the reason the matrilineal household survived intact — and the tourism that arrived with the road is now the main pressure on it.",
+  divides:["mosuo","pumi","naxi","yi-nuosu"]
 },
 {
   id:"erhai", type:"water", name:"Erhai", alt:"洱海 · the ear-shaped sea",

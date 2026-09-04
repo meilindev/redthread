@@ -458,6 +458,22 @@
   }
   function textWidth(s, px) { return String(s).length * (px || 7.1) + 12; }
 
+  /* shift a latlng by a pixel amount at the current zoom */
+  function offsetLatLng(ll, dy) {
+    return map.layerPointToLatLng(map.latLngToLayerPoint(L.latLng(ll)).add(L.point(0, dy)));
+  }
+
+  /* Find a vertical offset at which this label fits, or null if none does.
+     Below the dot is the house style; the rest are fallbacks for markers
+     that sit on top of something already labelled. */
+  function placeLabel(latlng, w, h, baseDy) {
+    var tries = [baseDy, -(baseDy + h), baseDy + h + 6, -(baseDy + 2 * h)];
+    for (var i = 0; i < tries.length; i++) {
+      if (collider.tryPlace(offsetLatLng(latlng, tries[i]), w, h)) return tries[i];
+    }
+    return null;
+  }
+
   /* ---------- administrative boundaries ----------
      Three tiers, three line weights, three colours: province, prefecture,
      and every unit that is autonomous for one or more of the peoples.  */
@@ -708,16 +724,21 @@
         var mute = (mode === "density" && map.getZoom() < 5) ||
                    mode === "industry" ||
                    (isMobile() && map.getZoom() < 5.5);
-        var show = mute ? false : collider.tryPlace(g.latlng, wide, tall + size);
+
+        // Landforms are drawn first and claim their space, so a people sitting
+        // on one — the Mosuo live on the shore of Lugu Lake, a few pixels from
+        // its label — would always lose. Try a handful of positions round the
+        // dot before giving up on the name entirely.
+        var baseDy = (mode === "density" ? size / 2 + 4 : 12);
+        var dy = mute ? null : placeLabel(g.latlng, wide, tall, baseDy);
         html =
           (mode === "density" ? "" : '<span class="mk__pulse" style="color:' + color + '"></span>') +
           '<span class="mk__dot" style="background:' + color +
             (mode === "density" ? ";width:" + size + "px;height:" + size + "px;opacity:.82" : "") +
             '"></span>' +
-          (show
-            ? '<span class="mk__label"' +
-              (mode === "density" ? ' style="top:calc(50% + ' + (size / 2 + 4) + 'px)"' : "") +
-              ">" + label + "</span>"
+          (dy !== null
+            ? '<span class="mk__label" style="top:calc(50% + ' + dy + 'px)">' +
+              label + "</span>"
             : "");
       } else {
         var zk = sharedZone(g.members), gl;
@@ -727,13 +748,15 @@
         var gmute = (mode === "density" && map.getZoom() < 5) ||
                     mode === "industry" ||
                     (isMobile() && map.getZoom() < 4.6);
-        var gshow = gmute
-          ? false : collider.tryPlace(g.latlng, zk ? 190 : 150, zk ? 58 : 40);
+        var gdy = gmute
+          ? null : placeLabel(g.latlng, zk ? 190 : 150, zk ? 58 : 40, 19);
         html =
           (mode === "density" ? "" : '<span class="mk__pulse" style="color:' + color + '"></span>') +
           '<span class="mk__dot" style="background:' + color + '">' +
             '<span class="mk__count">' + g.members.length + "</span></span>" +
-          (gshow ? '<span class="mk__label">' + gl + "</span>" : "");
+          (gdy !== null
+            ? '<span class="mk__label" style="top:calc(50% + ' + gdy + 'px)">' + gl + "</span>"
+            : "");
       }
 
       divMarker(g.latlng, cls, html, function () {
@@ -1354,7 +1377,10 @@
               ? '<div class="i__h">Peoples it divides or defines</div>' + peopleLinks(f.divides)
               : "");
         var fp = pathsOf(f);
-        if (fp.length) fitPath(fp); else flyTo(f.at[0], f.at[1], 7);
+        if (fp.length) fitPath(fp);
+        // a 48 km2 lake and a plateau the size of western Europe should not
+        // both be framed at zoom 7
+        else flyTo(f.at[0], f.at[1], f.type === "land" ? 6 : 8.5);
 
       } else if (kind === "route") {
         var r = find(ROUTES, id);
