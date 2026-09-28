@@ -515,6 +515,42 @@
 
         .events-text a:hover { text-decoration: underline; }
 
+        .event-card {
+            display: grid;
+            grid-template-columns: minmax(220px, 340px) 1fr;
+            gap: 2.5rem;
+            align-items: center;
+            margin-top: 2.5rem;
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            color: var(--text);
+            text-decoration: none;
+            transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .event-card:hover, .event-card:focus-visible {
+            border-color: var(--china-gold);
+            transform: translateY(-4px);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.3);
+        }
+
+        .event-card:focus-visible { outline: 2px solid var(--china-gold); outline-offset: 4px; }
+
+        .event-poster { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .event-details { padding: 2rem 2.5rem 2rem 0; }
+        .event-details h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.2; margin: 0.5rem 0 1rem; }
+        .event-details p { margin-top: 0.65rem; color: #c7c6d1; }
+        .event-date { font-weight: 700; color: var(--text) !important; }
+        .event-link { display: inline-block; margin-top: 1.5rem; color: var(--china-gold); font-weight: 700; }
+
+        @media (max-width: 700px) {
+            .event-card { grid-template-columns: 1fr; gap: 0; }
+            .event-poster { height: auto; max-height: 520px; object-fit: contain; background: #981b31; }
+            .event-details { padding: 1.75rem; }
+        }
+
         p { color: var(--muted); }
 
         /* ---------- MANIFESTO ---------- */
@@ -897,9 +933,9 @@
             <li><a href="#manifesto" data-section="manifesto">About</a></li>
             <li><a href="#team" data-section="team">Team</a></li>
             <li><a href="publications.html">Publications</a></li>
-            <li><a href="games.html">Games</a></li>
-            <li><a href="submissions.html">Submissions</a></li>
             <li><a href="#events" data-section="events">Events</a></li>
+            <li><a href="submissions.html">Submissions</a></li>
+            <li><a href="games.html">Games</a></li>
             <li><a href="#contact" data-section="contact">Contact</a></li>
         </ul>
     </div>
@@ -995,6 +1031,24 @@
     </div>
 </section>
 
+<section id="events" class="section-alt">
+    <div class="container reveal">
+        <span class="eyebrow">What's On</span>
+        <h2>Upcoming Events</h2>
+        <a class="event-card" href="https://www.eventbrite.com/e/mckinsey-book-talk-the-untold-stories-of-asias-extraordinary-owner-ceos-tickets-2002278041522" target="_blank" rel="noopener noreferrer" aria-label="Register for McKinsey Book Talk on Eventbrite">
+            <img class="event-poster" src="images/mckinsey-book-talk.png" alt="McKinsey Book Talk event poster featuring Shapers and Founders and speaker Joydeep Sengupta" loading="lazy">
+            <div class="event-details">
+                <span class="eyebrow">Free event · Sign-up required</span>
+                <h3>McKinsey Book Talk: The Untold Stories of Asia’s Extraordinary Owner-CEOs</h3>
+                <p>With Joydeep Sengupta · <em>Shapers and Founders</em></p>
+                <p class="event-date"><time datetime="2026-10-08T18:00">Thursday 8 October 2026, 6:00–8:30 pm</time></p>
+                <p>Venue details are available when you register.</p>
+                <span class="event-link">View event and register →</span>
+            </div>
+        </a>
+    </div>
+</section>
+
 <section class="student-led">
     <div class="container reveal">
         <span class="eyebrow">Student-Led</span>
@@ -1019,16 +1073,6 @@
         <div class="submit-cta-buttons">
             <a href="publications.html" class="btn btn-ghost">See Past Publications →</a>
             <a href="submissions.html" class="btn">How to Submit →</a>
-        </div>
-    </div>
-</section>
-
-<section id="events" class="section-alt">
-    <div class="container reveal">
-        <span class="eyebrow">What's On</span>
-        <h2>Upcoming Events</h2>
-        <div class="events-text">
-            <p style="color: #c7c6d1;">✨ Keep updated through our Instagram <a href="https://instagram.com/KCLChinaStudies" target="_blank" rel="noopener noreferrer">@KCLChinaStudies</a>. Embassy talks, academic discussions, hot pot nights, and more to come…</p>
         </div>
     </div>
 </section>
