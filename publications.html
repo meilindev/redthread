@@ -6,7 +6,7 @@
     <title>Red Thread | KCL China Studies Society</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700;800&amp;family=Libre+Franklin:wght@700;800&amp;display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,6 +15,15 @@
         }
 
         :root {
+            --ink: #0a0a0f;
+            --bone: #ece6dc;
+            --gold: #c9a45c;
+            --thread: #d9434f;
+            --ember: #8f2433;
+            --mute: #8d8a93;
+            --body-on-dark: #b9b5bd;
+            --editorial-serif: "Fraunces", Georgia, serif;
+            --editorial-sans: "Instrument Sans", system-ui, sans-serif;
             --kcl-red: #d4425f;
             --kcl-red-deep: #9b1b30;
             --china-gold: #c9a86a;
@@ -31,7 +40,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
+            background-color: var(--ink);
             color: var(--text);
             line-height: 1.6;
         }
@@ -128,176 +137,156 @@
             color: var(--text);
         }
 
+        /* Publications: Option A editorial thread */
+        .page-header,
+        .publications-main {
+            background: var(--ink);
+            font-family: var(--editorial-sans);
+        }
+
         .page-header {
-            background: radial-gradient(ellipse at 50% -20%, #241019 0%, var(--bg) 60%);
-            color: white;
-            padding: 9rem 0 3.5rem;
-            text-align: center;
-            border-bottom: 1px solid var(--card-border);
+            padding: calc(80px + clamp(28px, 6vw, 72px)) 0 clamp(28px, 6vw, 72px);
+        }
+
+        .page-header .container,
+        .publications-main {
+            max-width: 1100px;
+            padding-inline: clamp(28px, 6vw, 72px);
+        }
+
+        .page-header .mast { max-width: 760px; }
+
+        .page-header h1 {
+            color: var(--bone);
+            font-family: var(--editorial-serif);
+            font-weight: 300;
+            font-size: clamp(56px, 11vw, 128px);
+            line-height: 0.92;
+            letter-spacing: -0.035em;
+            font-variation-settings: "opsz" 144;
+            margin: 0;
+        }
+
+        .hero-thread { width: 100%; height: 46px; display: block; margin: 6px 0 22px; overflow: visible; }
+        .hero-thread path {
+            fill: none;
+            stroke: var(--thread);
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            vector-effect: non-scaling-stroke;
+            stroke-dasharray: 1;
+            stroke-dashoffset: 1;
+            animation: draw-thread 2.4s 0.3s cubic-bezier(.6,.1,.2,1) forwards;
+        }
+        @keyframes draw-thread { to { stroke-dashoffset: 0; } }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-thread path { animation: none; stroke-dashoffset: 0; }
         }
 
         .page-header p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto;
-            color: var(--muted);
+            color: var(--body-on-dark);
+            font-size: 18px;
+            max-width: 46ch;
+            line-height: 1.55;
         }
 
-        /* Filter & Sort Controls */
-        .filter-bar {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            padding: 1.5rem;
-            border-radius: 16px;
-            margin: 2rem 0;
-            backdrop-filter: blur(6px);
-        }
-
+        .publications-main { padding-bottom: 3rem; }
+        .filter-bar { margin: 0 0 44px; }
         .category-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--card-border);
+            gap: 6px 22px;
+            margin-bottom: 28px;
         }
-
         .cat-btn {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--card-border);
-            color: var(--text);
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
+            color: var(--mute);
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid transparent;
+            border-radius: 0;
+            padding: 4px 0;
+            font-family: var(--editorial-sans);
+            font-size: 15px;
             cursor: pointer;
-            transition: all 0.2s;
         }
+        .cat-btn[aria-pressed="true"] { color: var(--bone); border-bottom-color: var(--thread); }
+        .cat-btn:hover { color: var(--bone); }
 
-        .cat-btn.active {
-            background: linear-gradient(90deg, var(--china-gold), #e0b93f);
-            border-color: transparent;
-            color: #17130a;
-            font-weight: 600;
+        .sort-search { display: flex; flex-wrap: wrap; align-items: end; gap: 16px 36px; }
+        .filter-group { display: flex; align-items: baseline; gap: 10px; }
+        .filter-group label { color: var(--body-on-dark); font-size: 14px; white-space: nowrap; }
+        .sort-search select,
+        .sort-search input {
+            color: var(--bone);
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid rgba(255,255,255,.15);
+            border-radius: 0;
+            padding: 8px 2px;
+            font-family: var(--editorial-sans);
+            font-size: 15px;
+            line-height: 1.4;
         }
+        .sort-search select { min-width: 150px; cursor: pointer; }
+        .sort-search select option { background: var(--ink); color: var(--bone); }
+        .sort-search input::placeholder { color: var(--mute); opacity: 1; }
+        .search-box { flex: 0 1 320px; min-width: min(100%, 240px); }
+        .search-box input { width: 100%; }
 
-        .sort-search {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .filter-group label {
-            font-weight: 600;
-            color: var(--china-gold);
-        }
-
-        select, input {
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            border: 1px solid var(--card-border);
-            font-family: 'Inter', sans-serif;
-            background: rgba(255,255,255,0.05);
-            color: var(--text);
-        }
-
-        select option {
-            background: var(--bg-alt);
-            color: var(--text);
-        }
-
-        input::placeholder {
-            color: var(--muted);
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .search-box input {
-            width: 100%;
-        }
-
-        .articles-grid {
+        .articles-feed {
+            position: relative;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            padding: 1rem 0 3rem 0;
+            gap: 44px;
+            padding-left: 44px;
         }
-
-        .article-card {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            overflow: hidden;
-            backdrop-filter: blur(6px);
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        .articles-feed::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: -30px;
+            bottom: 0;
+            width: 1.5px;
+            background: linear-gradient(var(--thread), var(--ember) 80%, transparent);
         }
-
-        .article-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(212,175,55,0.4);
-            box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+        .articles-feed.is-empty::before { display: none; }
+        .article-item { position: relative; min-width: 0; }
+        .article-item::before {
+            content: "";
+            position: absolute;
+            left: -44px;
+            top: 11px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--ink);
+            border: 2px solid var(--thread);
+            box-shadow: 0 0 0 5px var(--ink);
         }
-
-        .article-content {
-            padding: 1.5rem;
-        }
-
+        .article-date { color: var(--gold); font-size: 13px; letter-spacing: 0.02em; }
         .article-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.5rem;
+            max-width: 24ch;
+            margin: 6px 0 10px;
+            color: var(--bone);
+            font-family: var(--editorial-serif);
+            font-size: clamp(24px, 3.6vw, 36px);
+            font-weight: 400;
+            line-height: 1.12;
+            letter-spacing: -0.015em;
+            overflow-wrap: break-word;
         }
+        .article-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+        .article-title a:hover { color: var(--thread); }
+        .article-byline { color: var(--mute); font-size: 14px; }
+        .article-author { color: var(--bone); }
+        .article-excerpt { color: var(--body-on-dark); max-width: 58ch; margin-top: 10px; line-height: 1.55; }
+        .empty-state { color: var(--body-on-dark); font-size: 16px; }
 
-        .article-meta {
-            font-size: 0.85rem;
-            color: var(--muted);
-            margin-bottom: 0.75rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .article-category {
-            display: inline-block;
-            background: rgba(212,175,55,0.15);
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--china-gold);
-        }
-
-        .article-excerpt {
-            font-size: 0.9rem;
-            color: #c7c6d1;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .read-more {
-            display: inline-block;
-            color: var(--china-gold);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: color 0.2s;
-        }
-
-        .read-more:hover {
-            color: var(--kcl-red);
+        .cat-btn:focus-visible,
+        .sort-search select:focus-visible,
+        .sort-search input:focus-visible,
+        .article-title a:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
         }
 
         .back-home {
@@ -442,16 +431,11 @@
                 gap: 1rem;
                 justify-content: center;
             }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .sort-search {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .articles-grid {
-                grid-template-columns: 1fr;
-            }
+            .sort-search { align-items: stretch; }
+            .page-header { padding-top: 200px; }
+        }
+        @media (max-width: 480px) {
+            .page-header { padding-top: 250px; }
         }
     </style>
     <meta property="og:type" content="website">
@@ -487,12 +471,15 @@
 
 <header class="page-header">
     <div class="container">
-        <h1>Red <span class="hero-gradient-text" style="background: linear-gradient(90deg, var(--china-gold), var(--kcl-red)); -webkit-background-clip: text; background-clip: text; color: transparent;">Thread</span></h1>
-        <p>Past publications from our student-run academic journal, brought to you by the KCL China Studies Society</p>
+        <div class="mast">
+            <h1>Red Thread</h1>
+            <svg class="hero-thread" viewBox="0 0 800 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 30 C90 2 170 52 280 26 S480 4 560 28 S740 40 800 18"/></svg>
+            <p>Past publications from our student-run academic journal, brought to you by the KCL China Studies Society.</p>
+        </div>
     </div>
 </header>
 
-<div class="container">
+<main class="container publications-main">
     <!-- Filter & Sort Controls -->
     <div class="filter-bar">
         <div class="category-buttons" id="category-buttons">
@@ -500,7 +487,7 @@
         </div>
         <div class="sort-search">
             <div class="filter-group">
-                <label>Sort by:</label>
+                <label for="sort-select">Sort by:</label>
                 <select id="sort-select">
                     <option value="newest">Newest First</option>
                     <option value="oldest">Oldest First</option>
@@ -508,18 +495,18 @@
                 </select>
             </div>
             <div class="search-box">
-                <input type="text" id="search-input" placeholder="Search by title or author...">
+                <input type="text" id="search-input" aria-label="Search by title or author" placeholder="Search by title or author...">
             </div>
         </div>
     </div>
 
-    <!-- Dynamic Articles Grid -->
-    <div id="articles-grid" class="articles-grid"></div>
+    <!-- Dynamic editorial feed -->
+    <div id="articles-grid" class="articles-feed"></div>
 
     <div class="back-home">
         <a href="index.html">← Back to Home</a>
     </div>
-</div>
+</main>
 
 <script>
     const navEl = document.querySelector('nav');
@@ -696,14 +683,16 @@
     function renderCategoryButtons() {
         const container = document.getElementById('category-buttons');
         container.innerHTML = categories.map(cat => `
-            <button class="cat-btn ${cat === activeCategory ? 'active' : ''}" data-category="${cat}">${escapeHtml(cat)}</button>
+            <button type="button" class="cat-btn" data-category="${cat}" aria-pressed="${cat === activeCategory}">${escapeHtml(cat)}</button>
         `).join('');
         
         // Attach event listeners
         document.querySelectorAll('.cat-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 activeCategory = btn.dataset.category;
-                renderCategoryButtons();
+                document.querySelectorAll('.cat-btn').forEach(tab => {
+                    tab.setAttribute('aria-pressed', String(tab.dataset.category === activeCategory));
+                });
                 renderArticles();
             });
         });
@@ -737,24 +726,19 @@
         }
         
         const grid = document.getElementById('articles-grid');
+        grid.classList.toggle('is-empty', filtered.length === 0);
         if (filtered.length === 0) {
-            grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 3rem;">No articles found. Try adjusting filters.</p>';
+            grid.innerHTML = '<p class="empty-state">No publications match. Try another topic or clear the search.</p>';
             return;
         }
         
         grid.innerHTML = filtered.map(article => `
-            <div class="article-card">
-                <div class="article-content">
-                    <div class="article-title">${escapeHtml(article.title)}</div>
-                    <div class="article-meta">
-                        <span>${escapeHtml(article.date.split('-').reverse().join('/'))}</span>
-                        <span>By ${escapeHtml(article.author)}</span>
-                        <span class="article-category">${escapeHtml(article.category)}</span>
-                    </div>
-                    <div class="article-excerpt">${escapeHtml(article.excerpt)}</div>
-                    <a href="${escapeHtml(article.link)}" class="read-more">Read more →</a>
-                </div>
-            </div>
+            <article class="article-item">
+                <time class="article-date" datetime="${escapeHtml(article.date)}">${escapeHtml(article.date.split('-').reverse().join('/'))}</time>
+                <h2 class="article-title"><a href="${escapeHtml(article.link)}">${escapeHtml(article.title)}</a></h2>
+                <p class="article-byline">By <span class="article-author">${escapeHtml(article.author)}</span> in ${escapeHtml(article.category)}</p>
+                <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
+            </article>
         `).join('');
     }
 
