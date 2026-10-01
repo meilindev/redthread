@@ -1,489 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Submit | Red Thread</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Libre+Franklin:wght@700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --kcl-red: #d4425f;
-            --kcl-red-deep: #9b1b30;
-            --china-gold: #c9a86a;
-            --bg: #07080c;
-            --bg-alt: #0c0e15;
-            --card: rgba(255,255,255,0.035);
-            --card-border: rgba(255,255,255,0.09);
-            --text: #eceaf0;
-            --muted: #9b9aa8;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 200;
-            background: rgba(7,8,12,0.82);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--card-border);
-            transition: box-shadow 0.3s ease;
-        }
-
-        nav.scrolled {
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-family: 'Libre Franklin', sans-serif;
-            font-weight: 800;
-            letter-spacing: -0.01em;
-            font-size: 1.3rem;
-            color: var(--text);
-        }
-
-        .logo-icon {
-            height: 30px;
-            width: auto;
-        }
-
-        .logo span {
-            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: var(--muted);
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--text);
-        }
-
-        .page-header {
-            background: radial-gradient(ellipse at 50% -20%, #241019 0%, var(--bg) 60%);
-            color: white;
-            padding: 9rem 0 3.5rem;
-            text-align: center;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            color: var(--muted);
-        }
-
-        .submissions-content {
-            padding-top: 8rem;
-            padding-bottom: 3rem;
-        }
-
-        .submissions-content h2 {
-            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin: 1.5rem 0 1rem;
-            font-size: 1.5rem;
-        }
-
-        .submissions-content p {
-            margin-bottom: 1rem;
-        }
-
-        .submissions-content ul, .submissions-content ol {
-            margin: 1rem 0 1rem 2rem;
-        }
-
-        .submissions-content li {
-            margin-bottom: 0.5rem;
-            color: #c7c6d1;
-        }
-
-        .guidelines-box {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-left: 3px solid var(--china-gold);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 12px;
-            backdrop-filter: blur(6px);
-        }
-
-        .guidelines-box p { color: #c7c6d1; }
-
-        .cta-button {
-            display: inline-block;
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(10px);
-            color: var(--text);
-            padding: 1rem 2.1rem;
-            border-radius: 999px;
-            text-decoration: none;
-            margin: 1rem 0;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
-            will-change: transform;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            border-color: var(--china-gold);
-            background: rgba(212,175,55,0.1);
-            color: var(--china-gold);
-            box-shadow: 0 14px 40px rgba(212,175,55,0.2);
-        }
-
-        .back-home {
-            text-align: center;
-            margin: 2rem 0 3rem;
-        }
-
-        .back-home a {
-            display: inline-block;
-            background: linear-gradient(90deg, var(--kcl-red-deep), var(--kcl-red));
-            color: white;
-            padding: 0.75rem 1.8rem;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: transform 0.2s;
-        }
-
-        .back-home a:hover {
-            transform: translateY(-2px);
-        }
-
-        footer {
-            background:
-                linear-gradient(115deg, rgba(155,27,48,0.16) 0%, transparent 42%),
-                linear-gradient(255deg, rgba(80,35,105,0.20) 0%, transparent 45%),
-                var(--bg);
-            color: var(--muted);
-            padding: 4rem 0 2.5rem;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--card-border);
-        }
-
-        footer .container { max-width: 1200px; }
-
-        footer a {
-            color: var(--china-gold);
-            text-decoration: none;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.7fr 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .footer-brand img { height: 34px; width: auto; }
-
-        .footer-brand span {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--text);
-        }
-
-        .footer-desc {
-            color: var(--muted);
-            font-size: 0.95rem;
-            max-width: 430px;
-            line-height: 1.75;
-        }
-
-        .footer-copy {
-            margin-top: 1.75rem;
-            font-size: 0.8rem;
-            color: #6f6e7c;
-        }
-
-        .footer-col h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-
-        .footer-col address {
-            font-style: normal;
-            color: var(--muted);
-            font-size: 0.95rem;
-            line-height: 1.9;
-        }
-
-        .social-row {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-connect-note {
-            margin-top: 1.1rem;
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 260px;
-        }
-
-        .social-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--card-border);
-            color: var(--muted);
-            transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
-        }
-
-        .social-btn:hover {
-            background: rgba(212,175,55,0.14);
-            border-color: var(--china-gold);
-            color: var(--china-gold);
-            transform: translateY(-2px);
-        }
-
-        .social-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .nav-links {
-                gap: 1rem;
-                justify-content: center;
-            }
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Submit writing on China to Red Thread, the student-led publication of KCL China Studies Society.">
+<title>Write for Red Thread | KCL China Studies Society</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0f;--paper:#f4f0e8;--bone:#ece6dc;--body:#26242a;--gold:#c9a45c;--red:#d9434f;--soft:#b9b5bd;--line:#d8d0c5;--serif:"Fraunces",Georgia,serif;--sans:"Instrument Sans",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--body);font-family:var(--sans);line-height:1.6}a{color:inherit;text-decoration:none}a:focus-visible{outline:2px solid var(--red);outline-offset:4px}.shell{max-width:1160px;margin:auto;padding:0 30px}
+.dark{background:var(--ink);color:var(--bone)}.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:19px;padding-bottom:19px;border-bottom:1px solid #ffffff22}.brand{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.brand img{width:38px;height:38px;object-fit:contain}.links{display:flex;gap:25px;align-items:center;color:var(--soft);font-size:14px}.links a:hover{color:var(--gold)}.links [aria-current]{color:var(--bone)}
+.hero{position:relative;padding-top:70px;padding-bottom:78px}.hero:before{content:"";position:absolute;left:30px;top:70px;bottom:78px;width:2px;background:var(--red)}.hero-inner{padding-left:55px}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:700}.hero h1{font-family:var(--serif);font-size:clamp(48px,6.5vw,78px);line-height:1.04;font-weight:300;letter-spacing:-.04em;margin:15px 0 25px}.hero p{color:var(--soft);font-size:19px;line-height:1.6;max-width:680px;margin:0}.hero-actions{display:flex;gap:16px 28px;align-items:center;flex-wrap:wrap;margin-top:34px}.button{display:inline-block;border-radius:99px;padding:13px 23px;background:var(--gold);color:#1a1205;font-weight:700;font-size:15px}.button:hover{background:#debb77}.text-link{border-bottom:1px solid var(--red);padding-bottom:3px}.text-link:hover{color:var(--red)}
+.body{border-top:4px solid var(--red)}.content{max-width:1020px;margin:auto;padding:75px 30px 95px}.section-header{display:flex;align-items:baseline;gap:20px;margin-bottom:25px}.num{color:#a02e40;font-size:13px;font-weight:700;letter-spacing:.12em}.section-header h2{font-family:var(--serif);font-size:clamp(31px,4vw,44px);font-weight:400;letter-spacing:-.025em;line-height:1.2;margin:0}.intro{font-size:17px;margin:0 0 27px;max-width:72ch}.topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px;list-style:none;padding:0;margin:0}.topics li{padding:17px 0;border-top:1px solid var(--line)}.topics strong{display:block;font-size:17px;font-weight:700}.topics span{display:block;color:#69646b;font-size:15px;margin-top:3px}.section{margin-top:75px}.guide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px}.guide div{border-top:1px solid var(--line);padding:18px 0}.guide dt{font-weight:700;font-size:17px}.guide dd{margin:4px 0 0;color:#69646b;font-size:16px}.guide dl{display:contents}
+.submit{background:var(--ink);color:var(--bone);padding:68px 0 72px}.submit-inner{max-width:960px;margin:auto;padding:0 30px;display:grid;grid-template-columns:1fr auto;gap:18px 50px;align-items:end}.submit .eyebrow{grid-column:1/-1}.submit h2{font-family:var(--serif);font-weight:300;font-size:clamp(35px,4.8vw,56px);line-height:1.1;letter-spacing:-.035em;margin:0}.submit p{grid-column:1/-1;color:var(--soft);font-size:16px;margin:0}.submit .button{align-self:center}.email{color:var(--bone);border-bottom:1px solid var(--red)}.small{font-size:14px!important}.footer{max-width:960px;margin:auto;padding:32px 30px;color:var(--soft);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;border-top:1px solid #ffffff22}.footer a{color:var(--bone)}
+@media(max-width:700px){.shell{padding:0 22px}.nav{align-items:flex-start}.brand span{max-width:180px}.links{gap:12px;justify-content:flex-end;flex-wrap:wrap}.links a:nth-child(1),.links a:nth-child(2){display:none}.hero{padding:55px 0 62px}.hero:before{left:22px;top:55px;bottom:62px}.hero-inner{padding-left:27px}.hero p{font-size:17px}.content{padding:55px 24px 70px}.topics,.guide{grid-template-columns:1fr}.section{margin-top:60px}.submit-inner{display:block;padding:0 24px}.submit h2{margin:13px 0 22px}.submit .button{margin:24px 0 20px}.footer{padding:30px 24px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Red Thread">
-    <meta property="og:title" content="Submit | Red Thread">
+    <meta property="og:title" content="Write for Red Thread | KCL China Studies Society">
     <meta property="og:description" content="Submit your essay, research article or opinion piece to Red Thread, the student journal of the KCL China Studies Society at King's College London.">
     <meta property="og:url" content="https://kclchinastudies.org/submissions.html">
     <meta property="og:image" content="https://kclchinastudies.org/images/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Submit | Red Thread">
+    <meta name="twitter:title" content="Write for Red Thread | KCL China Studies Society">
     <meta name="twitter:description" content="Submit your essay, research article or opinion piece to Red Thread, the student journal of the KCL China Studies Society at King's College London.">
     <meta name="twitter:image" content="https://kclchinastudies.org/images/og-image.png">
 </head>
 <body>
-
-<nav>
-    <div class="nav-container">
-        <div class="logo"><img src="images/logo.png" alt="Red Thread" class="logo-icon"></div>
-                <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#manifesto">About</a></li>
-            <li><a href="index.html#team">Team</a></li>
-            <li><a href="publications.html">Publications</a></li>
-            <li><a href="games.html">Games</a></li>
-            <li><a href="submissions.html">Submissions</a></li>
-            <li><a href="index.html#events">Events</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-    </div>
-</nav>
-
-<div class="container submissions-content">
-    <div class="guidelines-box">
-        <h2>📢 Call for Submissions</h2>
-        <p><strong>Red Thread</strong>, brought to you by the KCL China Studies Society, is the student‑led academic publication of King's College London. We invite essays, research articles, opinion pieces, and cultural commentaries on China‑related topics.</p>
-    </div>
-
-    <h2>Topics of Interest</h2>
-    <ul>
-        <li><strong>Politics & Governance</strong> – domestic policy, international relations, legal reforms</li>
-        <li><strong>Economy & Trade</strong> – development, innovation, Belt & Road Initiative</li>
-        <li><strong>Culture & Society</strong> – film, literature, philosophy, social trends</li>
-        <li><strong>History & Memory</strong> – imperial China, modern history, national narratives</li>
-        <li><strong>Technology & Environment</strong> – AI, digital governance, climate policy</li>
-        <li><strong>Travel & Regional Studies</strong> – infrastructure, tourism, regional differences</li>
+<header class="dark">
+  <nav class="nav shell" aria-label="Main navigation">
+    <a class="brand" href="index.html"><img src="images/logo.png" alt=""><span>KCL China Studies Society</span></a>
+    <div class="links"><a href="index.html">Home</a><a href="index.html#events">Events</a><a href="publications.html">Publications</a><a href="#submit" aria-current="page">Submissions</a></div>
+  </nav>
+  <div class="hero shell"><div class="hero-inner">
+    <div class="eyebrow">Red Thread · Submissions</div>
+    <h1>Write for Red Thread.</h1>
+    <p>We welcome essays, research articles, opinion pieces and cultural commentary on China. Share a perspective you think deserves a closer look.</p>
+    <div class="hero-actions"><a class="button" href="#submit">Submit your article →</a><a class="text-link" href="publications.html">Read the publication</a></div>
+  </div></div>
+</header>
+<main class="body"><div class="content">
+  <section aria-labelledby="topics-title">
+    <div class="section-header"><span class="num">01</span><h2 id="topics-title">What we publish</h2></div>
+    <p class="intro">These themes are a starting point. We welcome thoughtful China-related work beyond them, too.</p>
+    <ul class="topics">
+      <li><strong>Politics &amp; governance</strong><span>Domestic policy, international relations, legal reforms</span></li>
+      <li><strong>Economy &amp; trade</strong><span>Development, innovation, the Belt and Road Initiative</span></li>
+      <li><strong>Culture &amp; society</strong><span>Film, literature, philosophy, social trends</span></li>
+      <li><strong>History &amp; memory</strong><span>Imperial China, modern history, national narratives</span></li>
+      <li><strong>Technology &amp; environment</strong><span>AI, digital governance, climate policy</span></li>
+      <li><strong>Travel &amp; regional studies</strong><span>Infrastructure, tourism, regional differences</span></li>
     </ul>
-
-    <h2>Submission Guidelines</h2>
-    <ul>
-       <li><strong>Student Status:</strong> If you are not a student at King's College London, please state that you are an external contributor.</li>
-        <li><strong>Length:</strong> 800–2500 words (exceptions can be discussed)</li>
-        <li><strong>Format:</strong> Word or Google Doc, sent as an attachment or link</li>
-        <li><strong>Language:</strong> English</li>
-        <li><strong>Deadline:</strong> Rolling submissions</li>
-    </ul>
-
-    <div style="text-align: center; margin: 2rem 0;">
-        <a href="mailto:k23008291@kcl.ac.uk?subject=Article%20Submission%20for%20KCL%20China%20Review" class="cta-button">📧 Submit via Email →</a>
-        <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">Or send your draft to <strong>k23008291@kcl.ac.uk</strong><br>with the subject line "Article Submission"</p>
-    </div>
-
-    <h2>Questions?</h2>
-    <p>If you have any questions about topics, formatting, or the review process, feel free to email us at <a href="mailto:k23008291@kcl.ac.uk" style="color: var(--china-gold);">k23008291@kcl.ac.uk</a>. We aim to respond within 3‑5 days.</p>
-
-    <div class="back-home">
-        <a href="index.html">← Back to Home</a>
-    </div>
-</div>
-
-<script>
-    const navEl = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-        navEl.classList.toggle('scrolled', window.scrollY > 20);
-    });
-
-    // Magnetic buttons: pull toward the cursor on hover
-    (function () {
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduceMotion) return;
-        const strength = 0.35;
-        const maxPull = 10;
-
-        document.querySelectorAll('.btn, .cta-button').forEach(el => {
-            el.addEventListener('mousemove', (e) => {
-                const r = el.getBoundingClientRect();
-                const x = e.clientX - (r.left + r.width / 2);
-                const y = e.clientY - (r.top + r.height / 2);
-                const dx = Math.max(-maxPull, Math.min(maxPull, x * strength));
-                const dy = Math.max(-maxPull, Math.min(maxPull, y * strength));
-                el.style.transform = `translate(${dx}px, ${dy}px) translateY(-3px)`;
-            });
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = '';
-            });
-        });
-    })();
-</script>
-
-<footer id="contact">
-    <div class="container">
-        <div class="footer-grid">
-            <div>
-                <div class="footer-brand">
-                    <img src="images/logo.png" alt="KCL China Studies Society">
-                    <span>KCL CHINA REVIEW</span>
-                </div>
-                <p class="footer-desc">The student-led China Studies Society at King's College London, supported by the Lau China Institute. Open to anyone seeking a clearer understanding of China in the modern world.</p>
-                <p class="footer-copy">&copy; 2026 KCL China Studies. All rights reserved</p>
-            </div>
-
-            <div class="footer-col">
-                <h4>Society Headquarters</h4>
-                <address>
-                    Strand, London.<br>
-                    King's College London<br>
-                    WC2B 4BG London UK
-                </address>
-            </div>
-
-            <div class="footer-col">
-                <h4>Connect</h4>
-                <div class="social-row">
-                    <a class="social-btn" href="https://instagram.com/KCLChinaStudies" target="_blank" rel="noopener noreferrer" title="@KCLChinaStudies on Instagram" aria-label="KCL China Studies on Instagram">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z"/></svg>
-                    </a>
-                    <a class="social-btn" href="https://instagram.com/KCLChinaReview" target="_blank" rel="noopener noreferrer" title="@KCLChinaReview on Instagram" aria-label="KCL China Review on Instagram">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h11a3 3 0 013 3v14a3 3 0 01-3 3H6a2 2 0 01-2-2V4a2 2 0 012-2zm0 2v16h11a1 1 0 001-1V5a1 1 0 00-1-1H6zm2 3h9v1.6H8V7zm0 3.6h9v1.6H8v-1.6zm0 3.6h6v1.6H8v-1.6z"/></svg>
-                    </a>
-                    <a class="social-btn" href="https://www.linkedin.com/company/the-kcl-china-studies-society/" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.06c.53-.95 1.83-1.96 3.76-1.96 4.02 0 4.76 2.5 4.76 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.19 1.47-2.19 2.99V21h-4V9z"/></svg>
-                    </a>
-                    <a class="social-btn" href="mailto:k23008291@kcl.ac.uk" title="Email us" aria-label="Email us">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1zm9 7.2L4.4 7H3v.4l9 6.2 9-6.2V7h-1.4L12 12.2z"/></svg>
-                    </a>
-                </div>
-                <p class="footer-connect-note">For submissions, collaborations, or general inquiries, email us directly or reach out on Instagram.</p>
-            </div>
-        </div>
-    </div>
+  </section>
+  <section class="section" aria-labelledby="guidelines-title">
+    <div class="section-header"><span class="num">02</span><h2 id="guidelines-title">Before you send</h2></div>
+    <div class="guide"><dl>
+      <div><dt>Who can submit</dt><dd>Students and external contributors. If you are not a KCL student, please say so in your email.</dd></div>
+      <div><dt>Length</dt><dd>800–2,500 words. We can discuss exceptions.</dd></div>
+      <div><dt>Format</dt><dd>Word document or Google Doc, sent as an attachment or link.</dd></div>
+      <div><dt>Language</dt><dd>English.</dd></div>
+      <div><dt>Deadline</dt><dd>Submissions are open on a rolling basis.</dd></div>
+    </dl></div>
+  </section>
+</div></main>
+<footer class="dark" id="submit">
+  <div class="submit"><div class="submit-inner">
+    <div class="eyebrow">Ready to submit?</div>
+    <h2>Send us your draft.</h2>
+    <a class="button" href="mailto:k23008291@kcl.ac.uk?subject=Article%20Submission">Open email →</a>
+    <p>Email <a class="email" href="mailto:k23008291@kcl.ac.uk?subject=Article%20Submission">k23008291@kcl.ac.uk</a> with the subject line “Article Submission”.</p>
+    <p class="small">Questions about topics, formatting or review? Email us. We aim to respond within 3–5 days.</p>
+  </div></div>
+  <div class="footer"><span>© 2026 KCL China Studies Society</span><a href="publications.html">← Explore Red Thread</a></div>
 </footer>
-
 </body>
 </html>
