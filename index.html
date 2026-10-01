@@ -1,1296 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Red Thread | KCL China Studies Society, King's College London</title>
-    <meta name="description" content="Red Thread - the student journal of the KCL China Studies Society at King's College London. Meet our team: Mariam Benamer, Raphaël Maurer, Ziyang Ge, Taihao Wang. Student publications on China's politics, economy, and culture.">
-<meta name="keywords" content="Red Thread, KCL China Studies Society, China Studies, King's College London, Mariam Benamer, Raphaël Maurer, Ziyang Ge, Taihao Wang, student publication, China politics, Chinese economy">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --kcl-red: #d4425f;
-            --kcl-red-deep: #9b1b30;
-            --china-gold: #c9a86a;
-            --gold-light: #f5e7b2;
-            --bg: #07080c;
-            --bg-alt: #0c0e15;
-            --card: rgba(255,255,255,0.035);
-            --card-border: rgba(255,255,255,0.09);
-            --text: #eceaf0;
-            --muted: #9b9aa8;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text);
-        }
-
-        h2 {
-            font-size: 2.1rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
-            border-radius: 2px;
-        }
-
-        .eyebrow {
-            display: block;
-            font-size: 0.78rem;
-            letter-spacing: 0.2em;
-            font-weight: 700;
-            color: var(--china-gold);
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ---------- NAV ---------- */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 200;
-            background: transparent;
-            transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(7,8,12,0.82);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.35);
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.1rem 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-            transition: padding 0.3s ease;
-        }
-
-        nav.scrolled .nav-container {
-            padding: 0.65rem 24px;
-        }
-
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .logo span {
-            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: var(--muted);
-            position: relative;
-            padding-bottom: 4px;
-            transition: color 0.25s ease;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a.active { color: var(--text); }
-        .nav-links a.active::after { width: 100%; }
-
-        /* ---------- HERO ---------- */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 8rem 0 4rem;
-            overflow: hidden;
-            background: radial-gradient(ellipse at 50% -10%, #241019 0%, var(--bg) 55%);
-        }
-
-        .hero canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.9;
-        }
-
-        .hero-glow {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .hero-glow.g1 {
-            width: 460px; height: 460px;
-            background: rgba(155,27,48,0.30);
-            top: -120px; left: -140px;
-        }
-
-        .hero-glow.g2 {
-            width: 340px; height: 340px;
-            background: rgba(212,175,55,0.10);
-            bottom: -160px; right: -120px;
-        }
-
-        .hero .container { width: 100%; }
-
-        .hero-logo {
-            width: 72px;
-            height: auto;
-            margin-bottom: 1.25rem;
-            filter: drop-shadow(0 0 25px rgba(212,175,55,0.35));
-        }
-
-        .hero-wordmark {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 1.25rem;
-        }
-
-        .hero-statement {
-            font-size: clamp(2.6rem, 6.8vw, 4.6rem);
-            line-height: 1.08;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-gradient-text {
-            background: linear-gradient(90deg, var(--china-gold) 0%, var(--kcl-red) 50%, var(--china-gold) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: shimmer 6s linear infinite;
-        }
-
-        @keyframes shimmer {
-            to { background-position: 200% center; }
-        }
-
-        .hero-support {
-            font-size: 1.15rem;
-            font-weight: 400;
-            max-width: 620px;
-            margin: 0 auto 1.75rem;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 0.75rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .btn {
-            display: inline-block;
-            position: relative;
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            background: linear-gradient(120deg, var(--kcl-red-deep), var(--kcl-red));
-            color: #fff;
-            padding: 1rem 2.1rem;
-            border-radius: 999px;
-            text-decoration: none;
-            margin-top: 2.2rem;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-            box-shadow: 0 8px 30px rgba(155,27,48,0.35);
-            will-change: transform;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(120deg, var(--kcl-red), #e85a75);
-            box-shadow: 0 14px 40px rgba(212,66,95,0.45);
-        }
-
-        .scroll-cue {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            letter-spacing: 0.25em;
-            color: var(--muted);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
-            z-index: 1;
-        }
-
-        .scroll-cue .line {
-            width: 1px;
-            height: 40px;
-            background: linear-gradient(to bottom, var(--china-gold), transparent);
-            animation: scrollpulse 2s ease-in-out infinite;
-        }
-
-        @keyframes scrollpulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        /* ---------- SECTIONS ---------- */
-        section {
-            padding: 6rem 0;
-            border-bottom: 1px solid var(--card-border);
-            position: relative;
-        }
-
-        .section-alt {
-            background: var(--bg-alt);
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ---------- CARDS ---------- */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.75rem;
-            margin-top: 2.5rem;
-        }
-
-        .team-card {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            padding: 1.75rem 1.5rem;
-            border-radius: 18px;
-            text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(6px);
-        }
-
-        .team-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(212,175,55,0.4);
-            box-shadow: 0 14px 40px rgba(0,0,0,0.35);
-        }
-
-        .team-card img {
-            border: 2px solid rgba(212,175,55,0.35);
-        }
-
-        .team-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        /* ---------- ENDORSEMENT CARD ---------- */
-        .endorsement-card {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            margin-top: 2.5rem;
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 28px;
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(8px);
-            transform-style: preserve-3d;
-            perspective: 1200px;
-            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.15s ease-out;
-            will-change: transform;
-        }
-
-        .endorsement-card::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: -20%;
-            width: 60%;
-            height: 140%;
-            background: radial-gradient(ellipse, rgba(212,175,55,0.14) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .endorsement-card:hover {
-            border-color: rgba(212,175,55,0.4);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-        }
-
-        .endorsement-photo-wrap {
-            flex-shrink: 0;
-            width: 160px;
-            height: 160px;
-            border-radius: 22px;
-            overflow: hidden;
-            transform: rotate(-4deg);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.45);
-            border: 1px solid rgba(212,175,55,0.35);
-            position: relative;
-            z-index: 1;
-        }
-
-        .endorsement-card:hover .endorsement-photo-wrap {
-            transform: rotate(0deg) scale(1.04);
-            box-shadow: 0 20px 50px rgba(212,175,55,0.2);
-        }
-
-        .endorsement-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .endorsement-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .quote-mark {
-            display: block;
-            font-family: 'Space Grotesk', serif;
-            font-size: 3.5rem;
-            line-height: 1;
-            color: var(--china-gold);
-            opacity: 0.55;
-            margin-bottom: -0.75rem;
-        }
-
-        .endorsement-quote {
-            font-size: 1.12rem;
-            line-height: 1.65;
-            color: #d8d6e0;
-            font-style: normal;
-        }
-
-        .endorsement-name {
-            margin-top: 1.4rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-            background: linear-gradient(90deg, var(--china-gold), var(--kcl-red));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .endorsement-role {
-            color: var(--muted);
-            font-size: 0.85rem;
-            margin-top: 0.2rem;
-        }
-
-        @media (max-width: 700px) {
-            .endorsement-card {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-                padding: 2.25rem 1.75rem;
-            }
-            .endorsement-photo-wrap { transform: rotate(0deg); }
-        }
-
-        .team-role {
-            color: var(--muted);
-            font-size: 0.85rem;
-            margin-top: 0.35rem;
-        }
-
-        .events-text {
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            padding: 1.75rem;
-            border-radius: 18px;
-            font-size: 1.1rem;
-            border-left: 3px solid var(--china-gold);
-        }
-
-        .events-text a {
-            color: var(--china-gold);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .events-text a:hover { text-decoration: underline; }
-
-        .event-card {
-            display: grid;
-            grid-template-columns: minmax(220px, 340px) 1fr;
-            gap: 2.5rem;
-            align-items: center;
-            margin-top: 2.5rem;
-            overflow: hidden;
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            color: var(--text);
-            text-decoration: none;
-            transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .event-card:hover, .event-card:focus-visible {
-            border-color: var(--china-gold);
-            transform: translateY(-4px);
-            box-shadow: 0 18px 50px rgba(0,0,0,0.3);
-        }
-
-        .event-card:focus-visible { outline: 2px solid var(--china-gold); outline-offset: 4px; }
-
-        .event-poster { display: block; width: 100%; height: 100%; object-fit: cover; }
-        .event-details { padding: 2rem 2.5rem 2rem 0; }
-        .event-details h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.2; margin: 0.5rem 0 1rem; }
-        .event-details p { margin-top: 0.65rem; color: #c7c6d1; }
-        .event-date { font-weight: 700; color: var(--text) !important; }
-        .event-link { display: inline-block; margin-top: 1.5rem; color: var(--china-gold); font-weight: 700; }
-
-        @media (max-width: 700px) {
-            .event-card { grid-template-columns: 1fr; gap: 0; }
-            .event-poster { height: auto; max-height: 520px; object-fit: contain; background: #981b31; }
-            .event-details { padding: 1.75rem; }
-        }
-
-        p { color: var(--muted); }
-
-        /* ---------- MANIFESTO ---------- */
-        .manifesto {
-            position: relative;
-            overflow: hidden;
-            background:
-                radial-gradient(ellipse at 15% 0%, rgba(90,40,110,0.35) 0%, transparent 55%),
-                radial-gradient(ellipse at 85% 100%, rgba(155,27,48,0.30) 0%, transparent 55%),
-                linear-gradient(180deg, #12101c 0%, #0b0a12 100%);
-        }
-
-        /* faint diagonal light streaks, echoing the tech-hub look */
-        .manifesto .streak {
-            position: absolute;
-            height: 1px;
-            width: 320px;
-            pointer-events: none;
-            opacity: 0.55;
-        }
-
-        .manifesto .streak.s1 {
-            top: 18%; right: -40px;
-            transform: rotate(-18deg);
-            background: linear-gradient(90deg, transparent, var(--china-gold), transparent);
-        }
-
-        .manifesto .streak.s2 {
-            top: 62%; right: 10%;
-            transform: rotate(-18deg);
-            background: linear-gradient(90deg, transparent, var(--kcl-red), transparent);
-        }
-
-        .manifesto .streak.s3 {
-            top: 40%; left: -60px;
-            width: 220px;
-            transform: rotate(-18deg);
-            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.7), transparent);
-        }
-
-        .manifesto-lead {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(1.35rem, 3vw, 1.9rem);
-            font-weight: 500;
-            line-height: 1.45;
-            letter-spacing: -0.01em;
-            color: #d8d6e0;
-            max-width: 780px;
-        }
-
-        .manifesto-card {
-            margin-top: 3.5rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--card-border);
-            border-radius: 28px;
-            padding: 3rem 2.5rem;
-            backdrop-filter: blur(8px);
-        }
-
-        .manifesto-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 1.4rem;
-        }
-
-        .manifesto-line {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(1.15rem, 2.4vw, 1.65rem);
-            font-weight: 600;
-            letter-spacing: -0.015em;
-            color: var(--text);
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .manifesto-line.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .manifesto-line .idx {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            color: var(--china-gold);
-            flex-shrink: 0;
-            min-width: 2.2rem;
-        }
-
-        @media (max-width: 768px) {
-            .manifesto-card { padding: 2rem 1.5rem; border-radius: 20px; }
-            .manifesto-list { gap: 1.1rem; }
-        }
-
-        /* ---------- MARQUEE (Topics ticker) ---------- */
-        .marquee-wrap {
-            border-top: 1px solid var(--card-border);
-            border-bottom: 1px solid var(--card-border);
-            background: var(--bg-alt);
-            overflow: hidden;
-            padding: 1.1rem 0;
-        }
-
-        .marquee-track {
-            display: flex;
-            width: max-content;
-            gap: 2.5rem;
-            animation: marquee 28s linear infinite;
-        }
-
-        .marquee-track span {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--muted);
-            white-space: nowrap;
-        }
-
-        .marquee-track span.dot { color: var(--china-gold); }
-
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-
-        /* ---------- STUDENT-LED BAND ---------- */
-        .student-led {
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(155,27,48,0.22) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 90%, rgba(80,35,105,0.28) 0%, transparent 60%),
-                var(--bg-alt);
-            text-align: center;
-        }
-
-        .student-led h2 {
-            font-size: clamp(1.8rem, 4.2vw, 2.9rem);
-            max-width: 900px;
-            margin: 0 auto 1.5rem;
-            display: block;
-            line-height: 1.15;
-        }
-
-        .student-led h2:after { display: none; }
-
-        .student-led .lead {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--muted);
-            max-width: 720px;
-            margin: 0 auto;
-            line-height: 1.75;
-        }
-
-        /* ---------- SUBMIT CTA ---------- */
-        .submit-cta {
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            background:
-                radial-gradient(ellipse at 50% 120%, rgba(212,175,55,0.10) 0%, transparent 60%),
-                var(--bg);
-        }
-
-        .cta-glow {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            pointer-events: none;
-            animation: cta-pulse 7s ease-in-out infinite;
-        }
-
-        .cta-glow.g1 {
-            width: 420px; height: 420px;
-            background: rgba(155,27,48,0.32);
-            top: -140px; left: -100px;
-        }
-
-        .cta-glow.g2 {
-            width: 380px; height: 380px;
-            background: rgba(212,175,55,0.16);
-            bottom: -160px; right: -100px;
-            animation-delay: -3.5s;
-        }
-
-        @keyframes cta-pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.18); opacity: 0.75; }
-        }
-
-        .submit-cta h2 {
-            font-size: clamp(1.8rem, 4.2vw, 2.9rem);
-            max-width: 720px;
-            margin: 0 auto 1.25rem;
-            line-height: 1.15;
-        }
-
-        .submit-cta h2:after { display: none; }
-
-        .submit-cta .lead {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--muted);
-            max-width: 640px;
-            margin: 0 auto 1rem;
-            line-height: 1.75;
-        }
-
-        .submit-cta-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 1.25rem;
-        }
-
-        .btn-ghost {
-            background: rgba(255,255,255,0.04);
-            color: var(--text);
-            border: 1px solid var(--card-border);
-            box-shadow: none;
-        }
-
-        .btn-ghost:hover {
-            background: rgba(212,175,55,0.1);
-            border-color: var(--china-gold);
-            box-shadow: 0 10px 30px rgba(212,175,55,0.2);
-        }
-
-        /* ---------- FOOTER ---------- */
-        footer {
-            background:
-                linear-gradient(115deg, rgba(155,27,48,0.16) 0%, transparent 42%),
-                linear-gradient(255deg, rgba(80,35,105,0.20) 0%, transparent 45%),
-                var(--bg);
-            color: var(--muted);
-            padding: 4rem 0 2.5rem;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--card-border);
-        }
-
-        footer a {
-            color: var(--china-gold);
-            text-decoration: none;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.7fr 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .footer-brand img { height: 34px; width: auto; }
-
-        .footer-brand span {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--text);
-        }
-
-        .footer-desc {
-            color: var(--muted);
-            font-size: 0.95rem;
-            max-width: 430px;
-            line-height: 1.75;
-        }
-
-        .footer-copy {
-            margin-top: 1.75rem;
-            font-size: 0.8rem;
-            color: #6f6e7c;
-        }
-
-        .footer-col h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-
-        .footer-col address {
-            font-style: normal;
-            color: var(--muted);
-            font-size: 0.95rem;
-            line-height: 1.9;
-        }
-
-        .social-row {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-connect-note {
-            margin-top: 1.1rem;
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.6;
-            max-width: 260px;
-        }
-
-        .social-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--card-border);
-            color: var(--muted);
-            transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
-        }
-
-        .social-btn:hover {
-            background: rgba(212,175,55,0.14);
-            border-color: var(--china-gold);
-            color: var(--china-gold);
-            transform: translateY(-2px);
-        }
-
-        .social-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .nav-links {
-                gap: 1rem;
-                justify-content: center;
-            }
-            h2 { font-size: 1.6rem; }
-            section { padding: 4rem 0; }
-            .hero { padding-top: 11rem; padding-bottom: 5rem; }
-            .scroll-cue { display: none; }
-        }
-    </style>
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Red Thread">
-    <meta property="og:title" content="Red Thread | KCL China Studies Society, King's College London">
-    <meta property="og:description" content="Red Thread - the student journal of the KCL China Studies Society at King's College London. Meet our team: Mariam Benamer, Raphaël Maurer, Ziyang Ge, Taihao Wang. Student publications on China's politics, economy, and culture.">
-    <meta property="og:url" content="https://kclchinastudies.org/">
-    <meta property="og:image" content="https://kclchinastudies.org/images/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Red Thread | KCL China Studies Society, King's College London">
-    <meta name="twitter:description" content="Red Thread - the student journal of the KCL China Studies Society at King's College London. Meet our team: Mariam Benamer, Raphaël Maurer, Ziyang Ge, Taihao Wang. Student publications on China's politics, economy, and culture.">
-    <meta name="twitter:image" content="https://kclchinastudies.org/images/og-image.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KCL China Studies Society | China, beyond the headlines</title>
+<meta name="description" content="The KCL China Studies Society explores China's history, culture, politics and economy through student perspectives, events and Red Thread publications.">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..600&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Red Thread">
+<meta property="og:title" content="KCL China Studies Society | China, beyond the headlines">
+<meta property="og:description" content="Explore China's history, culture, politics and economy with the KCL China Studies Society.">
+<meta property="og:url" content="https://kclchinastudies.org/">
+<meta property="og:image" content="https://kclchinastudies.org/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KCL China Studies Society | China, beyond the headlines">
+<meta name="twitter:description" content="Explore China's history, culture, politics and economy with the KCL China Studies Society.">
+<meta name="twitter:image" content="https://kclchinastudies.org/images/og-image.png">
+<style>
+:root{
+  box-sizing:border-box;color-scheme:dark;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --ink:#0a0a0f;--bone:#ece6dc;--gold:#c9a45c;--thread:#d9434f;--ember:#8f2433;--mute:#8d8a93;--soft:#b9b5bd;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;--sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --pl:64px;--rx:28px;--knot:calc(var(--rx) - var(--pl) - 4.5px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--sans);line-height:1.6;font-size:17px}
+h1,h2,h3,p,ul{margin:0;padding:0}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.page{position:relative;max-width:1000px;margin:0 auto;padding:0 24px 0 var(--pl)}
+.rail{position:absolute;left:var(--rx);top:0;bottom:0;width:1.5px;background:#ffffff14}
+.fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(var(--thread),var(--ember))}
+nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;font-size:15px}
+.brand{display:inline-flex;align-items:center;gap:12px;min-width:0}
+.brand img{width:36px;height:36px;object-fit:contain;flex:none}
+.brand span{font-weight:600;font-size:14px;line-height:1.2;letter-spacing:.08em;text-transform:uppercase}
+nav ul{display:flex;gap:6px 22px;list-style:none;flex-wrap:wrap;justify-content:flex-end;color:var(--soft)}
+nav a:hover{color:var(--bone)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(54px,10.5vw,124px);line-height:.95;letter-spacing:-.035em;font-variation-settings:"opsz" 144;margin-top:clamp(40px,9vw,96px)}
+.sw{display:block;width:100%;height:46px;margin:14px 0 22px;overflow:visible}
+.sw path{fill:none;stroke:var(--thread);stroke-width:1.6;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.4s .3s cubic-bezier(.6,.1,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.sw path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+.lede{color:var(--soft);font-size:20px;max-width:46ch}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;margin-top:30px}
+.btn{display:inline-block;background:var(--gold);color:#1a1205;font-weight:600;padding:13px 24px;border-radius:99px;font-size:16px}
+.btn:hover{background:#d8b672}
+.ln{border-bottom:1px solid var(--thread);padding-bottom:2px}
+.ln:hover{color:var(--thread)}
+.sup{margin-top:34px;color:var(--mute);font-size:14px}
+section{padding:clamp(64px,10vw,112px) 0 0}
+h2{position:relative;font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.6vw,48px);line-height:1.08;letter-spacing:-.02em;margin-bottom:26px}
+h2::before{content:"";position:absolute;left:var(--knot);top:.42em;width:11px;height:11px;border-radius:50%;background:var(--ink);border:2px solid var(--thread);box-shadow:0 0 0 6px var(--ink)}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,64px)}
+.big{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.8vw,30px);line-height:1.3;letter-spacing:-.01em}
+.pts{list-style:none;display:grid;gap:14px;color:var(--soft)}
+.pts li{padding-left:22px;position:relative}
+.pts li::before{content:"";position:absolute;left:0;top:.72em;width:10px;height:1.5px;background:var(--thread)}
+.ev{display:grid;grid-template-columns:auto 1fr;gap:12px clamp(20px,4vw,48px);padding:30px 0;border-top:1px solid #ffffff1c;border-bottom:1px solid #ffffff1c}
+.ev .d{font-family:var(--serif);font-weight:300;font-size:clamp(56px,9vw,92px);line-height:.9;letter-spacing:-.04em;color:var(--gold)}
+.ev .d small{display:block;font-family:var(--sans);font-size:15px;letter-spacing:0;color:var(--mute);margin-top:8px}
+.ev h3{font-family:var(--serif);font-weight:400;font-size:clamp(22px,3vw,30px);line-height:1.15;letter-spacing:-.015em;margin-bottom:8px}
+.ev p{color:var(--soft);margin-bottom:6px}
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:34px 28px;list-style:none}
+.portrait,.mono{width:88px;height:88px;border-radius:50%;margin-bottom:14px}
+.portrait{display:block;object-fit:cover;object-position:center;border:1.5px solid var(--thread)}
+.mono{border:1.5px solid var(--thread);display:grid;place-items:center;font-family:var(--serif);font-size:26px;color:var(--gold)}
+.team b{display:block;font-family:var(--serif);font-weight:500;font-size:20px;letter-spacing:-.01em}
+.team span{display:block;color:var(--mute);font-size:15px;line-height:1.4;margin-top:3px}
+.endorsement{display:grid;grid-template-columns:108px 1fr;align-items:start;gap:24px}
+.endorsement img{width:108px;height:108px;object-fit:cover;border-radius:50%;border:1.5px solid var(--thread)}
+.join{margin-top:34px;color:var(--soft)}
+.about-note{margin-top:30px;color:var(--soft);max-width:65ch}
+blockquote{margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(24px,3.4vw,38px);line-height:1.25;letter-spacing:-.015em;max-width:30ch}
+cite{display:block;font-style:normal;margin-top:22px;font-size:15px;color:var(--mute)}
+cite b{color:var(--bone);font-weight:600}
+.write{padding:clamp(28px,5vw,56px);border-radius:20px;background:radial-gradient(520px 260px at 100% 0,#3a1220 0,transparent 70%),#111118;border:1px solid #ffffff14}
+.write .lede{margin-bottom:6px}
+footer{margin-top:clamp(72px,10vw,120px);padding:40px 0 48px;border-top:1px solid #ffffff14;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px;font-size:15px;color:var(--soft)}
+footer b{display:block;color:var(--bone);font-weight:600;margin-bottom:8px}
+footer a:hover{color:var(--thread)}
+footer small{grid-column:1/-1;color:var(--mute)}
+@media (max-width:760px){
+  :root{--pl:40px;--rx:14px}
+  .page{padding-right:18px}
+  .two,footer{grid-template-columns:1fr}
+  .endorsement{grid-template-columns:76px 1fr;gap:16px}
+  .endorsement img{width:76px;height:76px}
+  nav{flex-direction:column;align-items:flex-start;gap:10px}
+  nav ul{justify-content:flex-start}
+}
+</style>
 </head>
 <body>
+<div class="page" id="top">
+  <div class="rail" aria-hidden="true"><div class="fill" id="fill"></div></div>
 
-<nav>
- <div class="nav-container">
-    <div class="logo"><img src="images/logo.png" alt="KCL China Studies Society" style="height: 42px; width: auto; vertical-align: middle;"></div>
-        <ul class="nav-links">
-            <li><a href="#manifesto" data-section="manifesto">About</a></li>
-            <li><a href="#team" data-section="team">Team</a></li>
-            <li><a href="publications.html">Publications</a></li>
-            <li><a href="#events" data-section="events">Events</a></li>
-            <li><a href="submissions.html">Submissions</a></li>
-            <li><a href="games.html">Games</a></li>
-            <li><a href="#contact" data-section="contact">Contact</a></li>
-        </ul>
+  <nav>
+    <a class="brand" href="#top" aria-label="KCL China Studies Society home"><img src="images/logo.png" alt=""><span>KCL China Studies Society</span></a>
+    <ul>
+      <li><a href="#about">About</a></li><li><a href="#team">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="submissions.html">Submissions</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>China, beyond<br>the headlines.</h1>
+    <svg class="sw" viewBox="0 0 800 46" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 30 C90 2 170 52 280 26 S480 4 560 28 S740 40 800 18"/></svg>
+    <p class="lede">We move beyond stereotypes to explore China's history, culture, politics and economy, connecting students with global voices on China.</p>
+    <div class="cta">
+      <a class="btn" href="publications.html">Read our publications</a>
+      <a class="ln" href="#events">See the next event</a>
     </div>
-</nav>
+    <p class="sup">The King's China Studies Society, supported by the Lau China Institute.</p>
+  </header>
 
-<header class="hero">
-    <canvas id="network"></canvas>
-    <div class="hero-glow g1"></div>
-    <div class="hero-glow g2"></div>
-    <div class="container">
-        <img src="images/logo.png" alt="Logo" class="hero-logo">
-        <div class="hero-wordmark">King's China Studies Society</div>
-        <h1 class="hero-statement"><span class="hero-gradient-text">Understand. Challenge. Connect.</span></h1>
-        <p class="hero-support">We move beyond stereotypes to explore China's history, culture, politics and economy, connecting students with global voices on China.</p>
-        <div class="hero-badge">Supported by the Lau China Institute</div>
-        <div>
-            <a href="publications.html" class="btn">Explore our publication →</a>
-        </div>
+  <section id="events">
+    <h2>Next event</h2>
+    <div class="ev">
+      <div class="d"><time datetime="2026-10-08">8 Oct</time><small>Thursday, 6:00 to 8:30 pm</small></div>
+      <div>
+        <h3>McKinsey Book Talk: The Untold Stories of Asia’s Extraordinary Owner-CEOs</h3>
+        <p>With Joydeep Sengupta · <em>Shapers and Founders</em>.</p>
+        <p>Free · Sign-up required · Thursday 8 October 2026, 6:00–8:30 pm. Venue details are available when you register.</p>
+        <a class="ln" href="https://www.eventbrite.com/e/mckinsey-book-talk-the-untold-stories-of-asias-extraordinary-owner-ceos-tickets-2002278041522" target="_blank" rel="noopener noreferrer">Register on Eventbrite</a>
+      </div>
     </div>
-    <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
-</header>
+  </section>
 
-<section id="manifesto" class="manifesto">
-    <span class="streak s1"></span>
-    <span class="streak s2"></span>
-    <span class="streak s3"></span>
-    <div class="container reveal">
-        <span class="eyebrow">Manifesto</span>
-        <p class="manifesto-lead">The China Studies Society is more than a society noticeboard. It's where students go beyond stereotypes to understand China's history, culture, politics, economy and global influence, through genuine student perspectives.</p>
-
-        <div class="manifesto-card">
-            <ul class="manifesto-list">
-                <li class="manifesto-line"><span class="idx">01</span>We move beyond stereotypes and simplistic narratives.</li>
-                <li class="manifesto-line"><span class="idx">02</span>We explore China's history, culture, politics and economy.</li>
-                <li class="manifesto-line"><span class="idx">03</span>We host talks, panel discussions and cultural gatherings.</li>
-                <li class="manifesto-line"><span class="idx">04</span>We connect students with academics, diplomats and industry experts.</li>
-                <li class="manifesto-line"><span class="idx">05</span>We make King's part of a global conversation on China.</li>
-            </ul>
-        </div>
+  <section id="about">
+    <h2>More than a society noticeboard</h2>
+    <div class="two">
+      <p class="big">It's where students go beyond stereotypes to understand China's history, culture, politics, economy and global influence, through genuine student perspectives.</p>
+      <ul class="pts">
+        <li>We move beyond stereotypes and simplistic narratives.</li>
+        <li>We explore China's history, culture, politics and economy.</li>
+        <li>We host talks, panel discussions and cultural gatherings.</li>
+        <li>We connect students with academics, diplomats and industry experts.</li>
+        <li>We make King's part of a global conversation on China.</li>
+      </ul>
     </div>
-</section>
+    <p class="about-note">We create spaces to learn, explore, discuss, meet people, and share perspectives on China — whether you specialise in China studies or are simply curious about its role in our globalised world.</p>
+  </section>
 
-<div class="marquee-wrap">
-    <div class="marquee-track" id="marquee-track">
-        <!-- populated by JS from the real Topics of Interest, duplicated for seamless loop -->
+  <section id="team">
+    <h2>Meet the team</h2>
+    <ul class="team">
+      <li><img class="portrait" src="images/Mariam.JPG" alt="Mariam Benamer" loading="lazy"><b>Mariam Benamer</b><span>President and Editor-in-Chief</span></li>
+      <li><img class="portrait" src="images/raph.jpg" alt="Raphaël Maurer" loading="lazy"><b>Raphaël Maurer</b><span>Student Outreach and Event Manager</span></li>
+      <li><div class="mono">ZG</div><b>Ziyang Ge</b><span>Events Coordinator</span></li>
+      <li><div class="mono" aria-hidden="true">TW</div><b>Taihao Wang</b><span>Events Coordinator</span></li>
+      <li><div class="mono">AS</div><b>Alicia Sierra Motomatsu</b><span>Content Creator</span></li>
+    </ul>
+    <p class="join">Interested in joining the team? <a class="ln" href="#contact">Get in touch</a></p>
+  </section>
+
+  <section>
+    <h2>From the Lau China Institute</h2>
+    <div class="endorsement"><img src="images/IMG_7491.jpeg" alt="Professor Kerry Brown" loading="lazy"><blockquote><em>The Lau China Institute is pleased to support this China-focused student society at King's College London.</em> China is the most important geopolitical issue of our time, and promoting deeper, more diverse understanding of all related issues is both welcome and necessary.
+      <cite><b>Professor Kerry Brown</b>, Director of the Lau China Institute</cite>
+    </blockquote></div>
+  </section>
+
+  <section id="write">
+    <h2>Write for Red Thread</h2>
+    <div class="write">
+      <p class="lede">Got a perspective on China's politics, economy, culture or history? We're always looking for new student voices, whether it's your first piece or your fifth.</p>
+      <div class="cta">
+        <a class="btn" href="submissions.html">How to submit</a>
+        <a class="ln" href="publications.html">Read past publications</a>
+      </div>
     </div>
+  </section>
+
+  <footer id="contact">
+    <div><b>KCL China Studies Society</b>The student-led China Studies Society at King's College London, supported by the Lau China Institute. Open to anyone seeking a clearer understanding of China in the modern world.</div>
+    <div><b>Society headquarters</b>Strand, London<br>King's College London<br>WC2B 4BG London UK</div>
+    <div><b>Connect</b>
+      <a href="https://instagram.com/KCLChinaStudies">Instagram: KCLChinaStudies</a><br>
+      <a href="https://instagram.com/KCLChinaReview">Instagram: KCLChinaReview</a><br>
+      <a href="https://www.linkedin.com/company/the-kcl-china-studies-society/">LinkedIn</a><br>
+      <a href="mailto:k23008291@kcl.ac.uk">Email us</a></div>
+    <small>© 2026 KCL China Studies. All rights reserved.</small>
+  </footer>
 </div>
-
-<section id="team" class="section-alt">
-    <div class="container reveal">
-        <span class="eyebrow">The People</span>
-        <h2>Our Team</h2>
-        <div class="team-grid">
-       <!-- Mariam (Shortened Bio) -->
-<div class="team-card">
-                <img src="images/Mariam.JPG" alt="Mariam Benamer" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
-                <div class="team-name">Mariam Benamer</div>
-                <div class="team-role">President & Editor-in-Chief</div>
-            </div>
-            <div class="team-card">
-                <img src="images/raph.jpg" alt="Raphaël Maurer" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
-                <div class="team-name">Raphaël Maurer</div>
-                <div class="team-role">Student Outreach and Event Manager</div>
-            </div>
-            <div class="team-card">
-                <div class="team-name">Ziyang Ge & Taihao Wang</div>
-                <div class="team-role">Events Coordinators</div>
-            </div>
-            <div class="team-card">
-                <div class="team-name">Alicia Sierra Motomatsu</div>
-                <div class="team-role">Content Creator</div>
-            </div>
-        </div>
-        <p style="margin-top: 1.5rem; text-align: center;">Interested in joining the team? <a href="#contact" style="color: var(--china-gold);">Get in touch →</a></p>
-    </div>
-</section>
-
-<section id="endorsements">
-    <div class="container reveal">
-        <span class="eyebrow">Endorsements</span>
-        <h2>Hear from Kerry Brown</h2>
-        <div class="endorsement-card">
-            <div class="endorsement-photo-wrap">
-                <img src="images/IMG_7491.jpeg" alt="Professor Kerry Brown" class="endorsement-photo">
-            </div>
-            <div class="endorsement-content">
-                <span class="quote-mark">"</span>
-                <p class="endorsement-quote"><em>The Lau China Institute is pleased to support this China‑focused student society at King's College London.</em> China is the most important geopolitical issue of our time, and promoting deeper, more diverse understanding of all related issues is both welcome and necessary.</p>
-                <div class="endorsement-name">Professor Kerry Brown</div>
-                <div class="endorsement-role">Director of the Lau China Institute</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="events" class="section-alt">
-    <div class="container reveal">
-        <span class="eyebrow">What's On</span>
-        <h2>Upcoming Events</h2>
-        <a class="event-card" href="https://www.eventbrite.com/e/mckinsey-book-talk-the-untold-stories-of-asias-extraordinary-owner-ceos-tickets-2002278041522" target="_blank" rel="noopener noreferrer" aria-label="Register for McKinsey Book Talk on Eventbrite">
-            <img class="event-poster" src="images/mckinsey-book-talk.png" alt="McKinsey Book Talk event poster featuring Shapers and Founders and speaker Joydeep Sengupta" loading="lazy">
-            <div class="event-details">
-                <span class="eyebrow">Free event · Sign-up required</span>
-                <h3>McKinsey Book Talk: The Untold Stories of Asia’s Extraordinary Owner-CEOs</h3>
-                <p>With Joydeep Sengupta · <em>Shapers and Founders</em></p>
-                <p class="event-date"><time datetime="2026-10-08T18:00">Thursday 8 October 2026, 6:00–8:30 pm</time></p>
-                <p>Venue details are available when you register.</p>
-                <span class="event-link">View event and register →</span>
-            </div>
-        </a>
-    </div>
-</section>
-
-<section class="student-led">
-    <div class="container reveal">
-        <span class="eyebrow">Student-Led</span>
-        <h2>Built by students. Open to everyone.</h2>
-        <p class="lead">We create spaces to learn, explore, discuss, meet people, and share perspectives on China — whether you specialise in China studies or are simply curious about its role in our globalised world.</p>
-    </div>
-</section>
-
-<div class="marquee-wrap">
-    <div class="marquee-track" id="marquee-track-2">
-        <!-- populated by JS from the real Topics of Interest, duplicated for seamless loop -->
-    </div>
-</div>
-
-<section class="submit-cta">
-    <span class="cta-glow g1"></span>
-    <span class="cta-glow g2"></span>
-    <div class="container reveal">
-        <span class="eyebrow">Write For Us</span>
-        <h2>We'd Love to Hear From You</h2>
-        <p class="lead">Got a perspective on China's politics, economy, culture or history? Red Thread is always looking for new student voices — whether it's your first piece or your fifth.</p>
-        <div class="submit-cta-buttons">
-            <a href="publications.html" class="btn btn-ghost">See Past Publications →</a>
-            <a href="submissions.html" class="btn">How to Submit →</a>
-        </div>
-    </div>
-</section>
-
-<footer id="contact">
-    <div class="container">
-        <div class="footer-grid">
-            <div>
-                <div class="footer-brand">
-                    <img src="images/logo.png" alt="KCL China Studies Society">
-                    <span>KCL CHINA REVIEW</span>
-                </div>
-                <p class="footer-desc">The student-led China Studies Society at King's College London, supported by the Lau China Institute. Open to anyone seeking a clearer understanding of China in the modern world.</p>
-                <p class="footer-copy">© 2026 KCL China Studies. All rights reserved</p>
-            </div>
-
-            <div class="footer-col">
-                <h4>Society Headquarters</h4>
-                <address>
-                    Strand, London.<br>
-                    King's College London<br>
-                    WC2B 4BG London UK
-                </address>
-            </div>
-
-            <div class="footer-col">
-                <h4>Connect</h4>
-                <div class="social-row">
-                    <a class="social-btn" href="https://instagram.com/KCLChinaStudies" target="_blank" rel="noopener noreferrer" title="@KCLChinaStudies on Instagram" aria-label="KCL China Studies on Instagram">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z"/></svg>
-                    </a>
-                    <a class="social-btn" href="https://instagram.com/KCLChinaReview" target="_blank" rel="noopener noreferrer" title="@KCLChinaReview on Instagram" aria-label="KCL China Review on Instagram">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h11a3 3 0 013 3v14a3 3 0 01-3 3H6a2 2 0 01-2-2V4a2 2 0 012-2zm0 2v16h11a1 1 0 001-1V5a1 1 0 00-1-1H6zm2 3h9v1.6H8V7zm0 3.6h9v1.6H8v-1.6zm0 3.6h6v1.6H8v-1.6z"/></svg>
-                    </a>
-                    <a class="social-btn" href="https://www.linkedin.com/company/the-kcl-china-studies-society/" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.06c.53-.95 1.83-1.96 3.76-1.96 4.02 0 4.76 2.5 4.76 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.19 1.47-2.19 2.99V21h-4V9z"/></svg>
-                    </a>
-                    <a class="social-btn" href="mailto:k23008291@kcl.ac.uk" title="Email us" aria-label="Email us">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1zm9 7.2L4.4 7H3v.4l9 6.2 9-6.2V7h-1.4L12 12.2z"/></svg>
-                    </a>
-                </div>
-                <p class="footer-connect-note">For submissions, collaborations, or general inquiries, email us directly or reach out on Instagram.</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
 <script>
-    // Nav background/blur on scroll
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 20);
-    });
-
-    // Scroll-spy: highlight the nav link matching the section in view
-    const navLinks = document.querySelectorAll('.nav-links a[data-section]');
-    const sections = [...navLinks]
-        .map(link => document.getElementById(link.dataset.section))
-        .filter(Boolean);
-
-    const setActive = (id) => {
-        navLinks.forEach(link => {
-            link.classList.toggle('active', link.dataset.section === id);
-        });
-    };
-
-    const spyObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) setActive(entry.target.id);
-        });
-    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-
-    sections.forEach(section => spyObserver.observe(section));
-
-    // Scroll-reveal fade/slide for each section
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // Manifesto: statements land one after another once the list scrolls into view
-    const manifestoList = document.querySelector('.manifesto-list');
-    if (manifestoList) {
-        const lineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.querySelectorAll('.manifesto-line').forEach((line, i) => {
-                    setTimeout(() => line.classList.add('visible'), i * 160);
-                });
-                lineObserver.unobserve(entry.target);
-            });
-        }, { threshold: 0.25 });
-
-        lineObserver.observe(manifestoList);
-    }
-
-    // Marquee: build ticker from the real submission "Topics of Interest", duplicated for a seamless loop
-    const topics = [
-        "Politics & Governance", "Economy & Trade", "Culture & Society",
-        "History & Memory", "Technology & Environment", "Travel & Regional Studies"
-    ];
-    const track = document.getElementById('marquee-track');
-    const loopTopics = [...topics, ...topics];
-    track.innerHTML = loopTopics.map(t => `<span>${t}</span><span class="dot">•</span>`).join('');
-
-    const topics2 = [
-        "Culture & Society", "History & Memory", "Technology & Environment",
-        "Travel & Regional Studies", "Politics & Governance", "Economy & Trade"
-    ];
-    const track2 = document.getElementById('marquee-track-2');
-    const loopTopics2 = [...topics2, ...topics2];
-    track2.innerHTML = loopTopics2.map(t => `<span>${t}</span><span class="dot">•</span>`).join('');
-
-    // Endorsement card: subtle 3D tilt following the cursor
-    (function () {
-        const card = document.querySelector('.endorsement-card');
-        if (!card || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        const maxTilt = 6;
-
-        card.addEventListener('mousemove', (e) => {
-            const r = card.getBoundingClientRect();
-            const px = (e.clientX - r.left) / r.width - 0.5;
-            const py = (e.clientY - r.top) / r.height - 0.5;
-            card.style.transform = `rotateY(${px * maxTilt * 2}deg) rotateX(${-py * maxTilt * 2}deg)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-        });
-    })();
-
-    // Magnetic buttons: pull toward the cursor on hover, like KCL Tech's CTA pills
-    (function () {
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduceMotion) return;
-        const strength = 0.35;
-        const maxPull = 10;
-
-        document.querySelectorAll('.btn, .cta-button').forEach(el => {
-            el.addEventListener('mousemove', (e) => {
-                const r = el.getBoundingClientRect();
-                const x = e.clientX - (r.left + r.width / 2);
-                const y = e.clientY - (r.top + r.height / 2);
-                const dx = Math.max(-maxPull, Math.min(maxPull, x * strength));
-                const dy = Math.max(-maxPull, Math.min(maxPull, y * strength));
-                el.style.transform = `translate(${dx}px, ${dy}px) translateY(-3px)`;
-            });
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = '';
-            });
-        });
-    })();
-
-    // Lightweight animated particle network for the hero background
-    (function () {
-        const canvas = document.getElementById('network');
-        const ctx = canvas.getContext('2d');
-        let w, h, nodes;
-        const NODE_COUNT = 46;
-        const LINK_DIST = 130;
-
-        function resize() {
-            w = canvas.width = canvas.offsetWidth;
-            h = canvas.height = canvas.offsetHeight;
-        }
-
-        function makeNodes() {
-            nodes = Array.from({ length: NODE_COUNT }, () => ({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                vx: (Math.random() - 0.5) * 0.35,
-                vy: (Math.random() - 0.5) * 0.35
-            }));
-        }
-
-        function tick() {
-            ctx.clearRect(0, 0, w, h);
-            for (const n of nodes) {
-                n.x += n.vx; n.y += n.vy;
-                if (n.x < 0 || n.x > w) n.vx *= -1;
-                if (n.y < 0 || n.y > h) n.vy *= -1;
-            }
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const a = nodes[i], b = nodes[j];
-                    const dx = a.x - b.x, dy = a.y - b.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < LINK_DIST) {
-                        ctx.strokeStyle = `rgba(176,32,52,${0.42 * (1 - dist / LINK_DIST)})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(a.x, a.y);
-                        ctx.lineTo(b.x, b.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            for (const n of nodes) {
-                ctx.beginPath();
-                ctx.arc(n.x, n.y, 1.6, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(198,42,64,0.8)';
-                ctx.fill();
-            }
-            requestAnimationFrame(tick);
-        }
-
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.addEventListener('resize', () => { resize(); makeNodes(); });
-        resize();
-        makeNodes();
-        if (!reduceMotion) requestAnimationFrame(tick);
-    })();
+(function(){
+  var f=document.getElementById("fill"),p=document.querySelector(".page");
+  function u(){
+    var r=p.getBoundingClientRect(),h=r.height,y=Math.min(Math.max(window.innerHeight*.6-r.top,0),h);
+    f.style.height=y+"px";
+  }
+  addEventListener("scroll",u,{passive:true});addEventListener("resize",u);u();
+})();
 </script>
-
 </body>
 </html>
