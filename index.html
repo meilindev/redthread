@@ -73,6 +73,13 @@ h2::before{content:"";position:absolute;left:var(--knot);top:.42em;width:11px;he
 .ev .d small{display:block;font-family:var(--sans);font-size:15px;letter-spacing:0;color:var(--mute);margin-top:8px}
 .ev h3{font-family:var(--serif);font-weight:400;font-size:clamp(22px,3vw,30px);line-height:1.15;letter-spacing:-.015em;margin-bottom:8px}
 .ev p{color:var(--soft);margin-bottom:6px}
+.events-past-heading{position:relative;font-family:var(--serif);font-size:clamp(34px,4.6vw,48px);font-weight:400;line-height:1.08;letter-spacing:-.02em;margin:48px 0 24px}
+.past-event h3{font-family:var(--serif);font-size:clamp(27px,3.6vw,36px);font-weight:400;line-height:1.15;margin:0 0 10px}
+.past-event p{color:var(--soft);max-width:64ch;margin-bottom:14px}
+.past-event .past-event-title{color:var(--bone);font-size:19px;font-weight:500;line-height:1.4;margin-bottom:14px}
+.past-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:540px;margin:22px 0 20px}
+.past-gallery img{display:block;width:100%;height:auto;aspect-ratio:3/4;border-radius:3px}
+.past-gallery a:hover img{opacity:.85}
 .team{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:34px 28px;list-style:none}
 .portrait,.mono{width:88px;height:88px;border-radius:50%;margin-bottom:14px}
 .portrait{display:block;object-fit:cover;object-position:center;border:1.5px solid var(--thread)}
@@ -104,6 +111,7 @@ footer small{grid-column:1/-1;color:var(--mute)}
 @media (max-width:540px){
   .ev{grid-template-columns:1fr;gap:22px}
   .endorsement{grid-template-columns:1fr;gap:18px}
+  .past-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 }
 </style>
 </head>
@@ -137,13 +145,25 @@ footer small{grid-column:1/-1;color:var(--mute)}
   <section id="events">
     <h2>Next event</h2>
     <div class="ev">
-      <div class="d"><time datetime="2026-10-08">8 Oct</time><small>Thursday, 6:00 to 8:30 pm</small></div>
+      <div class="d"><time datetime="2026-11-06">6 Nov</time><small>Friday, 6:30 to 8:00 pm</small></div>
       <div>
-        <h3>McKinsey Book Talk: The Untold Stories of Asia’s Extraordinary Owner-CEOs</h3>
-        <p>With Joydeep Sengupta · <em>Shapers and Founders</em>.</p>
-        <p>Free · Sign-up required. Venue details are available when you register.</p>
-        <a class="ln" href="https://www.eventbrite.com/e/mckinsey-book-talk-the-untold-stories-of-asias-extraordinary-owner-ceos-tickets-2002278041522" target="_blank" rel="noopener noreferrer">Register on Eventbrite</a>
+        <h3>Watching China from Afar: A Conversation Across the US, UK and the EU</h3>
+        <p>A panel conversation on how China is understood across the US, UK and EU, followed by networking.</p>
+        <p>Free · Bush House, North-East Wing, room BH(NE) 1.01, London.</p>
+        <a class="ln" href="https://www.eventbrite.com/e/watching-china-from-afar-a-conversation-across-the-us-uk-and-the-eu-tickets-2002563475262" target="_blank" rel="noopener noreferrer">Register on Eventbrite</a>
       </div>
+    </div>
+    <h2 class="events-past-heading">Past events</h2>
+    <div class="past-event">
+      <h3>McKinsey &amp; Company</h3>
+      <p class="past-event-title">Shapers and Founders: a book talk with Joydeep Sengupta</p>
+      <p>We welcomed McKinsey Senior Partner Joydeep Sengupta to King's for a conversation with BBC journalist Elaine Chong about the founders behind Asia's leading businesses. Co-hosted with the China Correspondents' Club of London.</p>
+      <div class="past-gallery" aria-label="Photos from the McKinsey book talk">
+        <a href="images/mckinsey-joydeep-signing.jpg" target="_blank" aria-label="Open full-size photo of Joydeep Sengupta signing books"><img src="images/mckinsey-joydeep-signing.jpg" alt="Joydeep Sengupta signing copies of Shapers and Founders" loading="lazy" width="1152" height="1536"></a>
+        <a href="images/mckinsey-joydeep-book.jpg" target="_blank" aria-label="Open full-size photo of Joydeep Sengupta with an attendee"><img src="images/mckinsey-joydeep-book.jpg" alt="Joydeep Sengupta with an attendee holding Shapers and Founders" loading="lazy" width="1152" height="1536"></a>
+        <a href="images/mckinsey-joydeep-conversation.jpg" target="_blank" aria-label="Open full-size photo of Joydeep Sengupta with a guest"><img src="images/mckinsey-joydeep-conversation.jpg" alt="Joydeep Sengupta speaking with a guest at the book talk" loading="lazy" width="1152" height="1536"></a>
+      </div>
+      <a class="ln" href="https://www.linkedin.com/feed/update/urn:li:activity:7515683951747751937/?actorCompanyId=112449375" target="_blank" rel="noopener noreferrer">See the event recap on LinkedIn</a>
     </div>
   </section>
 
