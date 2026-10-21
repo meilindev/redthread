@@ -73,6 +73,7 @@ h2::before{content:"";position:absolute;left:var(--knot);top:.42em;width:11px;he
 .ev .d small{display:block;font-family:var(--sans);font-size:15px;letter-spacing:0;color:var(--mute);margin-top:8px}
 .ev h3{font-family:var(--serif);font-weight:400;font-size:clamp(22px,3vw,30px);line-height:1.15;letter-spacing:-.015em;margin-bottom:8px}
 .ev p{color:var(--soft);margin-bottom:6px}
+.ev + .ev{border-top:0}
 .events-past-heading{position:relative;font-family:var(--serif);font-size:clamp(34px,4.6vw,48px);font-weight:400;line-height:1.08;letter-spacing:-.02em;margin:48px 0 24px}
 .past-event h3{font-family:var(--serif);font-size:clamp(27px,3.6vw,36px);font-weight:400;line-height:1.15;margin:0 0 10px}
 .past-event p{color:var(--soft);max-width:64ch;margin-bottom:14px}
@@ -143,7 +144,16 @@ footer small{grid-column:1/-1;color:var(--mute)}
   </header>
 
   <section id="events">
-    <h2>Next event</h2>
+    <h2>Upcoming events</h2>
+    <div class="ev">
+      <div class="d"><time datetime="2026-10-22">22 Oct</time><small>Thursday, 5:30 pm</small></div>
+      <div>
+        <h3>Intro to Calligraphy</h3>
+        <p>Join the SOAS Chinese Character Society for an introduction to calligraphy.</p>
+        <p>Room B102, first floor of the Brunei Gallery, SOAS.</p>
+        <a class="ln" href="https://docs.google.com/forms/d/e/1FAIpQLSd4sWJVoCIImZlSZH6aCmp2_hKtnnvUWX4Hwh8pMBEDTcC2AQ/viewform" target="_blank" rel="noopener noreferrer">Register your attendance</a>
+      </div>
+    </div>
     <div class="ev">
       <div class="d"><time datetime="2026-11-06">6 Nov</time><small>Friday, 6:30 to 8:00 pm</small></div>
       <div>
@@ -186,7 +196,7 @@ footer small{grid-column:1/-1;color:var(--mute)}
     <h2>Meet the team</h2>
     <ul class="team">
       <li><img class="portrait" src="images/Mariam.JPG" alt="Mariam Benamer" loading="lazy"><b>Mariam Benamer</b><span>President and Editor-in-Chief</span></li>
-      <li><img class="portrait" src="images/raph.jpg" alt="Raphaël Maurer" loading="lazy"><b>Raphaël Maurer</b><span>Student Outreach and Event Manager</span></li>
+      <li><img class="portrait" src="images/raph.jpg" alt="Raphaël Maurer" loading="lazy"><b>Raphaël Maurer</b><span>Secretary</span></li>
       <li><div class="mono">ZG</div><b>Ziyang Ge</b><span>Events Coordinator</span></li>
       <li><div class="mono" aria-hidden="true">TW</div><b>Taihao Wang</b><span>Events Coordinator</span></li>
       <li><img class="portrait" src="images/finn-overfield.png" alt="Finn Overfield" loading="lazy"><b>Finn Overfield</b><span>Event Coordinator</span></li>
