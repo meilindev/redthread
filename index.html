@@ -77,6 +77,7 @@ h2::before{content:"";position:absolute;left:var(--knot);top:.42em;width:11px;he
 .events-past-heading{position:relative;font-family:var(--serif);font-size:clamp(34px,4.6vw,48px);font-weight:400;line-height:1.08;letter-spacing:-.02em;margin:48px 0 24px}
 .past-event h3{font-family:var(--serif);font-size:clamp(27px,3.6vw,36px);font-weight:400;line-height:1.15;margin:0 0 10px}
 .past-event p{color:var(--soft);max-width:64ch;margin-bottom:14px}
+.past-event + .past-event{margin-top:32px;padding-top:32px;border-top:1px solid #ffffff1c}
 .past-event .past-event-title{color:var(--bone);font-size:19px;font-weight:500;line-height:1.4;margin-bottom:14px}
 .past-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:540px;margin:22px 0 20px}
 .past-gallery img{display:block;width:100%;height:auto;aspect-ratio:3/4;border-radius:3px}
@@ -146,15 +147,6 @@ footer small{grid-column:1/-1;color:var(--mute)}
   <section id="events">
     <h2>Upcoming events</h2>
     <div class="ev">
-      <div class="d"><time datetime="2026-10-22">22 Oct</time><small>Thursday, 5:30 pm</small></div>
-      <div>
-        <h3>Intro to Calligraphy</h3>
-        <p>Join the SOAS Chinese Character Society for an introduction to calligraphy.</p>
-        <p>Room B102, first floor of the Brunei Gallery, SOAS.</p>
-        <a class="ln" href="https://docs.google.com/forms/d/e/1FAIpQLSd4sWJVoCIImZlSZH6aCmp2_hKtnnvUWX4Hwh8pMBEDTcC2AQ/viewform" target="_blank" rel="noopener noreferrer">Register your attendance</a>
-      </div>
-    </div>
-    <div class="ev">
       <div class="d"><time datetime="2026-11-06">6 Nov</time><small>Friday, 6:30 to 8:00 pm</small></div>
       <div>
         <h3>Watching China from Afar: A Conversation Across the US, UK and the EU</h3>
@@ -164,6 +156,10 @@ footer small{grid-column:1/-1;color:var(--mute)}
       </div>
     </div>
     <h2 class="events-past-heading">Past events</h2>
+    <div class="past-event">
+      <h3>Intro to Calligraphy</h3>
+      <p>Held with the SOAS Chinese Character Society on <time datetime="2026-10-22">22 October 2026</time> at 5:30 pm, in room B102 on the first floor of the Brunei Gallery, SOAS.</p>
+    </div>
     <div class="past-event">
       <h3>McKinsey &amp; Company</h3>
       <p class="past-event-title">Shapers and Founders: a book talk with Joydeep Sengupta</p>
